@@ -1,0 +1,31 @@
+<!-- Boxicons -->
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<div class="container">
+  <div class="bubbles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="form-wrapper align-items-center">
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)" class="form sign-in">
+      <h1 class="welcome-text">Welcome</h1>
+
+      <div class="input-group">
+        <i class='bx bxs-user'></i>
+        <input type="text" name="username" ngModel placeholder="Username" required>
+      </div>
+
+      <div class="input-group">
+        <i class='bx bxs-lock-alt'></i>
+        <input type="password" name="password" ngModel placeholder="Password" required>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid" routerLink="/admin">Sign in</button>
+      <p><b>Forgot password?</b></p>
+    </form>
+  </div>
+</div>

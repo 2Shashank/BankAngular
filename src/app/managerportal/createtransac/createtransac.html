@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<div class="container">
+    <h2>Credit/Debit Transaction</h2>
+    <form #transacForm="ngForm" (ngSubmit)="submit(transacForm)" >
+      
+      <input type="number" name="AccNo" placeholder="Account Number" required ngModel>
+      <select name="TransacType" required ngModel>
+        <option value="">-- Select Transaction Type --</option>
+        <option value="Credit">Credit</option>
+        <option value="Debit">Debit</option>
+      </select>
+      <input type="number" name="Amount" placeholder="Amount" step="0.01" required ngModel>
+      <textarea name="Comments" placeholder="Comments" ngModel></textarea>
+      <input type="submit" value="Submit" class="btn-submit" [disabled]="transacForm.invalid">
+    </form>
+  </div>
