@@ -8,7 +8,7 @@ import { Createtransac } from './managerportal/createtransac/createtransac';
 const routes: Routes = [
   {path:'',component:Managerportal,
     children:[
-    {path:'mhome',component:Managerhome},
+    {path:'home',component:Managerhome},
     {path:'adduser',component:Createuser},
     {path:'createtransac',component:Createtransac}
   ]}

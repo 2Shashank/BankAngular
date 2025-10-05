@@ -11,6 +11,6 @@
         <label for="IfscCode">IFSC Code</label>
         <input type="text" name="IfscCode" placeholder="IFSC Code" required ngModel>
 
-        <input type="submit" value="Submit" class="btn-submit" [disabled]="addbranch.invalid">
+        <input type="submit" value="Submit" class="btn-submit" [disabled]="addbranch.invalid" routerLink="/admin/branch">
     </form>
 </div>

@@ -8,7 +8,7 @@ import { Managerportal } from './managerportal/managerportal';
 const routes: Routes = [
   {path:'home',component:Home},
   {path:'login',component:Login},
-  {path:'admin',component:Adminportal},
+  {path:'admin',loadChildren:()=>import('./adminroute/adminroute-module').then(m => m.AdminrouteModule)},
   {path:'manager',loadChildren:()=>import('./managerrouting-module').then(m => m.ManagerroutingModule)},
   {path:'',redirectTo:'home',pathMatch:'full'}
 
