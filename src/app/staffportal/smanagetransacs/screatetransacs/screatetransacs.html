@@ -1,0 +1,15 @@
+<div class="form-container">
+    <h2>Credit/Debit Transaction</h2>
+    <form action="/Transactions/CreditOrDebit" method="post">
+      
+      <input type="number" name="AccNo" placeholder="Account Number" required>
+      <select name="TransacType" required>
+        <option value="">-- Select Transaction Type --</option>
+        <option value="Credit">Credit</option>
+        <option value="Debit">Debit</option>
+      </select>
+      <input type="number" name="Amount" placeholder="Amount" step="0.01" required>
+      <textarea name="Comments" placeholder="Comments"></textarea>
+      <input type="submit" value="Submit" class="btn-submit">
+    </form>
+  </div>

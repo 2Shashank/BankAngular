@@ -1,0 +1,108 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+<div class="container-fluid py-5">
+<div class="row">
+    <!-- Left empty column for sidebar space, visible on md and up -->
+    <div class="col-md-2"></div>
+    <!-- Main content area -->
+    <div class="col-md-10">
+    <!-- Top space and Welcome heading -->
+    <div class="mt-4 mb-5 text-center">
+        <h1 class="display-5 fw-bold text-white" style="text-shadow:0 2px 8px rgba(0,0,0,0.4);">
+        Welcome to My Dashboard
+        </h1>
+    </div>
+    <!-- Cards grid and sidebar -->
+    <div class="row gx-5 gy-4">
+        <div class="col-lg-9">
+        <div class="row gy-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+            <div class="card shadow-sm border-primary rounded-4 bg-light holographic-card">
+                <div class="card-body">
+                <h5 class="card-title text-primary">Get the Transaction of Account</h5>
+                <p class="card-text text-secondary">
+                    Here you will be able to get the transactions of the Account.
+                </p>
+                <a routerLink="getall" (click)="getalltransacs()" class="btn btn-outline-primary">Go somewhere</a>
+                </div>
+            </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-4">
+            <div class="card shadow-sm border-primary rounded-4 bg-light holographic-card">
+                <div class="card-body">
+                <h5 class="card-title text-primary">Get the Transaction by the ID</h5>
+                <p class="card-text text-secondary">
+                    Here you will be able to get the transactions details by using the transactions ID.
+                </p>
+                <a routerLink="fetch" (click)="fettransac()" class="btn btn-outline-primary">Go somewhere</a>
+                </div>
+            </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-4">
+            <div class="card shadow-sm border-primary rounded-4 bg-light holographic-card">
+                <div class="card-body">
+                <h5 class="card-title text-primary">Perform Credit/ Debit Transactions</h5>
+                <p class="card-text text-secondary">
+                    Here we will be able to credit/Debti to an account.
+                </p>
+                <a routerLink="createtransac" (click)="createtransac()" class="btn btn-outline-primary">Go somewhere</a>
+                </div>
+            </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="col-md-4">
+            <div class="card shadow-sm border-primary rounded-4 bg-light holographic-card">
+                <div class="card-body">
+                <h5 class="card-title text-primary">Transfer To Other Account</h5>
+                <p class="card-text text-secondary">
+                    We can transfer from one account to other within the bank.
+                </p>
+                <a routerLink="createtransfer" (click)="createtransfer()" class="btn btn-outline-primary">Go somewhere</a>
+                </div>
+            </div>
+            </div>
+    
+            <!-- Card 6 -->
+            <div class="col-md-4">
+            <div class="card shadow-sm border-primary rounded-4 bg-light holographic-card">
+                <div class="card-body">
+                <h5 class="card-title text-primary">Delete a failed Transactions</h5>
+                <p class="card-text text-secondary">
+                    Here we will be able to delete the failed transactions.
+                </p>
+                <a routerLink="delete" (click)="deletetransacs()" class="btn btn-outline-primary">Go somewhere</a>
+                </div>
+            </div>
+            </div>
+
+            
+        </div>
+        </div>
+        <!-- Sidebar card -->
+        <div class="col-lg-3">
+        <div class="card border-primary mb-3" style="height:100%;">
+            <div class="card-header">Header</div>
+            <div class="card-body text-primary">
+            <h5 class="card-title">Primary card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Full-width card below grid -->
+    <div class="row mt-4">
+        <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Button</a>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>

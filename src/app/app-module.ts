@@ -12,12 +12,33 @@ import { Adminhome } from './adminportal/adminhome/adminhome';
 import { Addemp } from './adminportal/manageemp/addemp/addemp';
 import { Managerportal } from './managerportal/managerportal';
 import { Managerhome } from './managerportal/managerhome/managerhome';
-import { Createuser } from './managerportal/createuser/createuser';
+import { Createuser } from './managerportal/managecustomer/createuser/createuser';
 import { Createtransac } from './managerportal/createtransac/createtransac';
 import { Managebranch } from './adminportal/managebranch/managebranch';
 import { Manageemp } from './adminportal/manageemp/manageemp';
 import { Fetchemps } from './adminportal/manageemp/fetchemps/fetchemps';
 import { Fetchbranches } from './adminportal/managebranch/fetchbranches/fetchbranches';
+import { Managecustomer } from './managerportal/managecustomer/managecustomer';
+import { Manageaccounts } from './managerportal/manageaccounts/manageaccounts';
+import { Createaccount } from './managerportal/manageaccounts/createaccount/createaccount';
+import { Updateaccount } from './managerportal/manageaccounts/updateaccount/updateaccount';
+import { Fetchaccount } from './managerportal/manageaccounts/fetchaccounts/fetchaccounts';
+import { Updatecust } from './managerportal/managecustomer/updatecust/updatecust';
+import { Getcusts } from './managerportal/managecustomer/getcusts/getcusts';
+import { Fetchcustomer } from './managerportal/managecustomer/fetchcustomer/fetchcustomer';
+import { Deletecustomer } from './managerportal/managecustomer/deletecustomer/deletecustomer';
+import { Getallemps } from './managerportal/manageemp/getallemps/getallemps';
+import { Fetchemp } from './managerportal/manageemp/fetchemp/fetchemp';
+import { Staffportal } from './staffportal/staffportal';
+import { Smanageaccounts } from './staffportal/smanageaccounts/smanageaccounts';
+import { Smanagetransacs } from './staffportal/smanagetransacs/smanagetransacs';
+import { Screatecust } from './staffportal/smanagecustomer/screatecust/screatecust';
+import { Sfetchcust } from './staffportal/smanagecustomer/sfetchcust/sfetchcust';
+import { Supdatecust } from './staffportal/smanagecustomer/supdatecust/supdatecust';
+import { Sdeletecust } from './staffportal/smanagecustomer/sdeletecust/sdeletecust';
+import { Smanagecustomer } from './staffportal/smanagecustomer/smanagecustomer';
+
+
 // import { Adminhome } from './adminhome/adminhome';
 
 @NgModule({
@@ -36,7 +57,27 @@ import { Fetchbranches } from './adminportal/managebranch/fetchbranches/fetchbra
     Managebranch,
     Manageemp,
     Fetchemps,
-    Fetchbranches
+    Fetchbranches,
+    Managecustomer,
+    Manageaccounts,
+    Createaccount,
+    Updateaccount,
+    Fetchaccount,
+    Updatecust,
+    Getcusts,
+    Fetchcustomer,
+    Deletecustomer,
+    Manageemp,
+    Getallemps,
+    Fetchemp,
+    Staffportal,
+    Smanageaccounts,
+    Smanagetransacs,
+    Smanagecustomer,
+    Screatecust,
+    Sfetchcust,
+    Supdatecust,
+    Sdeletecust
   ],
   imports: [
     BrowserModule,
