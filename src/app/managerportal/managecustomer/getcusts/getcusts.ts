@@ -17,6 +17,8 @@ export class Getcusts {
       },
       error : (err) => {
         console.error("Error fetching customers",err);
+        alert("Error fetching Users");
+        this.custs = [];
       }
     })
   }

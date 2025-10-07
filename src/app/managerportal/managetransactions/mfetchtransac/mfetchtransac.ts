@@ -14,13 +14,17 @@ export class Mfetchtransac {
     
   }
   getTransacById(){
+    if(!this.traId || this.traId < 0){
+      alert("Enter valid transaction id");
+      return;
+    }
     this.ft.MgetTransByID(this.traId).subscribe({
       next: (res) => {
         console.log(res);
         this.transac = res;
       },
       error: (err) => {
-        alert("Transactions not found for this Id");
+        alert("Transactions not found for this Id "+this.traId);
         console.error("Error fetching transactions",err);
         this.transac = null;
       }

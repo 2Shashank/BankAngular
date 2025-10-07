@@ -14,8 +14,8 @@ export class Sfetchacc {
     constructor(private ac:Apiservice){}
   
     getAccount(){
-      if(!this.accno){
-        alert("Please enter account number");
+      if(!this.accno || this.accno < 0){
+        alert("Please enter valid account number");
         return;
       }
       this.ac.SgetAcc(this.accno).subscribe({
@@ -25,6 +25,7 @@ export class Sfetchacc {
           },
           error: (err) => {
             console.error("Error fetching employees:", err);
+            alert("Error fetching acc details for account number :"+this.accno);
             this.acc = '';
           }
       })

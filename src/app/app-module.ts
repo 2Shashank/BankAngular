@@ -49,6 +49,10 @@ import { Screatetranfers } from './staffportal/smanagetransacs/screatetranfers/s
 import { Screatetransacs } from './staffportal/smanagetransacs/screatetransacs/screatetransacs';
 import { Fetchtransacs } from './staffportal/smanagetransacs/fetchtransacs/fetchtransacs';
 import { Sfetchtransacn } from './staffportal/smanagetransacs/sfetchtransacn/sfetchtransacn';
+import { Fetchempbyid } from './adminportal/manageemp/fetchempbyid/fetchempbyid';
+import { Aupdateemp } from './adminportal/manageemp/aupdateemp/aupdateemp';
+import { Adeleteemp } from './adminportal/manageemp/adeleteemp/adeleteemp';
+import { Staffhome } from './staffportal/staffhome/staffhome';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -62,6 +66,9 @@ import { Sfetchtransacn } from './staffportal/smanagetransacs/sfetchtransacn/sfe
     Addbranch,
     Adminhome,
     Addemp,
+    Fetchempbyid,
+    Aupdateemp,
+    Adeleteemp,
     Managerportal,
     Managerhome,
     Createuser,
@@ -82,6 +89,7 @@ import { Sfetchtransacn } from './staffportal/smanagetransacs/sfetchtransacn/sfe
     Getallemps,
     Fetchemp,
     Staffportal,
+    Staffhome,
     Smanageaccounts,
     Smanagetransacs,
     Smanagecustomer,

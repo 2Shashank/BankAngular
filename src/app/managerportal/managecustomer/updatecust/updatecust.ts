@@ -16,12 +16,17 @@ export class Updatecust {
     
   }
   getUser(){
+    if(!this.userId || this.userId < 0){
+      alert("Enter valid userId");
+      return;
+    }
     this.uu.MgetUserByID(this.userId).subscribe({
       next: (res)=>{
         this.user = res;
       },
       error: (err) => {
         console.error("Error fetching User",err);
+        alert("No user data found with id"+this.userId);
         this.user = '';
       }
     })
@@ -31,8 +36,12 @@ export class Updatecust {
     // userForm.resetForm();
     this.uu.MupdateUser(this.userId,userForm.value).subscribe({
       next: (res) => {
-        alert("Update user successfully");
+        alert("User updated successfully");
         this.router.navigate(['/manager/customers']);
+      },
+      error: (err) => {
+        console.log("Error updating user");
+        alert("Error occured while updating");
       }
     })
   }

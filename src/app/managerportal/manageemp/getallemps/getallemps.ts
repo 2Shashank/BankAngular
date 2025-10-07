@@ -17,6 +17,7 @@ export class Getallemps {
       },
       error: (err) => {
         console.error("Error fetching employees:", err);
+        alert("Error fetching employees");
         this.employees = [];
       }
     })

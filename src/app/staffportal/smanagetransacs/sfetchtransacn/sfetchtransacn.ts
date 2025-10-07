@@ -21,6 +21,7 @@ export class Sfetchtransacn {
         },
         error: (err) => {
           console.error("Error fetching transactions",err);
+          alert("No transaction found with transaction id :"+this.traId);
           this.transac = null;
         }
       })

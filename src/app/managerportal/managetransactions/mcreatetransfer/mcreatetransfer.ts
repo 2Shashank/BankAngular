@@ -19,6 +19,7 @@ export class Mcreatetransfer {
         this.router.navigate(['/manager/transactions']);
       },
       error: (err)=>{
+        alert("May be you gave invalid account numbers \nfromAcc:"+fd.value.fromAcc+" or \ntoAcc: "+fd.value.toAcc);
         console.error("Error creating transactions");
       }
     })

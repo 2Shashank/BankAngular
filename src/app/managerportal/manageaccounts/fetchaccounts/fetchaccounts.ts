@@ -14,8 +14,8 @@ export class Fetchaccount {
   constructor(private ac:Apiservice){}
 
   getAccount(){
-    if(!this.accno){
-      alert("Please enter account number");
+    if(!this.accno || this.accno < 0){
+      alert("Please enter valid account number");
       return;
     }
     this.ac.MgetAcc(this.accno).subscribe({
@@ -25,6 +25,7 @@ export class Fetchaccount {
         },
         error: (err) => {
           console.error("Error fetching employees:", err);
+          alert("Account details not found with account no. "+this.accno);
           this.acc = '';
         }
     })

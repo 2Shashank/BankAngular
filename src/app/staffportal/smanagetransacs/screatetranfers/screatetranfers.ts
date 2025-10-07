@@ -20,6 +20,7 @@ export class Screatetranfers {
       },
       error: (err)=>{
         console.error("Error creating transactions");
+        alert("Error creating transactions");
       }
     })
   }

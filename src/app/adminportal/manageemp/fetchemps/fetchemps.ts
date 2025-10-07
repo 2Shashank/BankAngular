@@ -14,8 +14,8 @@ export class Fetchemps {
   constructor(private femp: Apiservice) {}
 
   getEmployees() {
-    if (!this.branchId) {
-      alert("Please enter a Branch ID");
+    if (!this.branchId || this.branchId < 0) {
+      alert("Please enter a valid Emp ID");
       return;
     }
 
@@ -26,6 +26,7 @@ export class Fetchemps {
       },
       error: (err) => {
         console.error("Error fetching employees:", err);
+        alert("No record found");
         this.employees = [];
       }
     });

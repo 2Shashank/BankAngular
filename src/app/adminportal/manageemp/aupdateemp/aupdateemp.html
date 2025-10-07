@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<div class="container">
+    <h2 class="text-center">Update Employee</h2>
+
+    <div class="filter">
+        <label for="empId">Enter Employee Id:</label>
+        <input type="number" id="empId" [(ngModel)]="empID" placeholder="Enter User ID" />
+        <button (click)="getEmp()">Get User details</button>
+    </div>
+    <hr>
+    <div *ngIf="emp">
+        <form #empForm="ngForm" id="empForm" (ngSubmit)="submit(empForm)">
+            <input type="text" name="empID" [(ngModel)]="emp.empID" readonly>
+            <input type="text" name="empName" placeholder="Employee Name" required pattern="^[A-Za-z ]+$" minlength="2" [(ngModel)]="emp.empName" #empName="ngModel">
+            <div *ngIf="empName.invalid && empName.touched" class="text-danger">
+                <small *ngIf="empName.errors?.['required']">Employee name is required.</small>
+                <small *ngIf="empName.errors?.['minlength']">Must be at least 2 characters.</small>
+                <small *ngIf="empName.errors?.['pattern']">Only alphabets and spaces are allowed.</small>
+            </div>
+            <select name="empRole" required [(ngModel)]="emp.empRole" #empRole="ngModel">
+                <option value="">-- Select Role --</option>
+                <option value="Staff">Staff</option>
+                <option value="BranchManager">Branch Manager</option>
+            </select>
+            <div *ngIf="empRole.invalid && empRole.touched" class="text-danger">
+                <small>Role must be selected.</small>
+            </div>
+            
+            <input type="tel" name="empMobile" placeholder="Mobile Number" pattern="[0-9]{10}" required [(ngModel)]="emp.empMobile" #empMobile="ngModel">
+            <div *ngIf="empMobile.invalid && empMobile.touched" class="text-danger">
+                <small *ngIf="empMobile.errors?.['required']">Mobile number is required.</small>
+                <small *ngIf="empMobile.errors?.['pattern']">Mobile number must be exactly 10 digits.</small>
+            </div>
+            
+            <input type="email" name="empEmail" placeholder="Email" required [(ngModel)]="emp.empEmail" pattern="^[a-zA-Z0-9._%+-]+@bugb\.com$" #empEmail="ngModel">
+            <div *ngIf="empEmail.invalid && empEmail.touched" class="text-danger">
+                <small *ngIf="empEmail.errors?.['required']">Email is required.</small>
+                <small *ngIf="empEmail.errors?.['pattern']">Email domain is @bugb.com</small>
+            </div>        
+
+            <input type="text" name="branchId" placeholder="Enter Branch ID" [(ngModel)]="emp.branchId" required pattern="^[1-9][0-9]*$" #branchId="ngModel">
+            <div *ngIf="branchId.invalid && branchId.touched" class="text-danger">
+                <small *ngIf="branchId.errors?.['required']">Branch ID is required.</small>
+                <small *ngIf="branchId.errors?.['pattern']">Branch ID must be a positive number.</small>
+            </div>
+            
+            <input type="submit" value="Submit" class="btn-submit" [disabled]="empForm.invalid">
+        </form>
+    </div>
+  </div>
