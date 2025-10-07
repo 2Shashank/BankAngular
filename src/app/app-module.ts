@@ -38,6 +38,7 @@ import { Supdatecust } from './staffportal/smanagecustomer/supdatecust/supdatecu
 import { Sdeletecust } from './staffportal/smanagecustomer/sdeletecust/sdeletecust';
 import { Smanagecustomer } from './staffportal/smanagecustomer/smanagecustomer';
 import { provideHttpClient } from '@angular/common/http';
+import { Updatebranch } from './adminportal/managebranch/updatebranch/updatebranch';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -77,7 +78,8 @@ import { provideHttpClient } from '@angular/common/http';
     Screatecust,
     Sfetchcust,
     Supdatecust,
-    Sdeletecust
+    Sdeletecust,
+    Updatebranch
   ],
   imports: [
     BrowserModule,

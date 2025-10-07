@@ -19,6 +19,9 @@ export class Apiservice {
   addBranch(data:any){
     return this.http.post(`${this.url}/Admin/BranchRegister`,data,{withCredentials : true,responseType:'text'});
   }
+  getBr(branchId:any){
+    return this.http.get(`${this.url}/Admin/GetBranchById/${branchId}`,{withCredentials:true})
+  }
   // updateBranch(data:string){
   //   return this.http.put(``)
   // }
