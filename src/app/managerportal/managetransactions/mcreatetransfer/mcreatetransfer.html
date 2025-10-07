@@ -1,10 +1,59 @@
 <div class="form-container">
   <h2>Transfer Money</h2>
+
   <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
-    <input type="number" name="fromAcc" placeholder="From Account Number" required ngModel>
-    <input type="number" name="toAcc" placeholder="To Account Number" required ngModel>
-    <input type="number" name="amount" placeholder="Amount" step="0.01" required ngModel>
+
+    <!-- From Account -->
+    <input
+      type="number"
+      name="fromAcc"
+      placeholder="From Account Number"
+      required
+      min="0"
+      ngModel
+      #fromAcc="ngModel"
+    />
+    <div *ngIf="fromAcc.invalid && fromAcc.touched" class="text-danger">
+      <small *ngIf="fromAcc.errors?.['required']" style="color: red;">From Account Number is required.</small>
+      <small *ngIf="fromAcc.errors?.['min']" style="color: red;">Account number cannot be negative.</small>
+    </div>
+
+    <!-- To Account -->
+    <input
+      type="number"
+      name="toAcc"
+      placeholder="To Account Number"
+      required
+      min="0"
+      ngModel
+      #toAcc="ngModel"
+    />
+    <div *ngIf="toAcc.invalid && toAcc.touched" class="text-danger">
+      <small *ngIf="toAcc.errors?.['required']" style="color: red;">To Account Number is required.</small>
+      <small *ngIf="toAcc.errors?.['min']" style="color: red;">Account number cannot be negative.</small>
+    </div>
+
+    <!-- Amount -->
+    <input
+      type="number"
+      name="amount"
+      placeholder="Amount"
+      step="0.01"
+      required
+      min="0.01"
+      ngModel
+      #amount="ngModel"
+    />
+    <div *ngIf="amount.invalid && amount.touched" class="text-danger">
+      <small *ngIf="amount.errors?.['required']" style="color: red;">Amount is required.</small>
+      <small *ngIf="amount.errors?.['min']" style="color: red;">Amount must be greater than 0.</small>
+    </div>
+
+    <!-- Comments (Optional) -->
     <textarea name="Comments" placeholder="Comments" ngModel></textarea>
+
+    <!-- Submit Button -->
     <input type="submit" value="Transfer" class="btn-submit" [disabled]="transacData.invalid">
+
   </form>
 </div>

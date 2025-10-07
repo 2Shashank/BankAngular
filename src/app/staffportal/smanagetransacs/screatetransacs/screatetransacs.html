@@ -1,14 +1,55 @@
 <div class="form-container">
-    <h2>Credit/Debits</h2>
-    <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
-      <input type="number" name="AccNo" placeholder="Account Number" required ngModel>
-      <select name="TransacType" required ngModel>
-        <option value="">-- Select Transaction Type --</option>
-        <option value="Credit">Credit</option>
-        <option value="Debit">Debit</option>
-      </select>
-      <input type="number" name="Amount" placeholder="Amount" step="0.01" required ngModel>
-      <textarea name="Comments" placeholder="Comments" ngModel></textarea>
-      <input type="submit" value="Submit" class="btn-submit" [disabled]="transacData.invalid">
-    </form>
-  </div>
+  <h2>Credit/Debits</h2>
+
+  <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
+
+    <!-- Account Number -->
+    <input
+      type="number"
+      name="AccNo"
+      placeholder="Account Number"
+      required
+      min="0"
+      ngModel
+      #AccNo="ngModel"
+    />
+    <div *ngIf="AccNo.invalid && AccNo.touched" class="text-danger">
+      <small *ngIf="AccNo.errors?.['required']" style="color: red;">Account number is required.</small>
+      <small *ngIf="AccNo.errors?.['min']" style="color: red;">Account number cannot be negative.</small>
+    </div>
+
+    <!-- Transaction Type -->
+    <select name="TransacType" required ngModel #TransacType="ngModel">
+      <option value="">-- Select Transaction Type --</option>
+      <option value="Credit">Credit</option>
+      <option value="Debit">Debit</option>
+    </select>
+    <div *ngIf="TransacType.invalid && TransacType.touched" class="text-danger">
+      <small style="color: red;">Transaction type is required.</small>
+    </div>
+
+    <!-- Amount -->
+    <input
+      type="number"
+      name="Amount"
+      placeholder="Amount"
+      step="0.01"
+      required
+      min="0.01"
+      max="250000"
+      ngModel
+      #Amount="ngModel"
+    />
+    <div *ngIf="Amount.invalid && Amount.touched" class="text-danger">
+      <small *ngIf="Amount.errors?.['required']" style="color: red;">Amount is required.</small>
+      <small *ngIf="Amount.errors?.['min']" style="color: red;">Amount must be greater than 0.</small>
+      <small *ngIf="Amount.errors?.['max']" style="color: red;">Maximum Transfer limit is 250000</small>
+    </div>
+
+    <!-- Comments -->
+    <textarea name="Comments" placeholder="Comments" ngModel></textarea>
+
+    <!-- Submit -->
+    <input type="submit" value="Submit" class="btn-submit" [disabled]="transacData.invalid">
+  </form>
+</div>

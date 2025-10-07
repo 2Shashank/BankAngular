@@ -1,28 +1,71 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+  integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
 <div class="container">
-    <h2 class="text-center">Add User</h2>
-    <form #userForm="ngForm" id="userForm" (ngSubmit)="submit(userForm)">
-      <input type="text" name="userName" placeholder="User Name" required ngModel>
+  <h2 class="text-center">Add User</h2>
 
-      <input type="date" name="doB" placeholder="Date of Birth" required ngModel>
+  <form #userForm="ngForm" id="userForm" (ngSubmit)="submit(userForm)">
 
-      <input type="text" name="uAddress" placeholder="Address" ngModel>
+    <!-- User Name -->
+    <input type="text" name="userName" placeholder="User Name" required pattern="^[A-Za-z ]+$" minlength="2" ngModel
+      #userName="ngModel">
+    <div *ngIf="userName.invalid && userName.touched" class="text-danger">
+      <small *ngIf="userName.errors?.['required']">User name is required.</small>
+      <small *ngIf="userName.errors?.['minlength']">Minimum 2 characters required.</small>
+      <small *ngIf="userName.errors?.['pattern']">Only alphabets and spaces are allowed.</small>
+    </div>
 
-      <select name="gender" required ngModel>
-        <option value="">-- Select Gender --</option>
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-        <option value="O">Other</option>
-      </select>
+    <!-- Date of Birth -->
+    <input type="date" name="doB" placeholder="Date of Birth" required ngModel>
 
-      <input type="tel" name="mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required ngModel>
+    <!-- Address -->
+    <input type="text" name="uAddress" placeholder="Address" ngModel>
 
-      <input type="email" name="email" placeholder="Email" required ngModel>
+    <!-- Gender -->
+    <select name="gender" required ngModel #gender="ngModel">
+      <option value="">-- Select Gender --</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+      <option value="O">Other</option>
+    </select>
+    <div *ngIf="gender.invalid && gender.touched" class="text-danger">
+      <small>Gender is required.</small>
+    </div>
 
-      <input type="text" name="panCard" placeholder="Enter pan card number" required ngModel>
+    <!-- Mobile -->
+    <input type="tel" name="mobile" placeholder="Mobile Number" pattern="^[0-9]{10}$" required ngModel
+      #mobile="ngModel">
+    <div *ngIf="mobile.invalid && mobile.touched" class="text-danger">
+      <small *ngIf="mobile.errors?.['required']">Mobile number is required.</small>
+      <small *ngIf="mobile.errors?.['pattern']">Mobile number must be exactly 10 digits.</small>
+    </div>
 
-      <input type="text" name="aadharCard" placeholder="Enter Adhar card" required ngModel>
+    <!-- Email -->
+    <input type="email" name="email" placeholder="Email" required ngModel
+      pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel">
+    <div *ngIf="email.invalid && email.touched" class="text-danger">
+      <small *ngIf="email.errors?.['required']">Email is required.</small>
+      <small *ngIf="email.errors?.['pattern']">Invalid email format.</small>
+    </div>
 
-      <input type="submit" value="Submit" class="btn-submit" [disabled]="userForm.invalid">
-    </form>
-  </div>
+    <!-- PAN Card -->
+    <input type="text" name="panCard" placeholder="Enter PAN card number" required ngModel pattern="^[A-Z0-9]{10}$"
+      #panCard="ngModel">
+    <div *ngIf="panCard.invalid && panCard.touched" class="text-danger">
+      <small *ngIf="panCard.errors?.['required']">PAN card number is required.</small>
+      <small *ngIf="panCard.errors?.['pattern']">PAN must be 10 characters (A-Z, 0-9 only).</small>
+    </div>
+
+    <!-- Aadhar Card -->
+    <input type="text" name="aadharCard" placeholder="Enter Aadhar card" required ngModel pattern="^[0-9]{12}$"
+      #aadharCard="ngModel">
+    <div *ngIf="aadharCard.invalid && aadharCard.touched" class="text-danger">
+      <small *ngIf="aadharCard.errors?.['required']">Aadhar card number is required.</small>
+      <small *ngIf="aadharCard.errors?.['pattern']">Aadhar must be exactly 12 digits.</small>
+    </div>
+
+    <!-- Submit Button -->
+    <input type="submit" value="Submit" class="btn-submit" [disabled]="userForm.invalid">
+
+  </form>
+</div>

@@ -1,14 +1,12 @@
 <div class="table-container">
   <h2>Employee Details</h2>
 
-  <!-- 🔹 Input for BranchId -->
   <div class="filter">
     <label for="branchId">Enter Branch ID:</label>
     <input type="number" id="branchId" [(ngModel)]="branchId" placeholder="Enter Branch ID" />
     <button (click)="getEmployees()">Get Employees</button>
   </div>
 
-  <!-- 🔹 Employee Table -->
   <table *ngIf="employees.length > 0; else noData">
     <thead>
       <tr>
@@ -32,7 +30,6 @@
     </tbody>
   </table>
 
-  <!-- 🔹 Message when no employees found -->
   <ng-template #noData>
     <p *ngIf="branchId">No employees found for this Branch ID.</p>
   </ng-template>

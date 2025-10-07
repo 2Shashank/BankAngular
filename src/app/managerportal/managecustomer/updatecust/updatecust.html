@@ -4,7 +4,7 @@
   integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
   crossorigin="anonymous"
 />
-<div class="container">
+<!-- <div class="container">
   <h2 class="text-center">Update User</h2>
 
   <div class="filter">
@@ -38,6 +38,82 @@
       <input type="text" name="aadharCard" placeholder="Enter Adhar card" required [ngModel]="user.aadharCard" readonly>
 
       <input type="submit" value="Submit" class="btn-submit" [disabled]="userForm.invalid" />
+    </form>
+  </div>
+</div> -->
+
+<div class="container">
+  <h2 class="text-center">Update User</h2>
+
+  <div class="filter">
+    <label for="userId">Enter User Id:</label>
+    <input type="number" id="userId" [(ngModel)]="userId" placeholder="Enter User ID" />
+    <button (click)="getUser()">Get User details</button>
+  </div>
+  <hr>
+
+  <div *ngIf="user">
+    <form #userForm="ngForm" id="userForm" (ngSubmit)="submit(userForm)">
+
+      <input type="text" name="userId" [(ngModel)]="user.userId" readonly>
+
+      <!-- User Name -->
+      <input
+        type="text"
+        name="userName"
+        placeholder="User Name"
+        required
+        [(ngModel)]="user.userName"
+        pattern="^[A-Za-z ]+$"
+        minlength="2"
+        #userName="ngModel"
+      />
+      <div *ngIf="userName.invalid && userName.touched" class="text-danger">
+        <small *ngIf="userName.errors?.['required']">User name is required.</small>
+        <small *ngIf="userName.errors?.['minlength']">Minimum 2 characters required.</small>
+        <small *ngIf="userName.errors?.['pattern']">Only alphabets and spaces allowed.</small>
+      </div>
+
+      <input type="date" name="doB" placeholder="Date of Birth" required [ngModel]="user.doB" readonly />
+
+      <input type="text" name="uAddress" placeholder="Address" [(ngModel)]="user.uAddress" />
+
+      <!-- Mobile -->
+      <input
+        type="tel"
+        name="Mobile"
+        placeholder="Mobile Number"
+        required
+        [(ngModel)]="user.mobile"
+        pattern="^[0-9]{10}$"
+        #mobile="ngModel"
+      />
+      <div *ngIf="mobile.invalid && mobile.touched" class="text-danger">
+        <small *ngIf="mobile.errors?.['required']">Mobile number is required.</small>
+        <small *ngIf="mobile.errors?.['pattern']">Must be exactly 10 digits.</small>
+      </div>
+
+      <!-- Email -->
+      <input
+        type="email"
+        name="Email"
+        placeholder="Email"
+        required
+        [(ngModel)]="user.email"
+        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        #email="ngModel"
+      />
+      <div *ngIf="email.invalid && email.touched" class="text-danger">
+        <small *ngIf="email.errors?.['required']">Email is required.</small>
+        <small *ngIf="email.errors?.['pattern']">Invalid email format.</small>
+      </div>
+
+      <input type="text" name="panCard" placeholder="Enter PAN card number" required [ngModel]="user.panCard" readonly>
+
+      <input type="text" name="aadharCard" placeholder="Enter Aadhar card" required [ngModel]="user.aadharCard" readonly>
+
+      <input type="submit" value="Submit" class="btn-submit" [disabled]="userForm.invalid" />
+
     </form>
   </div>
 </div>
