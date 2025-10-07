@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Employee Details</h2>
+
+  <!-- 🔹 Input for BranchId -->
+  <div class="filter">
+    <label for="branchId">Enter Branch ID:</label>
+    <input type="number" id="branchId" [(ngModel)]="branchId" placeholder="Enter Branch ID" />
+    <button (click)="getBranch()">Get Employees</button>
+  </div>
+
+  <!-- 🔹 Employee Table -->
+
+  <div *ngIf="branch; else noData">
+      <form #updateBr="ngForm" id="branchForm" (ngSubmit)="submit(updateBr)">
+        <label for="branchId">Branch ID</label>
+        <input type="number" name="branchId" [(ngModel)]="branch.branchId" readonly>
+
+        <label for="branchName">Branch Name</label>
+        <input type="text" name="branchName" [(ngModel)]="branch.branchName" placeholder="Enter Branch Name" required >
+
+        <label for="baddress">Branch Address</label>
+        <input type="text" name="baddress" [(ngModel)]="branch.baddress" placeholder="Enter Branch Address" required >
+        
+        <label for="ifscCode">Branch Address</label>
+        <input type="text" name="ifscCode" [(ngModel)]="branch.ifscCode" readonly >
+
+        <input type="submit" value="Submit" class="btn-submit" [disabled]="updateBr.invalid">
+    </form>
+  </div>
+
+  <!-- 🔹 Message when no employees found -->
+  <ng-template #noData>
+    <p *ngIf="branchId">No employees found for this Branch ID.</p>
+  </ng-template>
+</div>

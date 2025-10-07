@@ -19,7 +19,6 @@ export class Apiservice {
   addBranch(data:any){
     return this.http.post(`${this.url}/Admin/BranchRegister`,data,{withCredentials : true,responseType:'text'});
   }
-  
   // updateBranch(data:string){
   //   return this.http.put(``)
   // }
