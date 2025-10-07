@@ -10,6 +10,9 @@ import { Addemp } from '../adminportal/manageemp/addemp/addemp';
 import { Fetchemps } from '../adminportal/manageemp/fetchemps/fetchemps';
 import { Fetchbranches } from '../adminportal/managebranch/fetchbranches/fetchbranches';
 import { Updatebranch } from '../adminportal/managebranch/updatebranch/updatebranch';
+import { Aupdateemp } from '../adminportal/manageemp/aupdateemp/aupdateemp';
+import { Fetchempbyid } from '../adminportal/manageemp/fetchempbyid/fetchempbyid';
+import { Adeleteemp } from '../adminportal/manageemp/adeleteemp/adeleteemp';
 
 const routes: Routes = [
   {path:'',component:Adminportal,
@@ -22,6 +25,10 @@ const routes: Routes = [
       {path:'branch/updatebranch',component:Updatebranch},
       {path:'emp/addemp',component:Addemp},
       {path:'emp/getemps',component:Fetchemps},
+      {path:'emp/getempbyid',component:Fetchempbyid},
+      {path:'emp/updateemp',component:Aupdateemp},
+      {path:'emp/deleteemp',component:Adeleteemp},
+      {path:'',redirectTo:'home',pathMatch:'full'}
 
 
     ]

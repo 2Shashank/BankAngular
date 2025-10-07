@@ -22,6 +22,7 @@ export class Screatetransacs {
       },
       error: (err)=>{
         console.error("Error creating transactions");
+        alert("Error creating transfers, please check account numbers");
       }
 
     })

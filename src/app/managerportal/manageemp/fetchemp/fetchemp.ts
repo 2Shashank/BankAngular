@@ -26,6 +26,7 @@ export class Fetchemp {
         },
         error: (err) => {
           console.error("Error fetching employees:", err);
+          alert("Employee not found in this branch");
           this.employees = '';
         }
       });

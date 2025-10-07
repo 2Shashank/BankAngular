@@ -31,6 +31,15 @@ export class Apiservice {
   addEmp(data:any){
     return this.http.post(`${this.url}/Admin/AddStaff`,data,{withCredentials:true,responseType:'text'});
   }
+  getEmpById(id:any){
+    return this.http.get(`${this.url}/Admin/GetStaffByID/${id}`,{withCredentials:true});
+  }
+  updateEmp(id:any,data:any){
+    return this.http.put(`${this.url}/Admin/UpdateStaff/${id}`,data,{withCredentials:true,responseType:'text'});
+  }
+  deleteEmp(id:any){
+    return this.http.delete(`${this.url}/Admin/RemoveStaff/${id}`,{withCredentials:true,responseType:'text'});
+  }
 
 
   MgetEmp(){

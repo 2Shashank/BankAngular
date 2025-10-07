@@ -17,13 +17,12 @@ export class Screateacc {
       next: (res: any) => {
         console.log('Account added successfully:', res);
         alert('Account created successfully');
-        // formData.reset();
-        this.router.navigate(['/staff/accounts'])
+        this.router.navigate(['/staff/account'])
       },
       error: (err) => {
         console.error('Error create account:', err);
         alert('Failed to create account');
-        this.router.navigate(['/staff/accounts'])
+        // this.router.navigate(['/staff/account'])
       }
     });
   }

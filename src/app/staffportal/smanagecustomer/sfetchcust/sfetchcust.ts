@@ -14,12 +14,17 @@ export class Sfetchcust {
       
     }
     getCustomer(){
+      if(!this.userId || this.userId < 0){
+        alert("Enter valid user id");
+        return;
+      }
       this.fu.SgetUserByID(this.userId).subscribe({
         next: (res)=>{
           this.cust = res;
         },
         error: (err) => {
           console.error("Error fetching User",err);
+          alert("Error fetching customer with id :"+this.userId);
           this.cust = null;
         }
       })

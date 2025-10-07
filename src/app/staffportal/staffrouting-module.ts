@@ -16,11 +16,12 @@ import { Sfetchtransacn } from "./smanagetransacs/sfetchtransacn/sfetchtransacn"
 import { Screatetransacs } from "./smanagetransacs/screatetransacs/screatetransacs";
 import { Screatetranfers } from "./smanagetransacs/screatetranfers/screatetranfers";
 import { Sdeletetransacs } from "./smanagetransacs/sdeletetransacs/sdeletetransacs";
+import { Staffhome } from './staffhome/staffhome';
 
 const routes:Routes = [
     {path:'',component:Staffportal,
         children:[
-            {path:'home',component:Staffportal},
+            {path:'home',component:Staffhome},
             {path:'customers',component:Smanagecustomer},
             {path:'customers/add',component:Screatecust},
             {path:'customers/update',component:Supdatecust},
@@ -36,7 +37,7 @@ const routes:Routes = [
             {path:'transactions/createtransac',component:Screatetransacs},
             {path:'transactions/createtransfer',component:Screatetranfers},
             {path:'transactions/delete',component:Sdeletetransacs},
-            // {path:'',redirectTo:'home',pathMatch:'full'}
+            {path:'',redirectTo:'home',pathMatch:'full'}
         ]
     }
 ]

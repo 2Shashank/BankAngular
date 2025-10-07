@@ -14,12 +14,16 @@ export class Fetchcustomer {
     
   }
   getCustomer(){
+    if(!this.userId){
+      alert("Enter valid userid");
+    }
     this.fu.MgetUserByID(this.userId).subscribe({
       next: (res)=>{
         this.cust = res;
       },
       error: (err) => {
-        console.error("Error fetching User",err);
+        console.error("Error fetching User");
+        alert("Error fetching customer");
         this.cust = null;
       }
     })

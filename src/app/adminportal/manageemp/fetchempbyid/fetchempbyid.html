@@ -1,0 +1,36 @@
+<div class="table-container">
+        <h2>Employee Details</h2>
+
+        <div class="filter">
+            <label for="empID">Enter employee ID:</label>
+            <input type="number" id="empID" [(ngModel)]="empID" placeholder="Enter User ID" />
+            <button (click)="getEmp()">Get Emp details</button>
+        </div>
+
+        <table *ngIf="emp; else noData">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Mobile</th>
+                    <th>Employee</th>
+                    <th>Branch Id</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{emp.empID}}</td>
+                    <td>{{emp.empName}}</td>
+                    <td>{{emp.empRole}}</td>
+                    <td>{{emp.empMobile}}</td>
+                    <td>{{emp.empEmail}}</td>
+                    <td>{{emp.branchId}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #noData>
+            <p *ngIf="emp">No User found for this User ID.</p>
+        </ng-template>
+    </div>

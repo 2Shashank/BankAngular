@@ -15,13 +15,16 @@ export class Mgettransacs {
     
   }
   getTransactions(){
+    if(!this.accNo || this.accNo < 0){
+      alert("Enter valid account number");
+    }
     this.gt.MgetTransofAcc(this.accNo).subscribe({
       next: (res:any) => {
         console.log(res);
         this.tdata = res;
       },
       error: (err) => {
-        alert("Transactions not found for this account");
+        alert("Transactions not found for this account :"+this.accNo);
         console.error("Error fetching transactions",err);
         this.tdata = null;
       }
