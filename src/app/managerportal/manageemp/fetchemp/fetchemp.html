@@ -1,27 +1,39 @@
 <div class="table-container">
-        <h2>User Details</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Date of Birth</th>
-                    <th>Address</th>
-                    <th>Gender</th>
-                    <th>Mobile</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <h2>Employee Details</h2>
+
+  <!-- 🔹 Input for BranchId -->
+  <div class="filter">
+    <label for="empId">Enter Employee ID:</label>
+    <input type="number" id="empId" [(ngModel)]="empId" placeholder="Enter Employee ID" />
+    <button (click)="getEmployees()">Get Employees</button>
+  </div>
+
+  <!-- 🔹 Employee Table -->
+  <table *ngIf="employees; else noData">
+    <thead>
+      <tr>
+        <th>EmpId</th>
+        <th>EmpName</th>
+        <th>EmpRole</th>
+        <th>EmpMobile</th>
+        <th>EmpEmail</th>
+        <th>BranchId</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ employees.empID }}</td>
+        <td>{{ employees.empName }}</td>
+        <td>{{ employees.empRole }}</td>
+        <td>{{ employees.empMobile }}</td>
+        <td>{{ employees.empEmail }}</td>
+        <td>{{ employees.branchId }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 🔹 Message when no employees found -->
+  <ng-template #noData>
+    <p *ngIf="empId">No employee found for this Employee ID.</p>
+  </ng-template>
+</div>

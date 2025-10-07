@@ -10,11 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+      <tr *ngFor="let br of branches">
+        <td>{{br.branchId}}</td>
+        <td>{{br.branchName}}</td>
+        <td>{{br.baddress}}</td>
+        <td>{{br.ifscCode}}</td>
       </tr>
     </tbody>
   </table>

@@ -2,27 +2,26 @@
 <div class="container">
     <h2 class="text-center">Add Employee</h2>
     <form #empForm="ngForm" id="empForm" (ngSubmit)="submit(empForm)">
-      <input type="text" name="EmpName" placeholder="Employee Name" required ngModel>
+      <input type="text" name="empName" placeholder="Employee Name" required ngModel>
       
-      <select name="EmpRole" required ngModel>
+      <select name="empRole" required ngModel>
         <option value="">-- Select Role --</option>
-        <option value="staff">Staff</option>
-        <option value="manager">Manager</option>
+        <option value="Staff">Staff</option>
+        <option value="BranchManager">Branch Manager</option>
       </select>
       
-      <input type="tel" name="EmpMobile" placeholder="Mobile Number" pattern="[0-9]{10}" required ngModel>
+      <input type="tel" name="empMobile" placeholder="Mobile Number" pattern="[0-9]{10}" required ngModel>
       
-      <input type="email" name="EmpEmail" placeholder="Email" required ngModel>
-      
-      <input type="password" name="EmpPass" placeholder="Password" required ngModel>
-      
-      <select name="BranchId" ngModel>
+      <input type="email" name="empEmail" placeholder="Email" required ngModel>
+            
+      <!-- <select name="BranchId" ngModel>
         <option value="">-- Select Branch ID--</option>
         <option value="1">Branch ID 1</option>
         <option value="2">Branch ID 2</option>
         <option value="3">Branch ID 3</option>
-      </select>
+      </select> -->
+      <input type="text" name="branchId" placeholder="Enter Branch ID" ngModel required>
       
-      <input type="submit" value="Submit" class="btn-submit">
+      <input type="submit" value="Submit" class="btn-submit" [disabled]="empForm.invalid">
     </form>
   </div>

@@ -1,26 +1,25 @@
 <div class="table-container">
-        <h2>User Details</h2>
+        <h2>Employee Details</h2>
         <table>
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Date of Birth</th>
-                    <th>Address</th>
-                    <th>Gender</th>
-                    <th>Mobile</th>
-                    <th>Email</th>
+                    <th>EmpId</th>
+                    <th>EmpName</th>
+                    <th>EmpRole</th>
+                    <th>EmpMobile</th>
+                    <th>EmpEmail</th>
+                    <th>BranchId</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr *ngFor="let emp of employees">
+                    <td>{{emp.empID}}</td>
+                    <td>{{emp.empName}}</td>
+                    <td>{{emp.empRole}}</td>
+                    <td>{{emp.empMobile}}</td>
+                    <td>{{emp.empEmail}}</td>
+                    <td>{{emp.branchId}}</td>
+                    
                 </tr>
             </tbody>
         </table>

@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { Managerportal } from './managerportal/managerportal';
 import { Managerhome } from './managerportal/managerhome/managerhome';
 import { Createuser } from './managerportal/managecustomer/createuser/createuser';
-import { Createtransac } from './managerportal/createtransac/createtransac';
 import { Managecustomer } from './managerportal/managecustomer/managecustomer';
 import { Manageaccounts } from './managerportal/manageaccounts/manageaccounts';
 import { Createaccount } from './managerportal/manageaccounts/createaccount/createaccount';
@@ -28,7 +27,6 @@ const routes: Routes = [
     children:[
     {path:'home',component:Managerhome},
     {path:'customers',component:Managecustomer},
-    {path:'createtransac',component:Createtransac},
     {path:'accounts',component:Manageaccounts},
     {path:'employees',component:Manageemp},
     {path:'customers/add',component:Createuser},

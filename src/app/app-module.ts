@@ -13,7 +13,7 @@ import { Addemp } from './adminportal/manageemp/addemp/addemp';
 import { Managerportal } from './managerportal/managerportal';
 import { Managerhome } from './managerportal/managerhome/managerhome';
 import { Createuser } from './managerportal/managecustomer/createuser/createuser';
-import { Createtransac } from './managerportal/createtransac/createtransac';
+// import { Createtransac } from './managerportal/createtransac/createtransac';
 import { Managebranch } from './adminportal/managebranch/managebranch';
 import { Manageemp } from './adminportal/manageemp/manageemp';
 import { Fetchemps } from './adminportal/manageemp/fetchemps/fetchemps';
@@ -37,6 +37,7 @@ import { Sfetchcust } from './staffportal/smanagecustomer/sfetchcust/sfetchcust'
 import { Supdatecust } from './staffportal/smanagecustomer/supdatecust/supdatecust';
 import { Sdeletecust } from './staffportal/smanagecustomer/sdeletecust/sdeletecust';
 import { Smanagecustomer } from './staffportal/smanagecustomer/smanagecustomer';
+import { provideHttpClient } from '@angular/common/http';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -53,7 +54,6 @@ import { Smanagecustomer } from './staffportal/smanagecustomer/smanagecustomer';
     Managerportal,
     Managerhome,
     Createuser,
-    Createtransac,
     Managebranch,
     Manageemp,
     Fetchemps,
@@ -85,7 +85,8 @@ import { Smanagecustomer } from './staffportal/smanagecustomer/smanagecustomer';
     FormsModule
   ],
   providers: [
-    provideBrowserGlobalErrorListeners()
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient()
   ],
   bootstrap: [App]
 })

@@ -3,14 +3,11 @@
     <h2 class="text-center">Add Branch</h2>
     <form #addbranch="ngForm" id="branchForm" (ngSubmit)="submit(addbranch)">
         <label for="BranchName">Branch Name</label>
-        <input type="text" name="BranchName" placeholder="Enter Branch Name" required ngModel>
+        <input type="text" name="BranchName" ngModel placeholder="Enter Branch Name" required >
 
         <label for="Baddress">Branch Address</label>
-        <input type="text" name="Baddress" placeholder="Enter Branch Address" required ngModel>
+        <input type="text" name="Baddress" ngModel placeholder="Enter Branch Address" required >
 
-        <label for="IfscCode">IFSC Code</label>
-        <input type="text" name="IfscCode" placeholder="IFSC Code" required ngModel>
-
-        <input type="submit" value="Submit" class="btn-submit" [disabled]="addbranch.invalid" routerLink="/admin/branch">
+        <input type="submit" value="Submit" class="btn-submit" [disabled]="addbranch.invalid">
     </form>
 </div>

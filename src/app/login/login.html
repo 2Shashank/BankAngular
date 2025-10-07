@@ -16,15 +16,15 @@
 
       <div class="input-group">
         <i class='bx bxs-user'></i>
-        <input type="text" name="username" ngModel placeholder="Username" required>
+        <input type="text" name="EmpId" ngModel placeholder="Employee Id" required>
       </div>
 
       <div class="input-group">
         <i class='bx bxs-lock-alt'></i>
-        <input type="password" name="password" ngModel placeholder="Password" required>
+        <input type="password" name="Password" ngModel placeholder="Password" required>
       </div>
 
-      <button type="submit" [disabled]="loginForm.invalid" routerLink="/admin">Sign in</button>
+      <button type="submit" [disabled]="loginForm.invalid">Sign in</button>
       <p><b>Forgot password?</b></p>
     </form>
   </div>
