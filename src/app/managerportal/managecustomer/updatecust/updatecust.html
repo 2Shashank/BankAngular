@@ -1,24 +1,43 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+  integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+  crossorigin="anonymous"
+/>
 <div class="container">
-    <h2 class="text-center">Add User</h2>
+  <h2 class="text-center">Update User</h2>
+
+  <div class="filter">
+    <label for="userId">Enter User Id:</label>
+    <input type="number" id="userId" [(ngModel)]="userId" placeholder="Enter User ID" />
+    <button (click)="getUser()">Get User details</button>
+  </div>
+  <hr>
+  <div *ngIf="user">
     <form #userForm="ngForm" id="userForm" (ngSubmit)="submit(userForm)">
-      <input type="text" name="Uname" placeholder="User Name" required ngModel>
+      <input type="text" name="userId" [(ngModel)]="user.userId" readonly>
+      <input type="text" name="userName" placeholder="User Name" required [(ngModel)]="user.userName" />
 
-      <input type="date" name="DoB" placeholder="Date of Birth" required ngModel>
+      <input type="date" name="doB" placeholder="Date of Birth" required [ngModel]="user.doB" readonly />
 
-      <input type="text" name="Uaddress" placeholder="Address" ngModel>
+      <input type="text" name="uAddress" placeholder="Address" [(ngModel)]="user.uAddress" />
 
-      <select name="Gender" required ngModel>
-        <option value="">-- Select Gender --</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
+      <input
+        type="tel"
+        name="Mobile"
+        placeholder="Mobile Number"
+        pattern="[0-9]{10}"
+        required
+        [(ngModel)]="user.mobile"
+      />
 
-      <input type="tel" name="Mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required ngModel>
+      <input type="email" name="Email" placeholder="Email" required [(ngModel)]="user.email" />
 
-      <input type="email" name="Email" placeholder="Email" required ngModel>
+      <input type="text" name="panCard" placeholder="Enter pan card number" required [ngModel]="user.panCard" readonly>
 
-      <input type="submit" value="Submit" class="btn-submit">
+      <input type="text" name="aadharCard" placeholder="Enter Adhar card" required [ngModel]="user.aadharCard" readonly>
+
+      <input type="submit" value="Submit" class="btn-submit" [disabled]="userForm.invalid" />
     </form>
   </div>
+</div>

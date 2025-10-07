@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Apiservice } from '../../../apiservice';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bbb-updatebranch',
@@ -11,7 +12,7 @@ import { Apiservice } from '../../../apiservice';
 export class Updatebranch {
   branchId:number = 0;
   branch:any;
-  constructor(private fb:Apiservice){
+  constructor(private fb:Apiservice,private router:Router){
 
   }
   getBranch(){
@@ -19,7 +20,7 @@ export class Updatebranch {
       alert("Please enter a Branch ID");
       return;
     }
-    this.fb.getBr(this.branchId).subscribe({
+    this.fb.gerBr(this.branchId).subscribe({
       next: (res) => {
         console.log(res);
         this.branch = res;
@@ -32,5 +33,14 @@ export class Updatebranch {
   }
   submit(upBr:NgForm){
     console.log(upBr.value);
+    this.fb.updateBranch(this.branchId,upBr.value).subscribe({
+      next: (res) => {
+        console.log("Updated successfully");
+        this.router.navigate(['/admin/branch'])
+      },
+      error:(err) => {
+        console.error("Error updating branch",err);
+      }
+    })
   }
 }

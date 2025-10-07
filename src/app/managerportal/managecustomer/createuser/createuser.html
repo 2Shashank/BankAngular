@@ -2,23 +2,27 @@
 <div class="container">
     <h2 class="text-center">Add User</h2>
     <form #userForm="ngForm" id="userForm" (ngSubmit)="submit(userForm)">
-      <input type="text" name="Uname" placeholder="User Name" required ngModel>
+      <input type="text" name="userName" placeholder="User Name" required ngModel>
 
-      <input type="date" name="DoB" placeholder="Date of Birth" required ngModel>
+      <input type="date" name="doB" placeholder="Date of Birth" required ngModel>
 
-      <input type="text" name="Uaddress" placeholder="Address" ngModel>
+      <input type="text" name="uAddress" placeholder="Address" ngModel>
 
-      <select name="Gender" required ngModel>
+      <select name="gender" required ngModel>
         <option value="">-- Select Gender --</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="O">Other</option>
       </select>
 
-      <input type="tel" name="Mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required ngModel>
+      <input type="tel" name="mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required ngModel>
 
-      <input type="email" name="Email" placeholder="Email" required ngModel>
+      <input type="email" name="email" placeholder="Email" required ngModel>
 
-      <input type="submit" value="Submit" class="btn-submit">
+      <input type="text" name="panCard" placeholder="Enter pan card number" required ngModel>
+
+      <input type="text" name="aadharCard" placeholder="Enter Adhar card" required ngModel>
+
+      <input type="submit" value="Submit" class="btn-submit" [disabled]="userForm.invalid">
     </form>
   </div>

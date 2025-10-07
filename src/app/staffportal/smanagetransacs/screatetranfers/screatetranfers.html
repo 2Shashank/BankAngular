@@ -1,10 +1,10 @@
 <div class="form-container">
   <h2>Transfer Money</h2>
-  <form action="/Transactions/Transfer" method="post">
-    <input type="number" name="FromAcc" placeholder="From Account Number" required>
-    <input type="number" name="ToAcc" placeholder="To Account Number" required>
-    <input type="number" name="Amount" placeholder="Amount" step="0.01" required>
-    <textarea name="Comments" placeholder="Comments"></textarea>
-    <input type="submit" value="Transfer" class="btn-submit">
+  <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
+    <input type="number" name="fromAcc" placeholder="From Account Number" required ngModel>
+    <input type="number" name="toAcc" placeholder="To Account Number" required ngModel>
+    <input type="number" name="amount" placeholder="Amount" step="0.01" required ngModel>
+    <textarea name="comments-" placeholder="Comments" ngModel></textarea>
+    <input type="submit" value="Transfer" class="btn-submit" [disabled]="transacData.invalid">
   </form>
 </div>

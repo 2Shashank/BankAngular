@@ -39,6 +39,16 @@ import { Sdeletecust } from './staffportal/smanagecustomer/sdeletecust/sdeletecu
 import { Smanagecustomer } from './staffportal/smanagecustomer/smanagecustomer';
 import { provideHttpClient } from '@angular/common/http';
 import { Updatebranch } from './adminportal/managebranch/updatebranch/updatebranch';
+import { Mgettransacs } from './managerportal/managetransactions/mgettransacs/mgettransacs';
+import { Mfetchtransac } from './managerportal/managetransactions/mfetchtransac/mfetchtransac';
+import { Mcreatetransac } from './managerportal/managetransactions/mcreatetransac/mcreatetransac';
+import { Mcreatetransfer } from './managerportal/managetransactions/mcreatetransfer/mcreatetransfer';
+import { Screateacc } from './staffportal/smanageaccounts/screateacc/screateacc';
+import { Sfetchacc } from './staffportal/smanageaccounts/sfetchacc/sfetchacc';
+import { Screatetranfers } from './staffportal/smanagetransacs/screatetranfers/screatetranfers';
+import { Screatetransacs } from './staffportal/smanagetransacs/screatetransacs/screatetransacs';
+import { Fetchtransacs } from './staffportal/smanagetransacs/fetchtransacs/fetchtransacs';
+import { Sfetchtransacn } from './staffportal/smanagetransacs/sfetchtransacn/sfetchtransacn';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -79,7 +89,17 @@ import { Updatebranch } from './adminportal/managebranch/updatebranch/updatebran
     Sfetchcust,
     Supdatecust,
     Sdeletecust,
-    Updatebranch
+    Updatebranch,
+    Mgettransacs,
+    Mfetchtransac,
+    Mcreatetransac,
+    Mcreatetransfer,
+    Screateacc,
+    Sfetchacc,
+    Screatetranfers,
+    Screatetransacs,
+    Fetchtransacs,
+    Sfetchtransacn
   ],
   imports: [
     BrowserModule,

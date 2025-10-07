@@ -1,23 +1,39 @@
 <div class="table-container">
-        <h2>Credit/Debit Transaction Details</h2>
-        <table>
+        <h2>Transaction Details</h2>
+
+        <div class="filter">
+            <label for="transacId">Enter Transaction Id:</label>
+            <input type="number" id="transacId" [(ngModel)]="traId" placeholder="Enter Transaction Id" />
+            <button (click)="getTransacById()">Get transaction history</button>
+        </div>
+
+        <table *ngIf="transac; else noData">
             <thead>
                 <tr>
-                    <th>Account Number</th>
+                    <th>Transaction Id</th>
                     <th>Transaction Type</th>
                     <th>Amount</th>
-                    <th>Comments</th>
                     <th>Date</th>
+                    <th>Account Number</th>
+                    <th>To Account</th>
+                    <th>Status</th>
+                    <th>Comments</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{transac.transacId}}</td>
+                    <td>{{transac.transacType}}</td>
+                    <td>{{transac.amount}}</td>
+                    <td>{{transac.timeStamps}}</td>
+                    <td>{{transac.accNo}}</td>
+                    <td>{{transac.toAcc}}</td>
+                    <td>{{transac.transacStatus}}</td>
+                    <td>{{transac.comments}}</td>
                 </tr>
             </tbody>
         </table>
+        <ng-template #noData>
+            <p *ngIf="transac">No transaction found.</p>
+        </ng-template>
     </div>

@@ -1,6 +1,6 @@
 <div class="table-container">
         <h2>User Details</h2>
-        <table>
+        <table *ngIf="custs; else noData">
             <thead>
                 <tr>
                     <th>User ID</th>
@@ -10,18 +10,26 @@
                     <th>Gender</th>
                     <th>Mobile</th>
                     <th>Email</th>
+                    <th>Pan Card</th>
+                    <th>Adhar card</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr *ngFor="let cust of custs">
+                    <td>{{cust.userId}}</td>
+                    <td>{{cust.userName}}</td>
+                    <td>{{cust.doB}}</td>
+                    <td>{{cust.uAddress}}</td>
+                    <td>{{cust.gender}}</td>
+                    <td>{{cust.mobile}}</td>
+                    <td>{{cust.email}}</td>
+                    <td>{{cust.panCard}}</td>
+                    <td>{{cust.aadharCard}}</td>
                 </tr>
             </tbody>
         </table>
+
+        <ng-template #noData>
+            <p *ngIf="custs">No employee found for this Employee ID.</p>
+        </ng-template>
     </div>

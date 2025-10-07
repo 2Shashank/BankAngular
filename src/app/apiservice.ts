@@ -19,9 +19,12 @@ export class Apiservice {
   addBranch(data:any){
     return this.http.post(`${this.url}/Admin/BranchRegister`,data,{withCredentials : true,responseType:'text'});
   }
-  // updateBranch(data:string){
-  //   return this.http.put(``)
-  // }
+  gerBr(branchId:any){
+    return this.http.get(`${this.url}/Admin/GetBranchById/${branchId}`,{withCredentials:true});
+  }
+  updateBranch( branchId:any,data:any){
+    return this.http.put(`${this.url}/Admin/UpdateBranch/${branchId}`,data,{withCredentials:true,responseType:'text'});
+  }
   listEmp(BranchId:any){
     return this.http.get(`${this.url}/Admin/GetStaffByBranchId/${BranchId}`,{withCredentials:true});
   }
@@ -67,7 +70,7 @@ export class Apiservice {
     return this.http.post(`${this.url}/Manager/Transactions/CreditOrDebit`,data,{withCredentials:true,responseType:'text'});
   }
   MdoTransTransfer(data:any){
-    return this.http.post(`${this.url}/Manager/Transactions/Tranfer`,data,{withCredentials:true,responseType:'text'});
+    return this.http.post(`${this.url}/Manager/Transactions/Transfer`,data,{withCredentials:true,responseType:'text'});
   }
   MdeleteFailTrans(tansId:any){
     return this.http.delete(`${this.url}/Manager/Transactions/${tansId}`,{withCredentials:true,responseType:'text'});
@@ -105,7 +108,7 @@ export class Apiservice {
     return this.http.post(`${this.url}/Staff/Transactions/CreditOrDebit`,data,{withCredentials:true,responseType:'text'});
   }
   SdoTransTransfer(data:any){
-    return this.http.post(`${this.url}/Staff/Transactions/Tranfer`,data,{withCredentials:true,responseType:'text'});
+    return this.http.post(`${this.url}/Staff/Transactions/Transfer`,data,{withCredentials:true,responseType:'text'});
   }
   SdeleteFailTrans(tansId:any){
     return this.http.delete(`${this.url}/Staff/Transactions/${tansId}`,{withCredentials:true,responseType:'text'});

@@ -1,23 +1,39 @@
 <div class="table-container">
-        <h2>Credit/Debit Transaction Details</h2>
-        <table>
+        <h2>Transaction Details</h2>
+
+        <div class="filter">
+            <label for="accNo">Enter Account number:</label>
+            <input type="number" id="accNo" [(ngModel)]="accNo" placeholder="Enter Account Number" />
+            <button (click)="getTransactions()">Get transaction history</button>
+        </div>
+
+        <table *ngIf="tdata; else noData">
             <thead>
                 <tr>
-                    <th>Account Number</th>
+                    <th>Transaction Id</th>
                     <th>Transaction Type</th>
                     <th>Amount</th>
-                    <th>Comments</th>
                     <th>Date</th>
+                    <th>Account Number</th>
+                    <th>To Account</th>
+                    <th>Status</th>
+                    <th>Comments</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr *ngFor="let td of tdata">
+                    <td>{{td.transacId}}</td>
+                    <td>{{td.transacType}}</td>
+                    <td>{{td.amount}}</td>
+                    <td>{{td.timeStamps}}</td>
+                    <td>{{td.accNo}}</td>
+                    <td>{{td.toAcc}}</td>
+                    <td>{{td.transacStatus}}</td>
+                    <td>{{td.comments}}</td>
                 </tr>
             </tbody>
         </table>
+        <ng-template #noData>
+            <p *ngIf="tdata">No transaction/s found for this Account number.</p>
+        </ng-template>
     </div>

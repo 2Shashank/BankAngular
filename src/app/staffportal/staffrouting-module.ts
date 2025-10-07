@@ -35,7 +35,8 @@ const routes:Routes = [
             {path:'transactions/fetch',component:Sfetchtransacn},
             {path:'transactions/createtransac',component:Screatetransacs},
             {path:'transactions/createtransfer',component:Screatetranfers},
-            {path:'transactions/delete',component:Sdeletetransacs}
+            {path:'transactions/delete',component:Sdeletetransacs},
+            // {path:'',redirectTo:'home',pathMatch:'full'}
         ]
     }
 ]

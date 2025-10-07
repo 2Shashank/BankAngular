@@ -1,27 +1,16 @@
 <div class="form-container">
-    <form action="" id="accountForm">
-      <input type="number" name="UserId" placeholder="User ID" required>
+    <form #accForm="ngForm" id="accountForm" (ngSubmit)="submit(accForm)">
+      <input type="number" name="userId" placeholder="User ID" required ngModel>
 
-      <select name="AccType" required>
+      <select name="accType" required ngModel>
         <option value="">-- Select Account Type --</option>
         <option value="Savings">Savings</option>
         <option value="Current">Current</option>
         <option value="Fixed Deposit">Fixed Deposit</option>
       </select>
 
-      <input type="number" step="0.01" name="Balance" placeholder="Balance" required>
+      <input type="number" step="0.01" name="balance" placeholder="Balance" required ngModel>
 
-      <input type="date" name="DateOfJoining" required>
-
-      <input type="text" name="IfscCode" placeholder="IFSC Code" required>
-
-      <select name="AccountStatus" required>
-        <option value="">-- Select Status --</option>
-        <option value="Active">Active</option>
-        <option value="Inactive">Inactive</option>
-        <option value="Closed">Closed</option>
-      </select>
-
-      <input type="submit" value="Submit" class="btn-submit">
+      <input type="submit" value="Submit" class="btn-submit" [disabled]="accForm.invalid">
     </form>
   </div>

@@ -1,27 +1,49 @@
 <div class="table-container">
         <h2>Account Details</h2>
-        <table>
+
+        <div class="filter">
+            <label for="accNo">Enter Account Number:</label>
+            <input type="number" id="accNo" [(ngModel)]="accno" placeholder="Enter Employee ID" />
+            <button (click)="getAccount()">Get Acc details</button>
+        </div>
+        <table *ngIf="acc; else noData">
             <thead>
                 <tr>
                     <th>Account No</th>
                     <th>User ID</th>
+                    <th>User name</th>
+                    <th>Email</th>
+                    <th>Mobile No.</th>
                     <th>Account Type</th>
                     <th>Balance</th>
                     <th>Date of Joining</th>
                     <th>IFSC Code</th>
                     <th>Account Status</th>
+                    <th>Branch Id</th>
+                    <th>Branch Name</th>
+                    <th>Branch Address</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr >
+                    <td>{{acc.accNo}}</td>
+                    <td>{{acc.userId}}</td>
+                    <td>{{acc.userName}}</td>
+                    <td>{{acc.email}}</td>
+                    <td>{{acc.mobile}}</td>
+                    <td>{{acc.accType}}</td>
+                    <td>{{acc.balance}}</td>
+                    <td>{{acc.dateOfJoining}}</td>
+                    <td>{{acc.ifscCode}}</td>
+                    <td>{{acc.accountStatus}}</td>
+                    <td>{{acc.branchId}}</td>
+                    <td>{{acc.branchName}}</td>
+                    <td>{{acc.branchAddress}}</td>
                 </tr>
             </tbody>
         </table>
+
+        <ng-template #noData>
+            <p *ngIf="accno">No account found for this Account number.</p>
+        </ng-template>
     </div>
