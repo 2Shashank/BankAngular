@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'bbb-adminportal',
   standalone: false,
-  templateUrl: './adminportal.html',
-  styleUrl: './adminportal.css'
+  templateUrl: './adminportal1.html',
+  // styleUrl: './adminportal.css'
 })
 export class Adminportal {
   constructor(private api: Apiservice, private router: Router) {}

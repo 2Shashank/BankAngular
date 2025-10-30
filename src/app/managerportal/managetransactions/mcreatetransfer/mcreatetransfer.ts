@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Apiservice } from '../../../apiservice';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,18 +10,23 @@ import { Router } from '@angular/router';
   styleUrl: './mcreatetransfer.css'
 })
 export class Mcreatetransfer {
+  @Output() transfrMsg = new EventEmitter<void>();
   constructor(private ct:Apiservice , private router:Router){}
   submit(fd:NgForm){
     console.log(fd.value);
     this.ct.MdoTransTransfer(fd.value).subscribe({
       next:(res)=>{
         alert("Transaction successfully completed");
-        this.router.navigate(['/manager/transactions']);
+        this.transfrMsg.emit();
+        // this.router.navigate(['/manager/transactions']);
       },
       error: (err)=>{
         alert("May be you gave invalid account numbers \nfromAcc:"+fd.value.fromAcc+" or \ntoAcc: "+fd.value.toAcc);
         console.error("Error creating transactions");
       }
     })
+  }
+  cancel(){
+    this.transfrMsg.emit();
   }
 }

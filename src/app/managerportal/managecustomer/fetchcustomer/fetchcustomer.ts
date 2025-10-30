@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Apiservice } from '../../../apiservice';
 
 @Component({
@@ -7,11 +7,18 @@ import { Apiservice } from '../../../apiservice';
   templateUrl: './fetchcustomer.html',
   styleUrl: './fetchcustomer.css'
 })
-export class Fetchcustomer {
-  userId:number = 0;
+export class Fetchcustomer implements OnChanges{
+  userId1:number = 0;
   cust:any;
+  @Input() userId: number | null = null; 
+
   constructor(private fu:Apiservice) {
-    
+    // this.userId1 = this.userId;
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+      if (changes['userId'] && this.userId !== null) {
+      this.getCustomer();
+    }
   }
   getCustomer(){
     if(!this.userId){

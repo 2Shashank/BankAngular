@@ -10,7 +10,24 @@ import { Route, Router } from '@angular/router';
   styleUrl: './addemp.css'
 })
 export class Addemp {
-  constructor(private st: Apiservice,private router:Router){}
+  branchDt:any[] = [];
+  branchId:number = 0;
+  constructor(private st: Apiservice,private router:Router){
+    this.getBranches();
+  }
+
+  getBranches(){
+    this.st.getBranches().subscribe({
+      next: (data: any) => {
+        console.log('Branches:', data);
+        this.branchDt = data;
+      },
+      error: (err) => {
+        console.error('Error fetching branches:', err);
+      }
+    });
+  }
+
   submit(formData:NgForm){
     console.log(formData.value);
     this.st.addEmp(formData.value).subscribe({

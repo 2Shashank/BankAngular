@@ -12,9 +12,9 @@ import { Updatecust } from './managerportal/managecustomer/updatecust/updatecust
 import { Deletecustomer } from './managerportal/managecustomer/deletecustomer/deletecustomer';
 import { Getcusts } from './managerportal/managecustomer/getcusts/getcusts';
 import { Fetchcustomer } from './managerportal/managecustomer/fetchcustomer/fetchcustomer';
-import { Manageemp } from './managerportal/manageemp/manageemp';
-import { Getallemps } from './managerportal/manageemp/getallemps/getallemps';
-import { Fetchemp } from './managerportal/manageemp/fetchemp/fetchemp';
+import { Mmanageemp } from './managerportal/mmanageemp/manageemp';
+import { Getallemps } from './managerportal/mmanageemp/getallemps/getallemps';
+import { Fetchemp } from './managerportal/mmanageemp/fetchemp/fetchemp';
 import { Managetransactions } from './managerportal/managetransactions/managetransactions';
 import { Mcreatetransfer } from './managerportal/managetransactions/mcreatetransfer/mcreatetransfer';
 import { Mcreatetransac } from './managerportal/managetransactions/mcreatetransac/mcreatetransac';
@@ -28,7 +28,7 @@ const routes: Routes = [
     {path:'home',component:Managerhome},
     {path:'customers',component:Managecustomer},
     {path:'accounts',component:Manageaccounts},
-    {path:'employees',component:Manageemp},
+    {path:'employees',component:Mmanageemp},
     {path:'customers/add',component:Createuser},
     {path:'customers/update',component:Updatecust},
     {path:'customers/delete',component:Deletecustomer},

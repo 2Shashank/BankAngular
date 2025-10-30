@@ -4,7 +4,7 @@ import { Apiservice } from '../../../apiservice';
 @Component({
   selector: 'bbb-mfetchtransac',
   standalone: false,
-  templateUrl: './mfetchtransac.html',
+  templateUrl: './mfetchtransac1.html',
   styleUrl: './mfetchtransac.css'
 })
 export class Mfetchtransac {

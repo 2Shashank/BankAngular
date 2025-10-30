@@ -1,0 +1,98 @@
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-md-12">
+      <!-- Header -->
+      <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white d-flex align-items-center">
+          <h3 class="mb-0">
+            <i class="bi bi-bank"></i> My Accounts
+          </h3>
+        </div>
+
+        <!-- List of Accounts in Grid Layout -->
+        <div class="card-body">
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col" *ngFor="let account of accounts">
+              <div
+                class="card shadow-sm h-100 border-0 hover-card"
+                (click)="onAccountClick(account)"
+              >
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                      <i class="bi bi-credit-card"></i> {{ account.AccNo }}
+                    </h5>
+                    <span
+                      class="badge"
+                      [ngClass]="{
+                        'bg-success': account.AccountStatus === 'Active',
+                        'bg-secondary': account.AccountStatus !== 'Active'
+                      }"
+                    >
+                      {{ account.AccountStatus }}
+                    </span>
+                  </div>
+
+                  <p class="card-text mt-2">
+                    <strong>Type:</strong> {{ account.AccType }}<br />
+                    <strong>Balance:</strong> ₹{{ account.Balance }}
+                  </p>
+
+                  <div class="mt-auto">
+                    <small class="text-muted">
+                      Joined on: {{ account.DateOfJoining | date: 'dd/MM/yyyy' }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selected Account Details -->
+      <div class="card shadow mb-4" *ngIf="selectedAccount">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">
+            <i class="bi bi-card-list"></i> Account Details
+          </h4>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>Account No:</strong> {{ selectedAccount.AccNo }}</p>
+              <p><strong>Type:</strong> {{ selectedAccount.AccType }}</p>
+              <p><strong>Status:</strong> {{ selectedAccount.AccountStatus }}</p>
+              <p><strong>Date Joined:</strong> {{ selectedAccount.DateOfJoining | date: 'dd/MM/yyyy' }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Balance:</strong> ₹{{ selectedAccount.Balance }}</p>
+            </div>
+          </div>
+
+          <!-- Transactions -->
+          <div class="mt-4">
+            <h5><i class="bi bi-receipt"></i> Last 5 Transactions</h5>
+            <table class="table table-bordered table-sm">
+              <thead class="table-light">
+                <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tx of transactions">
+                  <td>{{ tx.date | date: 'dd/MM/yyyy' }}</td>
+                  <td>{{ tx.type }}</td>
+                  <td>₹{{ tx.amount }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,125 +1,195 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { retry } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Apiservice {
   url = 'https://localhost:7260/api';
-  constructor(private http :HttpClient){}
-  getBranches(){
-    return this.http.get(`${this.url}/Admin/GetAllBranches`,{ withCredentials: true });
+  constructor(private http: HttpClient) {}
+  verifyLogin(data: any) {
+    return this.http.post(`${this.url}/Login/Staff`, data);
   }
-  verifyLogin(data:any){
-    return this.http.post(`${this.url}/Login`,data,{ withCredentials: true });
+  logout() {
+    return this.http.post(`${this.url}/Login/Logout`, {});
   }
-  logout(){
-    return this.http.post(`${this.url}/Login/Logout`,{},{ withCredentials: true,responseType:'text' });
+  verifyCustLogin(data:any){
+    return this.http.post(`${this.url}/Login/Customer`,data)
   }
-  addBranch(data:any){
-    return this.http.post(`${this.url}/Admin/BranchRegister`,data,{withCredentials : true,responseType:'text'});
+  RegisterUser(data:any){
+    return this.http.post(`${this.url}/Register/RegisterUser`,data);
   }
-  gerBr(branchId:any){
-    return this.http.get(`${this.url}/Admin/GetBranchById/${branchId}`,{withCredentials:true});
+  /// Admin services starts ///
+
+  addBranch(data: any) {
+    return this.http.post(`${this.url}/Admin/BranchRegister`, data, {
+      responseType: 'text',
+    });
   }
-  updateBranch( branchId:any,data:any){
-    return this.http.put(`${this.url}/Admin/UpdateBranch/${branchId}`,data,{withCredentials:true,responseType:'text'});
+  gerBr(branchId: any) {
+    return this.http.get(`${this.url}/Admin/GetBranchById/${branchId}`);
   }
-  listEmp(BranchId:any){
-    return this.http.get(`${this.url}/Admin/GetStaffByBranchId/${BranchId}`,{withCredentials:true});
+  getBranches() {
+    return this.http.get(`${this.url}/Admin/GetAllBranches`);
   }
-  addEmp(data:any){
-    return this.http.post(`${this.url}/Admin/AddStaff`,data,{withCredentials:true,responseType:'text'});
+  updateBranch(branchId: any, data: any) {
+    return this.http.put(`${this.url}/Admin/UpdateBranch/${branchId}`, data, {
+      responseType: 'text',
+    });
   }
-  getEmpById(id:any){
-    return this.http.get(`${this.url}/Admin/GetStaffByID/${id}`,{withCredentials:true});
+  addEmp(data: any) {
+    return this.http.post(`${this.url}/Admin/AddStaff`, data, {
+      responseType: 'text',
+    });
   }
-  updateEmp(id:any,data:any){
-    return this.http.put(`${this.url}/Admin/UpdateStaff/${id}`,data,{withCredentials:true,responseType:'text'});
+  updateEmp(id: any, data: any) {
+    return this.http.put(`${this.url}/Admin/UpdateStaff/${id}`, data, {
+      responseType: 'text',
+    });
   }
-  deleteEmp(id:any){
-    return this.http.delete(`${this.url}/Admin/RemoveStaff/${id}`,{withCredentials:true,responseType:'text'});
+  deleteEmp(id: any) {
+    return this.http.delete(`${this.url}/Admin/RemoveStaff/${id}`, {
+      responseType: 'text',
+    });
+  }
+  listAllEmp() {
+    return this.http.get(`${this.url}/Admin/GetAllStaff`);
+  }
+  listEmp(BranchId: any) {
+    return this.http.get(`${this.url}/Admin/GetStaffByBranchId/${BranchId}`);
+  }
+  getEmpById(id: any) {
+    return this.http.get(`${this.url}/Admin/GetStaffByID/${id}`);
+  }
+  getDeletedEmp() {
+    return this.http.get(`${this.url}/Admin/GetDeletedStaff`);
+  }
+  permanentlyDeleteEmp(userId: any) {
+    return this.http.delete(`${this.url}/Admin/PermanantDeleteStaff/${userId}`);
+  }
+  /// Admin services ends ///
+
+  /// Manager services starts ///
+  updateEmpPass(data: any) {
+    return this.http.patch(`${this.url}/Manager/UpdateLoginPassword`, data);
+  }
+  MgetUser() {
+    return this.http.get(`${this.url}/Manager/Users`);
+  }
+  MgetUserByID(userId: any) {
+    return this.http.get(`${this.url}/Manager/Users/${userId}`);
+  }
+  MaddUser(data: any) {
+    return this.http.post(`${this.url}/Manager/AddUser`, data, {
+      responseType: 'text',
+    });
+  }
+  MupdateUser(Id: any, data: any) {
+    return this.http.put(`${this.url}/Manager/UpdateUser/${Id}`, data, {
+      responseType: 'text',
+    });
+  }
+  MdeleteUser(Id: any) {
+    return this.http.put(`${this.url}/Manager/DeleteUser/${Id}`, {
+      responseType: 'text',
+    });
+  }
+  MgetTransofAcc(accno: any) {
+    return this.http.get(`${this.url}/Manager/Transactions?accNo=${accno}`);
+  }
+  MgetTransByID(tansId: any) {
+    return this.http.get(`${this.url}/Manager/Transactions/${tansId}`);
+  }
+  MdoTransCreditorDebit(data: any) {
+    return this.http.post(`${this.url}/Manager/Transactions/CreditOrDebit`, data, {
+      responseType: 'text',
+    });
+  }
+  MdoTransTransfer(data: any) {
+    return this.http.post(`${this.url}/Manager/Transactions/Transfer`, data, {
+      responseType: 'text',
+    });
+  }
+  MgetAccountsbyBranch(branchId: any) {
+    return this.http.get(`${this.url}/Manager/AccountsByBranch`);
+  }
+  MgetAcc(accno: any) {
+    return this.http.get(`${this.url}/Manager/Accounts/${accno}`);
+  }
+  Mcreateacc(data: any) {
+    return this.http.post(`${this.url}/Manager/CreateAccount`, data, {
+      responseType: 'text',
+    });
+  }
+  MgetEmp() {
+    return this.http.get(`${this.url}/Manager/GetAllStaff`);
+  }
+  MgetEmpById(empId: any) {
+    return this.http.get(`${this.url}/Manager/GetStaffByID/${empId}`);
+  }
+  MgetDeletedUsers(){
+    return this.http.get(`${this.url}/Manager/GetDeletedUsers`);
+  }
+  MPermDelUser(userId:any){
+    return this.http.delete(`${this.url}/Manager/PermanantDeleteUser/${userId}`);
+  }
+  /// Manager api's end ///
+
+  /// Staff services starts ///
+  SUpdatePass(data: any){
+    return this.http.patch(`${this.url}/Staff/UpdateLoginPassword`,data);
+  }
+  SgetUser() {
+    return this.http.get(`${this.url}/Staff/Users`);
+  }
+  SgetUserByID(userId: any) {
+    return this.http.get(`${this.url}/Staff/Users/${userId}`);
+  }
+  SaddUser(data: any) {
+    return this.http.post(`${this.url}/Staff/AddUser`, data, {
+      responseType: 'text',
+    });
+  }
+  SupdateUser(Id: any, data: any) {
+    return this.http.put(`${this.url}/Staff/UpdateUser/${Id}`, data, {
+      responseType: 'text',
+    });
+  }
+  SdeleteUser(Id: any) {
+    return this.http.delete(`${this.url}/Staff/DeleteUser/${Id}`, {
+      responseType: 'text',
+    });
   }
 
-
-  MgetEmp(){
-    return this.http.get(`${this.url}/Manager/GetAllStaff`,{withCredentials:true});
+  SgetTransofAcc(accno: any) {
+    return this.http.get(`${this.url}/Staff/Transactions?accNo=${accno}`);
   }
-  MgetEmpById(empId:any){
-    return this.http.get(`${this.url}/Manager/GetStaffByID/${empId}`,{withCredentials:true});
-  }
-  Mcreateacc(data:any){
-    return this.http.post(`${this.url}/Manager/CreateAccount`,data,{withCredentials:true,responseType:'text'});
-  }
-  MgetAcc(accno:any){
-    return this.http.get(`${this.url}/Manager/Accounts/${accno}`,{withCredentials:true});
-  }
-  MgetUser(){
-    return this.http.get(`${this.url}/Manager/Users`,{withCredentials:true});
-  }
-  MgetUserByID(userId:any){
-    return this.http.get(`${this.url}/Manager/Users/${userId}`,{withCredentials:true});
-  }
-  MaddUser(data:any){
-    return this.http.post(`${this.url}/Manager/AddUser`,data,{withCredentials:true,responseType:'text'});
-  }
-  MupdateUser(Id:any,data:any){
-    return this.http.put(`${this.url}/Manager/UpdateUser/${Id}`,data,{withCredentials:true,responseType:'text'});
-  }
-  MdeleteUser(Id:any){
-    return this.http.delete(`${this.url}/Manager/DeleteUser/${Id}`,{withCredentials:true,responseType:'text'});
-  }
-  MgetTransofAcc(accno:any){
-    return this.http.get(`${this.url}/Manager/Transactions?accNo=${accno}`,{withCredentials:true});
-  }
-  MgetTransByID(tansId:any){
-    return this.http.get(`${this.url}/Manager/Transactions/${tansId}`,{withCredentials:true});
-  }
-  MdoTransCreditorDebit(data:any){
-    return this.http.post(`${this.url}/Manager/Transactions/CreditOrDebit`,data,{withCredentials:true,responseType:'text'});
-  }
-  MdoTransTransfer(data:any){
-    return this.http.post(`${this.url}/Manager/Transactions/Transfer`,data,{withCredentials:true,responseType:'text'});
-  }
-  MdeleteFailTrans(tansId:any){
-    return this.http.delete(`${this.url}/Manager/Transactions/${tansId}`,{withCredentials:true,responseType:'text'});
+  SgetTransByID(tansId: any) {
+    return this.http.get(`${this.url}/Staff/Transactions/${tansId}`);
   }
 
+  SdoTransCreditorDebit(data: any) {
+    return this.http.post(`${this.url}/Staff/Transactions/CreditOrDebit`, data, {
+      responseType: 'text',
+    });
+  }
+  SdoTransTransfer(data: any) {
+    return this.http.post(`${this.url}/Staff/Transactions/Transfer`, data, {
+      responseType: 'text',
+    });
+  }
+  SgetAcc(accno: any) {
+      return this.http.get(`${this.url}/Staff/Accounts/${accno}`);
+    }
+  Screateacc(data: any) {
+    return this.http.post(`${this.url}/Staff/CreateAccount`, data, {
+      responseType: 'text',
+    });
+  }
+  SGetAccsByBranch(){
+    return this.http.get(`${this.url}/Staff/AccountsByBranch`);
+  }
 
-  Screateacc(data:any){
-    return this.http.post(`${this.url}/Staff/CreateAccount`,data,{withCredentials:true,responseType:'text'});
-  }
-  SgetAcc(accno:any){
-    return this.http.get(`${this.url}/Staff/Accounts/${accno}`,{withCredentials:true});
-  }
-  SgetUser(){
-    return this.http.get(`${this.url}/Staff/Users`,{withCredentials:true});
-  }
-  SgetUserByID(userId:any){
-    return this.http.get(`${this.url}/Staff/Users/${userId}`,{withCredentials:true});
-  }
-  SaddUser(data:any){
-    return this.http.post(`${this.url}/Staff/AddUser`,data,{withCredentials:true,responseType:'text'});
-  }
-  SupdateUser(Id:any,data:any){
-    return this.http.put(`${this.url}/Staff/UpdateUser/${Id}`,data,{withCredentials:true,responseType:'text'});
-  }
-  SdeleteUser(Id:any){
-    return this.http.delete(`${this.url}/Staff/DeleteUser/${Id}`,{withCredentials:true,responseType:'text'});
-  }
-  SgetTransofAcc(accno:any){
-    return this.http.get(`${this.url}/Staff/Transactions?accNo=${accno}`,{withCredentials:true});
-  }
-  SgetTransByID(tansId:any){
-    return this.http.get(`${this.url}/Staff/Transactions/${tansId}`,{withCredentials:true});
-  }
-  SdoTransCreditorDebit(data:any){
-    return this.http.post(`${this.url}/Staff/Transactions/CreditOrDebit`,data,{withCredentials:true,responseType:'text'});
-  }
-  SdoTransTransfer(data:any){
-    return this.http.post(`${this.url}/Staff/Transactions/Transfer`,data,{withCredentials:true,responseType:'text'});
-  }
-  SdeleteFailTrans(tansId:any){
-    return this.http.delete(`${this.url}/Staff/Transactions/${tansId}`,{withCredentials:true,responseType:'text'});
-  }
+  /// Staff services starts ///
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Apiservice } from '../../../apiservice';
 import { Router } from '@angular/router';
@@ -7,26 +7,34 @@ import { Router } from '@angular/router';
   selector: 'bbb-supdatecust',
   standalone: false,
   templateUrl: './supdatecust.html',
-  styleUrl: './supdatecust.css'
+  // styleUrl: './supdatecust.css'
 })
-export class Supdatecust {
-  userId:number = 0;
+export class Supdatecust implements OnChanges{
+  userId1:number = 0;
   user:any;
+  @Output() updateSuccess = new EventEmitter<void>();
+  // @Output() cancelUpdate = new EventEmitter<void>();
+  @Input() userId: number | null = null; 
   constructor(private uu:Apiservice,private router:Router) {
     
   }
+  ngOnChanges(changes: SimpleChanges): void {
+      if (changes['userId'] && this.userId !== null){
+        this.getUser();
+      }
+  }
   getUser(){
     if(!this.userId || this.userId < 0){
-        alert("Enter valid user id");
-        return;
-      }
+      alert("Enter valid userId");
+      return;
+    }
     this.uu.SgetUserByID(this.userId).subscribe({
       next: (res)=>{
         this.user = res;
       },
       error: (err) => {
         console.error("Error fetching User",err);
-        alert("No customer found with id :"+this.userId);
+        alert("No user data found with id"+this.userId);
         this.user = '';
       }
     })
@@ -37,12 +45,16 @@ export class Supdatecust {
     this.uu.SupdateUser(this.userId,userForm.value).subscribe({
       next: (res) => {
         alert("User updated successfully");
-        this.router.navigate(['/staff/customers']);
+        // this.router.navigate(['/manager/customers']);
+        this.updateSuccess.emit();
       },
       error: (err) => {
-        console.log("Error occured while updating",err);
+        console.log("Error updating user");
         alert("Error occured while updating");
       }
-    })
+    });
+  }
+  Cancel(){
+    this.updateSuccess.emit();
   }
 }

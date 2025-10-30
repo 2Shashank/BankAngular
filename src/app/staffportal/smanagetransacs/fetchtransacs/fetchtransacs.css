@@ -1,66 +1,33 @@
-.table-container {
-  width: 90%;
-  max-width: 900px;
-  padding: 25px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-  z-index: 1;
-  position: relative;
-  top: 100px;
-  left: 513px;
-}
-.filter {
-  margin-bottom: 15px;
-}
-
-.filter input {
-  padding: 6px;
-  margin-right: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.filter button {
-  padding: 6px 12px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 4px;
+.sortable {
   cursor: pointer;
+  user-select: none;
+  position: relative;
 }
 
-.filter button:hover {
-  background-color: #0056b3;
+.sortable .sort-icons {
+  margin-left: 6px;
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  font-size: 0.7rem;
+  opacity: 0.4;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-.table-container h2 {
-  margin-bottom: 15px;
-  text-align: center;
-  color: #333;
+.sortable:hover .sort-icons {
+  opacity: 0.8;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  overflow: hidden;
-  border-radius: 10px;
+.sortable .sort-icons i {
+  line-height: 0.7;
 }
 
-thead {
-  background: #4A90F2;
-  color: #fff;
+.sortable .sort-icons i.active {
+  color: #000;
+  opacity: 1;
 }
 
-th, td {
-  padding: 12px 15px;
-  text-align: left;
-}
-
-tbody tr:nth-child(even) {
-  background: #f9f9f9;
-}
-
-tbody tr:hover {
-  background: #f1f7ff;
+.sortable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: background 0.2s ease;
 }

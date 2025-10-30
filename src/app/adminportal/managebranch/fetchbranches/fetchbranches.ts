@@ -9,6 +9,7 @@ import { Apiservice } from '../../../apiservice';
 })
 export class Fetchbranches implements OnInit {
   branches: any[] = [];
+  searchtext:any;
 
   constructor(private api: Apiservice) {}
 

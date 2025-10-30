@@ -1,74 +1,101 @@
-<!-- <div class="form-container">
-    <h2>Credit/Debits</h2>
+<div class="container py-4">
+  <div class="card shadow-lg p-4 rounded-4 mx-auto" style="max-width: 500px;">
+    <h2 class="text-center mb-4">
+      <i class="bi bi-cash-stack text-success me-2"></i> Credit / Debit
+    </h2>
+
     <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
-      <input type="number" name="AccNo" placeholder="Account Number" required ngModel>
-      <select name="TransacType" required ngModel>
-        <option value="">-- Select Transaction Type --</option>
-        <option value="Credit">Credit</option>
-        <option value="Debit">Debit</option>
-      </select>
-      <input type="number" name="Amount" placeholder="Amount" step="0.01" required ngModel>
-      <textarea name="Comments" placeholder="Comments" ngModel></textarea>
-      <input type="submit" value="Submit" class="btn-submit" [disabled]="transacData.invalid">
+      <!-- Account Number -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-person-vcard me-2 text-primary"></i>Account Number
+        </label>
+        <input
+          type="number"
+          name="AccNo"
+          placeholder="Enter account number"
+          class="form-control"
+          required
+          min="0"
+          ngModel
+          #AccNo="ngModel"
+        />
+        <div *ngIf="AccNo.invalid && AccNo.touched" class="text-danger mt-1">
+          <small *ngIf="AccNo.errors?.['required']">Account number is required.</small>
+          <small *ngIf="AccNo.errors?.['min']">Account number cannot be negative.</small>
+        </div>
+      </div>
+
+      <!-- Transaction Type -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-arrow-left-right me-2 text-warning"></i>Transaction Type
+        </label>
+        <select
+          class="form-select"
+          name="TransacType"
+          required
+          ngModel
+          #TransacType="ngModel"
+        >
+          <option value="">-- Select Transaction Type --</option>
+          <option value="Credit">Credit</option>
+          <option value="Debit">Debit</option>
+        </select>
+        <div *ngIf="TransacType.invalid && TransacType.touched" class="text-danger mt-1">
+          <small>Transaction type is required.</small>
+        </div>
+      </div>
+
+      <!-- Amount -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-currency-dollar me-2 text-success"></i>Amount
+        </label>
+        <input
+          type="number"
+          name="Amount"
+          placeholder="Enter amount"
+          step="0.01"
+          class="form-control"
+          required
+          min="0.01"
+          ngModel
+          #Amount="ngModel"
+        />
+        <div *ngIf="Amount.invalid && Amount.touched" class="text-danger mt-1">
+          <small *ngIf="Amount.errors?.['required']">Amount is required.</small>
+          <small *ngIf="Amount.errors?.['min']">Amount must be greater than 0.</small>
+        </div>
+      </div>
+
+      <!-- Comments -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-chat-left-text me-2 text-secondary"></i>Comments
+        </label>
+        <textarea
+          name="Comments"
+          placeholder="Enter any comments (optional)"
+          class="form-control"
+          rows="3"
+          ngModel
+        ></textarea>
+      </div>
+
+      <!-- Submit -->
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg rounded-pill mb-3"
+          [disabled]="transacData.invalid"
+        >
+          <i class="bi bi-check2-circle me-2"></i>Submit
+        </button>
+        <button type="button" class="btn btn-secondary btn-lg rounded-pill" (click)="Cancel()">
+          <i class="bi bi-x-circle me-2"></i>Cancel
+        </button>
+      </div>
     </form>
-  </div> -->
-
-  <div class="form-container">
-  <h2>Credit/Debits</h2>
-
-  <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
-
-    <!-- Account Number -->
-    <input
-      type="number"
-      name="AccNo"
-      placeholder="Account Number"
-      required
-      min="0"
-      ngModel
-      #AccNo="ngModel"
-    />
-    <div *ngIf="AccNo.invalid && AccNo.touched" class="text-danger">
-      <small *ngIf="AccNo.errors?.['required']" style="color: red;">Account number is required.</small>
-      <small *ngIf="AccNo.errors?.['min']" style="color: red;">Account number cannot be negative.</small>
-    </div>
-
-    <!-- Transaction Type -->
-    <select
-      name="TransacType"
-      required
-      ngModel
-      #TransacType="ngModel"
-    >
-      <option value="">-- Select Transaction Type --</option>
-      <option value="Credit">Credit</option>
-      <option value="Debit">Debit</option>
-    </select>
-    <div *ngIf="TransacType.invalid && TransacType.touched" class="text-danger">
-      <small  style="color: red;">Transaction type is required.</small>
-    </div>
-
-    <!-- Amount -->
-    <input
-      type="number"
-      name="Amount"
-      placeholder="Amount"
-      step="0.01"
-      required
-      min="0.01"
-      ngModel
-      #Amount="ngModel"
-    />
-    <div *ngIf="Amount.invalid && Amount.touched" class="text-danger">
-      <small *ngIf="Amount.errors?.['required']" style="color: red;">Amount is required.</small>
-      <small *ngIf="Amount.errors?.['min']"  style="color: red;">Amount must be greater than 0.</small>
-    </div>
-
-    <!-- Comments -->
-    <textarea name="Comments" placeholder="Comments" ngModel></textarea>
-
-    <!-- Submit -->
-    <input type="submit" value="Submit" class="btn-submit" [disabled]="transacData.invalid">
-
-  </form>
+  </div>
 </div>

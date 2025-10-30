@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apiservice } from '../../../apiservice';
 import { NgForm } from '@angular/forms';
@@ -7,9 +7,10 @@ import { NgForm } from '@angular/forms';
   selector: 'bbb-mcreatetransac',
   standalone: false,
   templateUrl: './mcreatetransac.html',
-  styleUrl: './mcreatetransac.css'
+  // styleUrl: './mcreatetransac.css'
 })
 export class Mcreatetransac {
+  @Output() transacStat = new EventEmitter<void>()
   constructor(private ct:Apiservice,private router: Router) {
     
   }
@@ -18,7 +19,8 @@ export class Mcreatetransac {
     this.ct.MdoTransCreditorDebit(fdt.value).subscribe({
       next:(res)=>{
         alert("Transaction successfully completed");
-        this.router.navigate(['/manager/transactions'])
+        this.transacStat.emit();
+        // this.router.navigate(['/manager/transactions'])
       },
       error: (err)=>{
         alert("May be you gave invalid \naccount number :"+fdt.value.AccNo+" or \ninvalid amount :"+fdt.value.Amount);
@@ -26,5 +28,8 @@ export class Mcreatetransac {
       }
 
     })
+  }
+  Cancel(){
+    this.transacStat.emit();
   }
 }

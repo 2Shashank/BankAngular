@@ -1,0 +1,501 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar space -->
+    <!-- <div class="col-md-2"></div> -->
+
+    <!-- Main content -->
+    <div class="col-md-12">
+      <!-- Title -->
+      <div class="mt-4 mb-5 text-center">
+        <h1 class="display-5 fw-bold text-white" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4)">
+          Employee Management
+        </h1>
+      </div>
+
+      <!-- Employee Table Section -->
+      <div class="row gx-5 gy-4 mb-5 card shadow border-0 p-4">
+        <div class="col-12 mb-4" *ngIf="showAddEmployeeForm">
+          <div class="card card-body border-0 shadow-sm bg-light">
+            <h4 class="mb-4 text-primary">Add New Employee</h4>
+
+            <form #empForm="ngForm" id="empForm" (ngSubmit)="submit(empForm)" class="row g-3">
+              <div class="col-md-6">
+                <label for="empName" class="form-label">Employee Name</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person"></i></span>
+                  <input
+                    type="text"
+                    id="empName"
+                    name="empName"
+                    placeholder="e.g., John Doe"
+                    class="form-control"
+                    required
+                    pattern="^[A-Za-z ]+$"
+                    minlength="2"
+                    ngModel
+                    #empName="ngModel"
+                    [ngClass]="{
+                      'is-invalid': empName.invalid && empName.touched,
+                      'is-valid': empName.valid && empName.touched
+                    }"
+                  />
+                  <div class="invalid-feedback">
+                    <span *ngIf="empName.errors?.['required']">Employee name is required.</span>
+                    <span *ngIf="empName.errors?.['minlength']"
+                      >Must be at least 2 characters.</span
+                    >
+                    <span *ngIf="empName.errors?.['pattern']"
+                      >Only alphabets and spaces are allowed.</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="empRole" class="form-label">Role</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                  <select
+                    id="empRole"
+                    name="empRole"
+                    class="form-select"
+                    required
+                    ngModel
+                    #empRole="ngModel"
+                    [ngClass]="{
+                      'is-invalid': empRole.invalid && empRole.touched,
+                      'is-valid': empRole.valid && empRole.touched
+                    }"
+                  >
+                    <option value="">-- Select Role --</option>
+                    <option value="Staff">Staff</option>
+                    <option value="BranchManager">Branch Manager</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    <span>Role is required.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="empMobile" class="form-label">Mobile Number</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                  <input
+                    type="tel"
+                    id="empMobile"
+                    name="empMobile"
+                    placeholder="10-digit mobile number"
+                    class="form-control"
+                    pattern="^[0-9]{10}$"
+                    required
+                    ngModel
+                    #empMobile="ngModel"
+                    [ngClass]="{
+                      'is-invalid': empMobile.invalid && empMobile.touched,
+                      'is-valid': empMobile.valid && empMobile.touched
+                    }"
+                  />
+                  <div class="invalid-feedback">
+                    <span *ngIf="empMobile.errors?.['required']">Mobile number is required.</span>
+                    <span *ngIf="empMobile.errors?.['pattern']"
+                      >Mobile number must be exactly 10 digits.</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="empEmail" class="form-label">Email</label>
+                <div class="input-group">
+                  <span class="input-group-text">@</span>
+                  <input
+                    type="email"
+                    id="empEmail"
+                    name="empEmail"
+                    placeholder="email@bugb.com"
+                    class="form-control"
+                    required
+                    ngModel
+                    pattern="^[a-zA-Z0-9._%+-]+@bugb\.com$"
+                    #empEmail="ngModel"
+                    [ngClass]="{
+                      'is-invalid': empEmail.invalid && empEmail.touched,
+                      'is-valid': empEmail.valid && empEmail.touched
+                    }"
+                  />
+                  <div class="invalid-feedback">
+                    <span *ngIf="empEmail.errors?.['required']">Email is required.</span>
+                    <span *ngIf="empEmail.errors?.['pattern']">Email must end with @bugb.com</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="branchId" class="form-label">Branch</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-shop"></i></span>
+                  <select
+                    id="branchId"
+                    name="branchId"
+                    class="form-select"
+                    required
+                    ngModel
+                    #empBranch="ngModel"
+                    [ngClass]="{
+                      'is-invalid': empBranch.invalid && empBranch.touched,
+                      'is-valid': empBranch.valid && empBranch.touched
+                    }"
+                  >
+                    <option value="">-- Select Branch --</option>
+                    @for (br of branchDt; track br.branchId) {
+                    <option [value]="br.branchId">{{ br.branchId }} ({{ br.branchName }})</option>
+                    }
+                  </select>
+                  <div class="invalid-feedback">
+                    <span>Branch selection is required.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 mt-4 text-end">
+                <button type="button" class="btn btn-secondary me-2" (click)="toggleAddEmp()">
+                  <i class="bi bi-x-circle"></i> Cancel
+                </button>
+                <button type="submit" class="btn btn-success" [disabled]="empForm.invalid">
+                  <i class="bi bi-check-circle"></i> Add Employee
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Cards section ends -->
+        <div class="card-body">
+          <!-- <h3 class="mb-4 text-primary">Employee Details</h3> -->
+          <!-- Filter Bar -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-primary mb-0">Employee Details</h3>
+            <!-- Add Branch Card -->
+            <div
+              class="d-flex align-items-center text-primary add-card"
+              role="button"
+              (click)="toggleAddEmp()"
+            >
+              <div class="square-card d-flex flex-column justify-content-center align-items-center">
+                <i class="bi bi-plus-circle fs-4 me-2"></i>
+                <strong>Add Employee</strong>
+              </div>
+            </div>
+          </div>
+          <div>
+            <!-- <div class="col-md-3"> -->
+            <label class="form-label fw-bold">Enter Branch ID:</label>
+            <div class="row mb-4 align-items-center">
+              <div class="col-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="branchId"
+                  placeholder="Enter Branch ID"
+                />
+              </div>
+              <div class="col-3">
+                <button class="btn btn-primary w-100" (click)="getEmployees()">
+                  Get Employees
+                </button>
+              </div>
+            </div>
+            <!-- <div class="col-md-2 mt-3 mt-md-4">
+              <button class="btn btn-primary w-100" (click)="getEmployees()">Get Employees</button>
+            </div> -->
+          </div>
+
+          <!-- Employee Table -->
+          <!-- <div class="table-responsive" *ngIf="employees.length > 0; else noData"> -->
+          <!-- Employee Table Section -->
+          <div class="table-responsive" *ngIf="employees.length > 0">
+            <!-- Search Bar -->
+            <div class="d-flex justify-content-end mb-3">
+              <input
+                type="search"
+                class="form-control w-25"
+                [(ngModel)]="searchtext"
+                placeholder="🔍 Search employees..."
+              />
+            </div>
+
+            <table class="table table-striped table-hover align-middle">
+              <thead class="table-primary">
+                <tr>
+                  <th (click)="sortData('empID')" class="sortable">
+                    EmpId
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'empID' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{ active: sortColumn === 'empID' && sortDirection === 'desc' }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('empName')" class="sortable">
+                    EmpName
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'empName' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{ active: sortColumn === 'empName' && sortDirection === 'desc' }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('empRole')" class="sortable">
+                    EmpRole
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'empRole' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{ active: sortColumn === 'empRole' && sortDirection === 'desc' }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('empMobile')" class="sortable">
+                    EmpMobile
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'empMobile' && sortDirection === 'asc'
+                        }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'empMobile' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('empEmail')" class="sortable">
+                    EmpEmail
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'empEmail' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'empEmail' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('branchId')" class="sortable">
+                    BranchId
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'branchId' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'branchId' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th class="text-center">Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let emp of employees | filter : searchtext">
+                  <td>{{ emp.empID }}</td>
+
+                  <td *ngIf="editId !== emp.empID">{{ emp.empName }}</td>
+                  <td *ngIf="editId === emp.empID">
+                    <input
+                      [(ngModel)]="emp.empName"
+                      name="empName_{{ emp.empID }}"
+                      class="form-control form-control-sm"
+                      required
+                      pattern="^[A-Za-z ]+$"
+                      minlength="2"
+                      #empNameEdit="ngModel"
+                      [ngClass]="{ 'is-invalid': empNameEdit.invalid && empNameEdit.touched }"
+                    />
+                    <div
+                      *ngIf="empNameEdit.invalid && empNameEdit.touched"
+                      class="invalid-feedback d-block"
+                    >
+                      <small *ngIf="empNameEdit.errors?.['required']">Name is required.</small>
+                      <small *ngIf="empNameEdit.errors?.['minlength']"
+                        >Must be at least 2 characters.</small
+                      >
+                      <small *ngIf="empNameEdit.errors?.['pattern']"
+                        >Only alphabets and spaces are allowed.</small
+                      >
+                    </div>
+                  </td>
+
+                  <td *ngIf="editId !== emp.empID">{{ emp.empRole }}</td>
+                  <td *ngIf="editId === emp.empID">
+                    <select
+                      name="empRole_{{ emp.empID }}"
+                      [(ngModel)]="emp.empRole"
+                      class="form-control form-control-sm"
+                      required
+                      #empRoleEdit="ngModel"
+                      [ngClass]="{ 'is-invalid': empRoleEdit.invalid && empRoleEdit.touched }"
+                    >
+                      <option value="BranchManager">Manager</option>
+                      <option value="Staff">Staff</option>
+                    </select>
+                    <div
+                      *ngIf="empRoleEdit.invalid && empRoleEdit.touched"
+                      class="invalid-feedback d-block"
+                    >
+                      <small>Role is required.</small>
+                    </div>
+                  </td>
+
+                  <td *ngIf="editId !== emp.empID">{{ emp.empMobile }}</td>
+                  <td *ngIf="editId === emp.empID">
+                    <input
+                      [(ngModel)]="emp.empMobile"
+                      name="empMobile_{{ emp.empID }}"
+                      class="form-control form-control-sm"
+                      pattern="^[0-9]{10}$"
+                      required
+                      #empMobileEdit="ngModel"
+                      [ngClass]="{ 'is-invalid': empMobileEdit.invalid && empMobileEdit.touched }"
+                    />
+                    <div
+                      *ngIf="empMobileEdit.invalid && empMobileEdit.touched"
+                      class="invalid-feedback d-block"
+                    >
+                      <small *ngIf="empMobileEdit.errors?.['required']">Mobile is required.</small>
+                      <small *ngIf="empMobileEdit.errors?.['pattern']"
+                        >Must be exactly 10 digits.</small
+                      >
+                    </div>
+                  </td>
+
+                  <td *ngIf="editId !== emp.empID">{{ emp.empEmail }}</td>
+                  <td *ngIf="editId === emp.empID">
+                    <input
+                      [(ngModel)]="emp.empEmail"
+                      name="empEmail_{{ emp.empID }}"
+                      class="form-control form-control-sm"
+                      required
+                      pattern="^[a-zA-Z0-9._%+-]+@bugb\.com$"
+                      #empEmailEdit="ngModel"
+                      [ngClass]="{ 'is-invalid': empEmailEdit.invalid && empEmailEdit.touched }"
+                    />
+                    <div
+                      *ngIf="empEmailEdit.invalid && empEmailEdit.touched"
+                      class="invalid-feedback d-block"
+                    >
+                      <small *ngIf="empEmailEdit.errors?.['required']">Email is required.</small>
+                      <small *ngIf="empEmailEdit.errors?.['pattern']"
+                        >Email domain must be @bugb.com</small
+                      >
+                    </div>
+                  </td>
+
+                  <td *ngIf="editId !== emp.empID">{{ emp.branchId }}</td>
+                  <td *ngIf="editId === emp.empID">
+                    <!-- <input
+                      [(ngModel)]="emp.branchId"
+                      name="branchId_{{ emp.empID }}"
+                      class="form-control form-control-sm"
+                      required
+                      type="number"
+                      #branchIdEdit="ngModel"
+                      [ngClass]="{ 'is-invalid': branchIdEdit.invalid && branchIdEdit.touched }"
+                    /> -->
+                    <select
+                    id="branchId"
+                    name="branchId"
+                    class="form-select"
+                    required
+                    [(ngModel)]="emp.branchId"
+                    #branchIdEdit="ngModel"
+                    [ngClass]="{
+                      'is-invalid': branchIdEdit.invalid && branchIdEdit.touched,
+                      'is-valid': branchIdEdit.valid && branchIdEdit.touched
+                    }"
+                  >
+                    @for (br of branchDt; track br.branchId) {
+                    <option [value]="br.branchId">{{ br.branchId }} ({{ br.branchName }})</option>
+                    }
+                  </select>
+                    <div
+                      *ngIf="branchIdEdit.invalid && branchIdEdit.touched"
+                      class="invalid-feedback d-block"
+                    >
+                      <small>Branch ID is required.</small>
+                    </div>
+                  </td>
+
+                  <td class="text-center">
+                    <button
+                      *ngIf="editId !== emp.empID"
+                      class="btn btn-sm btn-warning me-2"
+                      (click)="editId = emp.empID"
+                    >
+                      <i class="bi bi-pencil-square"></i> Edit
+                    </button>
+                    <button
+                      *ngIf="editId === emp.empID"
+                      class="btn btn-sm btn-success" 
+                      [disabled]="emp.empNameEdit.invalid || emp.empRoleEdit.invalid || emp.empMobileEdit.invalid || emp.empEmailEdit.invalid || emp.branchIdEdit.invalid"
+                      (click)="saveEmp(emp)"
+                    >
+                      <i class="bi bi-check-circle"></i> Save
+                    </button>
+                    <button
+                      *ngIf="editId === emp.empID"
+                      class="btn btn-sm btn-secondary ms-1"
+                      (click)="cancelEdit()"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      *ngIf="editId !== emp.empID"
+                      class="btn btn-sm btn-danger"
+                      (click)="deleteEmp(emp.empID)"
+                    >
+                      <i class="bi bi-trash"></i> Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- No Data Template -->
+          <!-- <ng-template #noData>
+            <p *ngIf="branchId" class="text-muted">No employees found for this Branch ID.</p>
+          </ng-template> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

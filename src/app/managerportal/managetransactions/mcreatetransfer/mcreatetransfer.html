@@ -1,59 +1,105 @@
-<div class="form-container">
-  <h2>Transfer Money</h2>
+<div class="container py-4">
+  <div class="card shadow-lg p-4 rounded-4 mx-auto" style="max-width: 500px;">
+    <h2 class="text-center mb-4">
+      <i class="bi bi-arrow-left-right text-primary me-2"></i>Transfer Money
+    </h2>
 
-  <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
+    <form #transacData="ngForm" (ngSubmit)="submit(transacData)">
+      <!-- From Account -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-wallet2 me-2 text-success"></i>From Account Number
+        </label>
+        <input
+          type="number"
+          name="fromAcc"
+          class="form-control"
+          placeholder="Enter source account number"
+          required
+          min="0"
+          ngModel
+          #fromAcc="ngModel"
+        />
+        <div *ngIf="fromAcc.invalid && fromAcc.touched" class="text-danger mt-1">
+          <small *ngIf="fromAcc.errors?.['required']">From Account Number is required.</small>
+          <small *ngIf="fromAcc.errors?.['min']">Account number cannot be negative.</small>
+        </div>
+      </div>
 
-    <!-- From Account -->
-    <input
-      type="number"
-      name="fromAcc"
-      placeholder="From Account Number"
-      required
-      min="0"
-      ngModel
-      #fromAcc="ngModel"
-    />
-    <div *ngIf="fromAcc.invalid && fromAcc.touched" class="text-danger">
-      <small *ngIf="fromAcc.errors?.['required']" style="color: red;">From Account Number is required.</small>
-      <small *ngIf="fromAcc.errors?.['min']" style="color: red;">Account number cannot be negative.</small>
-    </div>
+      <!-- To Account -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-wallet-fill me-2 text-danger"></i>To Account Number
+        </label>
+        <input
+          type="number"
+          name="toAcc"
+          class="form-control"
+          placeholder="Enter destination account number"
+          required
+          min="0"
+          ngModel
+          #toAcc="ngModel"
+        />
+        <div *ngIf="toAcc.invalid && toAcc.touched" class="text-danger mt-1">
+          <small *ngIf="toAcc.errors?.['required']">To Account Number is required.</small>
+          <small *ngIf="toAcc.errors?.['min']">Account number cannot be negative.</small>
+        </div>
+      </div>
 
-    <!-- To Account -->
-    <input
-      type="number"
-      name="toAcc"
-      placeholder="To Account Number"
-      required
-      min="0"
-      ngModel
-      #toAcc="ngModel"
-    />
-    <div *ngIf="toAcc.invalid && toAcc.touched" class="text-danger">
-      <small *ngIf="toAcc.errors?.['required']" style="color: red;">To Account Number is required.</small>
-      <small *ngIf="toAcc.errors?.['min']" style="color: red;">Account number cannot be negative.</small>
-    </div>
+      <!-- Amount -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-currency-exchange me-2 text-warning"></i>Amount
+        </label>
+        <input
+          type="number"
+          name="amount"
+          class="form-control"
+          placeholder="Enter amount to transfer"
+          step="0.01"
+          required
+          min="0.01"
+          ngModel
+          #amount="ngModel"
+        />
+        <div *ngIf="amount.invalid && amount.touched" class="text-danger mt-1">
+          <small *ngIf="amount.errors?.['required']">Amount is required.</small>
+          <small *ngIf="amount.errors?.['min']">Amount must be greater than 0.</small>
+        </div>
+      </div>
 
-    <!-- Amount -->
-    <input
-      type="number"
-      name="amount"
-      placeholder="Amount"
-      step="0.01"
-      required
-      min="0.01"
-      ngModel
-      #amount="ngModel"
-    />
-    <div *ngIf="amount.invalid && amount.touched" class="text-danger">
-      <small *ngIf="amount.errors?.['required']" style="color: red;">Amount is required.</small>
-      <small *ngIf="amount.errors?.['min']" style="color: red;">Amount must be greater than 0.</small>
-    </div>
+      <!-- Comments -->
+      <div class="mb-3">
+        <label class="form-label">
+          <i class="bi bi-chat-left-text me-2 text-secondary"></i>Comments (Optional)
+        </label>
+        <textarea
+          name="Comments"
+          class="form-control"
+          rows="3"
+          placeholder="Enter any comments"
+          ngModel
+        ></textarea>
+      </div>
 
-    <!-- Comments (Optional) -->
-    <textarea name="Comments" placeholder="Comments" ngModel></textarea>
-
-    <!-- Submit Button -->
-    <input type="submit" value="Transfer" class="btn-submit" [disabled]="transacData.invalid">
-
-  </form>
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg rounded-pill mb-3"
+          [disabled]="transacData.invalid"
+        >
+          <i class="bi bi-send-check me-2"></i>Transfer
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary btn-lg rounded-pill"
+          (click)="cancel()"
+        >
+          <i class="bi bi-send-check me-2"></i>Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

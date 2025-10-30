@@ -1,0 +1,129 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <!-- Header Section -->
+      <div class="card shadow-lg mb-4">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">
+            <i class="bi bi-person-circle"></i> Customer Profile
+          </h3>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="card-body">
+          <!-- User ID & Name -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-hash"></i> User ID
+                </label>
+                <p class="fs-5">{{ customer.UserId }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-person"></i> User Name
+                </label>
+                <p class="fs-5">{{ customer.Uname }}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Date of Birth & Gender -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-calendar-event"></i> Date of Birth
+                </label>
+                <p class="fs-5">{{ customer.DoB | date: 'dd/MM/yyyy' }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-gender-ambiguous"></i> Gender
+                </label>
+                <p class="fs-5">{{ customer.Gender }}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Address -->
+          <div class="row mb-4">
+            <div class="col-md-12">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-geo-alt"></i> Address
+                </label>
+                <p class="fs-5">{{ customer.Uaddress }}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Mobile & Email -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-telephone"></i> Mobile
+                </label>
+                <p class="fs-5">{{ customer.Mobile }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-envelope"></i> Email
+                </label>
+                <p class="fs-5">{{ customer.Email }}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- PAN & Aadhar -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-credit-card"></i> PAN Card
+                </label>
+                <p class="fs-5">{{ customer.PANCard }}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="profile-item">
+                <label class="fw-bold text-muted">
+                  <i class="bi bi-credit-card-2-front"></i> Aadhar Card
+                </label>
+                <p class="fs-5">{{ customer.AadharCard }}</p>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <!-- Action Buttons -->
+          <div class="d-flex gap-2 justify-content-end">
+            <button class="btn btn-primary">
+              <i class="bi bi-pencil"></i> Edit Profile
+            </button>
+            <button class="btn btn-secondary">
+              <i class="bi bi-arrow-left"></i> Back
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

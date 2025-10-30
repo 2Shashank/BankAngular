@@ -1,0 +1,252 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Main content -->
+    <div class="col-md-12">
+      <!-- Title -->
+      <div class="mt-4 mb-5 text-center">
+        <h1 class="display-5 fw-bold text-white" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4)">
+          Transaction Management
+        </h1>
+      </div>
+
+      <!-- Transaction Table Section -->
+      <div class="row gx-5 gy-4 mb-5 card shadow border-0 p-4">
+        <!-- <nav class="navbar"> -->
+        <nav class="container navbar">
+          <button (click)="show('table')" class="btn square-card btn-outline-primary mb-2">Transaction details</button>
+          <button (click)="show('createTransac')" class="btn square-card btn-outline-primary mb-2">Create Transaction</button>
+          <button (click)="show('createTransfer')" class="btn square-card btn-outline-primary mb-2">Create Transfer</button>
+          <button (click)="show('tbi')" class="btn square-card btn-outline-primary mb-2">Fetch Transaction By Id</button>
+          <button (click)="show('tba')" class="btn square-card btn-outline-primary mb-2">Fetch Transactions by Account</button>
+
+        </nav>
+        <div *ngIf="activeView === 'table'" class="card-body">
+          <h3 class="mb-4 text-primary">Transaction Details</h3>
+          <!-- Filter Bar -->
+          <div>
+            <!-- <div class="col-md-3"> -->
+            <label class="form-label fw-bold">Select Account</label>
+            <div class="row mb-4 align-items-center">
+              <div class="col-3">
+                <!-- <input
+                  type="number"
+                  class="form-control"
+                  [(ngModel)]="accNo"
+                  placeholder="Enter account number"
+                /> -->
+                <select name="accNo" [(ngModel)]="accNo" class="form-control">
+                  <option *ngFor="let acc of accounts" [value]="acc.accNo">{{acc.accNo}}</option>
+                </select>
+              </div>
+              <div class="col-3">
+                <button class="btn btn-primary w-100" (click)="getTransactions()">
+                  Get Transactions
+                </button>
+              </div>
+            </div>
+            <!-- <div class="col-md-2 mt-3 mt-md-4">
+              <button class="btn btn-primary w-100" (click)="getEmployees()">Get Employees</button>
+            </div> -->
+          </div>
+
+          <!-- Transaction Table -->
+          <!-- Transaction Table Section -->
+          <div class="table-responsive" *ngIf="transacs.length > 0; else noData">
+            <!-- Search Bar -->
+            <div class="d-flex justify-content-end mb-3">
+              <input
+                type="search"
+                class="form-control w-25"
+                [(ngModel)]="searchtext"
+                placeholder="🔍 Search transactions..."
+              />
+            </div>
+
+            <table class="table table-striped table-hover align-middle">
+              <thead class="table-primary">
+                <tr>
+                  <th (click)="sortData('transacId')" class="sortable">
+                    Transaction Id
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'transacId' && sortDirection === 'asc'
+                        }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'transacId' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('transacType')" class="sortable">
+                    Transaction Type
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'transacType' && sortDirection === 'asc'
+                        }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'transacType' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('amount')" class="sortable">
+                    Amount
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'amount' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{ active: sortColumn === 'amount' && sortDirection === 'desc' }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('timeStamps')" class="sortable">
+                    Date
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'timeStamps' && sortDirection === 'asc'
+                        }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'timeStamps' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('accNo')" class="sortable">
+                    Account number
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'accNo' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'accNo' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+
+                  <th (click)="sortData('toAcc')" class="sortable">
+                    To Account
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'toAcc' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'toAcc' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+                  <th (click)="sortData('transacStatus')" class="sortable">
+                    Transaction Status
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'transacStatus' && sortDirection === 'asc'
+                        }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'transacStatus' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+                  <th (click)="sortData('comments')" class="sortable">
+                    Comments
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{ active: sortColumn === 'comments' && sortDirection === 'asc' }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'comments' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let transac of transacs | filter : searchtext">
+                  <td>{{ transac.transacId }}</td>
+                  <td>{{ transac.transacType }}</td>
+                  <td>{{ transac.amount }}</td>
+                  <td>{{ transac.timeStamps | date : 'dd MMM yyyy, hh:mm a' }}</td>
+                  <td>{{ transac.accNo }}</td>
+                  <td>{{ transac.toAcc }}</td>
+                  <td>{{ transac.transacStatus }}</td>
+                  <td>{{ transac.comments }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- No Data Template -->
+          <ng-template #noData>
+            <p *ngIf="transacs" class="text-muted">No Data found</p>
+          </ng-template>
+        </div>
+
+        <div *ngIf="activeView === 'tbi'" class="card-body">
+          <bbb-mfetchtransac></bbb-mfetchtransac>
+        </div>
+        <div *ngIf="activeView === 'tba'" class="card-body">
+          <bbb-mgettransacs></bbb-mgettransacs>
+        </div>
+        <div *ngIf="activeView === 'createTransac'" class="card-body">
+          <bbb-mcreatetransac (transacStat)="afterTransac()"></bbb-mcreatetransac>
+        </div>
+        <div *ngIf="activeView === 'createTransfer'" class="card-body">
+          <bbb-mcreatetransfer (transfrMsg)="afterTransac()"></bbb-mcreatetransfer>
+        </div>
+      </div>
+
+      <!-- Cards Section -->
+      <!-- <div class="row gx-5 gy-4 mb-5">
+        <div class="row gy-4 justify-content-center">
+          <div class="col-auto" *ngFor="let card of cards">
+            <a routerLink="{{ card.link }}">
+              <div class="square-card d-flex flex-column justify-content-center align-items-center">
+                <i [class]="card.icon + ' icon-wrapper'"></i>
+                <h6>{{ card.title }}</h6>
+              </div>
+            </a>
+          </div>
+        </div> 
+      </div>-->
+    </div>
+  </div>
+</div>

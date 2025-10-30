@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { Apiservice } from '../../../apiservice';
 
 @Component({
   selector: 'bbb-sfetchtransacn',
   standalone: false,
   templateUrl: './sfetchtransacn.html',
-  styleUrl: './sfetchtransacn.css'
+  // styleUrl: './sfetchtransacn.css'
 })
 export class Sfetchtransacn {
   transac:any;
@@ -14,6 +14,10 @@ export class Sfetchtransacn {
       
     }
     getTransacById(){
+      if(!this.traId || this.traId < 0){
+      alert("Enter valid transaction id");
+      return;
+    }
       this.ft.SgetTransByID(this.traId).subscribe({
         next: (res) => {
           console.log(res);

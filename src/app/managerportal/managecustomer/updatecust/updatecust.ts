@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Apiservice } from '../../../apiservice';
 import { Router } from '@angular/router';
@@ -7,11 +7,12 @@ import { Router } from '@angular/router';
   selector: 'bbb-updatecust',
   standalone: false,
   templateUrl: './updatecust.html',
-  styleUrl: './updatecust.css'
+  // styleUrl: './updatecust.css'
 })
 export class Updatecust {
   userId:number = 0;
   user:any;
+  @Output() updateSuccess = new EventEmitter<void>();
   constructor(private uu:Apiservice,private router:Router) {
     
   }
@@ -37,12 +38,14 @@ export class Updatecust {
     this.uu.MupdateUser(this.userId,userForm.value).subscribe({
       next: (res) => {
         alert("User updated successfully");
-        this.router.navigate(['/manager/customers']);
+        // this.router.navigate(['/manager/customers']);
+        this.updateSuccess.emit();
       },
       error: (err) => {
         console.log("Error updating user");
         alert("Error occured while updating");
       }
-    })
+    });
   }
+  
 }

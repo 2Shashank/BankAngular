@@ -7,7 +7,7 @@
             <button (click)="getTransactions()">Get transaction history</button>
         </div>
 
-        <table *ngIf="tdata; else noData">
+        <table *ngIf="transacs; else noData">
             <thead>
                 <tr>
                     <th>Transaction Id</th>
@@ -21,11 +21,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let td of tdata">
+                <tr *ngFor="let td of transacs">
                     <td>{{td.transacId}}</td>
                     <td>{{td.transacType}}</td>
                     <td>{{td.amount}}</td>
-                    <td>{{td.timeStamps}}</td>
+                    <td>{{td.timeStamps | date:('dd MMM yyyy hh:mm a')}}</td>
                     <td>{{td.accNo}}</td>
                     <td>{{td.toAcc}}</td>
                     <td>{{td.transacStatus}}</td>
@@ -34,6 +34,6 @@
             </tbody>
         </table>
         <ng-template #noData>
-            <p *ngIf="tdata">No transaction/s found for this Account number.</p>
+            <p *ngIf="transacs">No transaction/s found for this Account number.</p>
         </ng-template>
     </div>

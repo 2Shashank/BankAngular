@@ -1,0 +1,20 @@
+.profile-item {
+  padding: 10px 0;
+}
+
+.profile-item label {
+  display: block;
+  margin-bottom: 8px;
+  color: #6c757d;
+  font-size: 0.95rem;
+}
+
+.profile-item p {
+  margin: 0;
+  color: #212529;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}

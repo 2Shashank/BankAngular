@@ -1,56 +1,94 @@
-.holographic-card {
-      width: 18rem;
-      height: auto;
-      background: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-      border-radius: 15px;
-      transition: all 0.5s ease;
-    }
+/* Make the whole section transparent */
+.container-fluid {
+  background-color: transparent !important;
+}
 
-    .holographic-card h5 {
-      color: rgb(2, 58, 58);
-      font-size: 1.5rem;
-      position: relative;
-      z-index: 2;
-    }
+/* Make Bootstrap cards semi-transparent with soft shadow */
+.card {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(5px); /* Optional: glass effect */
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
 
-    .holographic-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        0deg, 
-        transparent, 
-        transparent 30%, 
-        rgba(8, 181, 80, 0.3)
-      );
-      transform: rotate(-45deg);
-      transition: all 0.5s ease;
-      opacity: 0;
-    }
+/* Transparent table background */
+.table {
+  background-color: transparent !important;
+}
 
-    .holographic-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(7, 232, 146, 0.5);
-    }
+/* Table header soft transparency */
+.table thead {
+  background: rgba(13, 110, 253, 0.9) !important;
+  color: white;
+}
 
-    .holographic-card:hover::before {
-      opacity: 1;
-      transform: rotate(-45deg) translateY(100%);
-    }
+/* Remove default white background from form inputs */
+.form-control {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #ccc;
+}
 
-    /* Custom Styling for Cards to Match Bootstrap Structure */
-    .card.shadow-lg {
-      position: relative;
-    }
+/* Optional: softer cancel button */
+.btn-secondary {
+  background-color: rgba(108, 117, 125, 0.8);
+}
+.square-card {
+  width: 300px; /* smaller fixed size */
+  height: 100px; /* perfect square */
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background: linear-gradient(135deg, #007bff, #00bfff);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
-    .card-body {
-      z-index: 2;
-    }
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.sortable .sort-icons {
+  margin-left: 6px;
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  font-size: 0.7rem;
+  opacity: 0.4;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.sortable:hover .sort-icons {
+  opacity: 0.8;
+}
+
+.sortable .sort-icons i {
+  line-height: 0.7;
+}
+
+.sortable .sort-icons i.active {
+  color: #000;
+  opacity: 1;
+}
+
+.sortable:hover {
+  background-color: rgb(245, 242, 242);
+  transition: background 0.2s ease;
+}
+
+.add-card {
+  transition: all 0.2s ease;
+}
+.add-card:hover {
+  color: #198754;
+  transform: scale(1.05);
+}

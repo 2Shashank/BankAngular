@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Login } from './login/login';
 import { Home } from './home/home';
-import { Adminportal } from './adminportal/adminportal';
-import { Managerportal } from './managerportal/managerportal';
-import { Staffportal } from './staffportal/staffportal';
 import { authguardGuard } from './authguard-guard';
+import { Customerportal } from './customerportal/customerportal';
 
 const routes: Routes = [
   {path:'home',component:Home},
   {path:'login',component:Login},
+  {path:'customer',loadChildren:()=>import('./customerportal/cust/cust-routing-module').then(m => m.CustRoutingModule)},
   {path:'admin',loadChildren:()=>import('./adminroute/adminroute-module').then(m => m.AdminrouteModule),canActivate:[authguardGuard]},
-  {path:'manager',loadChildren:()=>import('./managerrouting-module').then(m => m.ManagerroutingModule)},
-  {path:'staff',loadChildren:() => import('./staffportal/staffrouting-module').then(m=>m.StaffRoutingModule)},
+  {path:'manager',loadChildren:()=>import('./managerrouting-module').then(m => m.ManagerroutingModule),canActivate:[authguardGuard]},
+  {path:'staff',loadChildren:() => import('./staffportal/staffrouting-module').then(m=>m.StaffRoutingModule),canActivate:[authguardGuard]},
+  // {path:'customer',component:Customerportal},
   {path:'',redirectTo:'home',pathMatch:'full'}
 
 ];

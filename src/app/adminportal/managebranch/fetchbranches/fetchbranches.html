@@ -1,4 +1,7 @@
 <div class="table-container">
+  <div>
+    <input type="search" name="search" [(ngModel)]="searchtext" placeholder="Search">
+  </div>
   <h2>Branch Details</h2>
   <table>
     <thead>
@@ -10,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let br of branches">
+      <tr *ngFor="let br of branches | filter:searchtext">
         <td>{{br.branchId}}</td>
         <td>{{br.branchName}}</td>
         <td>{{br.baddress}}</td>

@@ -44,9 +44,9 @@
     <div *ngIf="empRole.invalid && empRole.touched" class="text-danger">
       <small>Role is required.</small>
     </div>
-
+    
     <input type="tel" name="empMobile" placeholder="Mobile Number" pattern="^[0-9]{10}$" required ngModel
-      #empMobile="ngModel">
+    #empMobile="ngModel">
     <div *ngIf="empMobile.invalid && empMobile.touched" class="text-danger">
       <small *ngIf="empMobile.errors?.['required']">Mobile number is required.</small>
       <small *ngIf="empMobile.errors?.['pattern']">Mobile number must be exactly 10 digits.</small>
@@ -58,12 +58,14 @@
       <small *ngIf="empEmail.errors?.['required']">Email is required.</small>
       <small *ngIf="empEmail.errors?.['pattern']">Email domain is @bugb.com</small>
     </div>
-
-    <input type="text" name="branchId" placeholder="Enter Branch ID" ngModel required pattern="^[1-9][0-9]*$"
-      #branchId="ngModel">
-    <div *ngIf="branchId.invalid && branchId.touched" class="text-danger">
-      <small *ngIf="branchId.errors?.['required']">Branch ID is required.</small>
-      <small *ngIf="branchId.errors?.['pattern']">Branch ID must be a positive number.</small>
+    <select name="branchId" required ngModel #empBranch="ngModel">
+      <option value="">-- Select Branch --</option>
+      @for (br of branchDt; track branchId) {
+        <option value="{{br.branchId}}">{{br.branchId}}</option>
+      }
+    </select>
+    <div *ngIf="empBranch.invalid && empBranch.touched" class="text-danger">
+      <small>Role is required.</small>
     </div>
 
     <!-- Submit -->
