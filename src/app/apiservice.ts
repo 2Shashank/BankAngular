@@ -111,7 +111,7 @@ export class Apiservice {
       responseType: 'text',
     });
   }
-  MgetAccountsbyBranch(branchId: any) {
+  MgetAccountsbyBranch() {
     return this.http.get(`${this.url}/Manager/AccountsByBranch`);
   }
   MgetAcc(accno: any) {
@@ -192,4 +192,14 @@ export class Apiservice {
   }
 
   /// Staff services starts ///
+
+  CScheduleTransaction(data:any){
+    return this.http.get(`${this.url}/Customer/ScheduleTransation`,data);
+  }
+  CGetScheduledTransactions(){
+    return this.http.get(`${this.url}/Customer/ScheduledTransactions`)
+  }
+  CSchTranUpdate(update:any){
+
+  }
 }

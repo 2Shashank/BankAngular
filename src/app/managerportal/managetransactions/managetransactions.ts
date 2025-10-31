@@ -51,8 +51,7 @@ export class Managetransactions {
     });
   }
   getAccounts() {
-    const branchId = sessionStorage.getItem('BranchId');
-    this.gt.MgetAccountsbyBranch(branchId).subscribe({
+    this.gt.MgetAccountsbyBranch().subscribe({
       next: (res: any) => {
         console.log(res);
         this.accounts = res;

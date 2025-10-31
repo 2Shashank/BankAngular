@@ -24,8 +24,7 @@ export class Manageaccounts {
 
 
   getAccounts(){
-    const branchId = sessionStorage.getItem('BranchId');
-    this.ac.MgetAccountsbyBranch(branchId).subscribe({
+    this.ac.MgetAccountsbyBranch().subscribe({
       next:(res:any) => {
         console.log(res);
         this.accounts = res;

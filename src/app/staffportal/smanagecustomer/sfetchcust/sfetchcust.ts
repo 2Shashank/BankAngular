@@ -24,7 +24,7 @@ export class Sfetchcust implements OnChanges{
     if(!this.userId){
       alert("Enter valid userid");
     }
-    this.fu.MgetUserByID(this.userId).subscribe({
+    this.fu.SgetUserByID(this.userId).subscribe({
       next: (res)=>{
         this.cust = res;
       },

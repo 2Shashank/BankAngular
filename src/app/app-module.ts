@@ -63,6 +63,8 @@ import { Caccount } from './customerportal/caccount/caccount';
 import { Ctransacs } from './customerportal/ctransacs/ctransacs';
 import { Cfunds } from './customerportal/cfunds/cfunds';
 import { authInterceptor } from './services/auth-interceptor';
+import { Cfutransac } from './customerportal/cfutransac/cfutransac';
+import { Cfcreate } from './customerportal/cfutransac/cfcreate/cfcreate';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -125,7 +127,9 @@ import { authInterceptor } from './services/auth-interceptor';
     Cprofile,
     Caccount,
     Ctransacs,
-    Cfunds
+    Cfunds,
+    Cfutransac,
+    Cfcreate
   ],
   imports: [
     BrowserModule,

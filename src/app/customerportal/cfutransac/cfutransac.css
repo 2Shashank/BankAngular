@@ -1,0 +1,34 @@
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.sortable .sort-icons {
+  margin-left: 6px;
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+  font-size: 0.7rem;
+  opacity: 0.4;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.sortable:hover .sort-icons {
+  opacity: 0.8;
+}
+
+.sortable .sort-icons i {
+  line-height: 0.7;
+}
+
+.sortable .sort-icons i.active {
+  color: #000;
+  opacity: 1;
+}
+
+.sortable:hover {
+  background-color: rgb(245, 242, 242);
+  transition: background 0.2s ease;
+}

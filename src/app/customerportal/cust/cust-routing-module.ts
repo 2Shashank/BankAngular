@@ -6,6 +6,8 @@ import { Cprofile } from '../cprofile/cprofile';
 import { Caccount } from '../caccount/caccount';
 import { Ctransacs } from '../ctransacs/ctransacs';
 import { Cfunds } from '../cfunds/cfunds';
+import { Cfutransac } from '../cfutransac/cfutransac';
+import { Cfcreate } from '../cfutransac/cfcreate/cfcreate';
 
 const routes: Routes = [
   {path:'',component:Customerportal,
@@ -15,6 +17,8 @@ const routes: Routes = [
       {path:'account',component:Caccount},
       {path:'transactions',component:Ctransacs},
       {path:'fund',component:Cfunds},
+      {path:'scheduletransaction',component:Cfutransac},
+      {path:'scheduletransaction/create',component:Cfcreate},
       {path:'',redirectTo:'home',pathMatch:'full'}
     ]
   }

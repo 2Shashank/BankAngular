@@ -1,0 +1,125 @@
+<div class="container py-4">
+  <div class="card shadow-lg p-4 rounded-lg mx-auto" style="max-width: 600px;">
+    <h2 class="text-center mb-4">
+      <i class="bi bi-clock-history text-primary me-2"></i> Schedule Future Transaction
+    </h2>
+
+    <form #txnForm="ngForm" id="txnForm" (ngSubmit)="submit(txnForm)">
+      
+      <!-- Your Account Number -->
+      <div class="form-group mb-3">
+        <label class="form-label">
+          <i class="bi bi-person-badge me-2 text-primary"></i>Your Account Number
+        </label>
+        <input
+          type="text"
+          name="yourAccount"
+          class="form-control"
+          placeholder="Enter your account number"
+          required
+          pattern="^[0-9]{10,16}$"
+          ngModel
+          #yourAccount="ngModel"
+        />
+        <div *ngIf="yourAccount.invalid && yourAccount.touched" class="text-danger mt-1">
+          <small *ngIf="yourAccount.errors?.['required']">Your account number is required.</small>
+          <small *ngIf="yourAccount.errors?.['pattern']">Account number must be 10–16 digits.</small>
+        </div>
+      </div>
+
+      <!-- Receiver's Account Number -->
+      <div class="form-group mb-3">
+        <label class="form-label">
+          <i class="bi bi-person-lines-fill me-2 text-success"></i>Receiver's Account Number
+        </label>
+        <input
+          type="text"
+          name="receiverAccount"
+          class="form-control"
+          placeholder="Enter receiver's account number"
+          required
+          pattern="^[0-9]{10,16}$"
+          ngModel
+          #receiverAccount="ngModel"
+        />
+        <div *ngIf="receiverAccount.invalid && receiverAccount.touched" class="text-danger mt-1">
+          <small *ngIf="receiverAccount.errors?.['required']">Receiver account number is required.</small>
+          <small *ngIf="receiverAccount.errors?.['pattern']">Account number must be 10–16 digits.</small>
+        </div>
+      </div>
+
+      <!-- Amount -->
+      <div class="form-group mb-3">
+        <label class="form-label">
+          <i class="bi bi-currency-rupee me-2 text-warning"></i>Amount
+        </label>
+        <input
+          type="number"
+          name="amount"
+          class="form-control"
+          placeholder="Enter amount"
+          min="1"
+          required
+          ngModel
+          #amount="ngModel"
+        />
+        <div *ngIf="amount.invalid && amount.touched" class="text-danger mt-1">
+          <small *ngIf="amount.errors?.['required']">Amount is required.</small>
+          <small *ngIf="amount.errors?.['min']">Amount must be greater than zero.</small>
+        </div>
+      </div>
+
+      <!-- Scheduling Date and Time -->
+      <div class="form-group mb-3">
+        <label class="form-label">
+          <i class="bi bi-calendar-check me-2 text-info"></i>Scheduling Date & Time
+        </label>
+        <input
+          type="datetime-local"
+          name="scheduleDateTime"
+          class="form-control"
+          required
+          ngModel
+          #scheduleDateTime="ngModel"
+        />
+        <div *ngIf="scheduleDateTime.invalid && scheduleDateTime.touched" class="text-danger mt-1">
+          <small>Scheduling date and time is required.</small>
+        </div>
+      </div>
+
+      <!-- Transaction Password -->
+      <div class="form-group mb-4">
+        <label class="form-label">
+          <i class="bi bi-lock me-2 text-danger"></i>Transaction Password
+        </label>
+        <input
+          type="password"
+          name="txnPassword"
+          class="form-control"
+          placeholder="Enter transaction password"
+          required
+          minlength="4"
+          maxlength="12"
+          ngModel
+          #txnPassword="ngModel"
+        />
+        <div *ngIf="txnPassword.invalid && txnPassword.touched" class="text-danger mt-1">
+          <small *ngIf="txnPassword.errors?.['required']">Transaction password is required.</small>
+          <small *ngIf="txnPassword.errors?.['minlength']">Minimum 4 characters required.</small>
+          <small *ngIf="txnPassword.errors?.['maxlength']">Maximum 12 characters allowed.</small>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg rounded-pill"
+          [disabled]="txnForm.invalid"
+        >
+          <i class="bi bi-check2-circle me-2"></i>Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
