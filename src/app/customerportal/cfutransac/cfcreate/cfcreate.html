@@ -11,19 +11,25 @@
         <label class="form-label">
           <i class="bi bi-person-badge me-2 text-primary"></i>Your Account Number
         </label>
-        <input
+        <!-- <input
           type="text"
-          name="yourAccount"
+          name="fromAcc"
           class="form-control"
           placeholder="Enter your account number"
           required
           pattern="^[0-9]{10,16}$"
           ngModel
-          #yourAccount="ngModel"
-        />
-        <div *ngIf="yourAccount.invalid && yourAccount.touched" class="text-danger mt-1">
-          <small *ngIf="yourAccount.errors?.['required']">Your account number is required.</small>
-          <small *ngIf="yourAccount.errors?.['pattern']">Account number must be 10–16 digits.</small>
+          #fromAcc="ngModel"
+        /> -->
+        <!-- <select name="fromAccountId" id="fromAccountId" class="form-control" required ngModel #fromAccountId="ngModel">
+          <option *ngFor="let acc of accounts" [value]="acc.accNo">{{acc.accNo}}</option>
+        </select> -->
+        <select name="fromAccountId" id="fromAccountId" class="form-control" required ngModel #fromAccountId="ngModel">
+          <option *ngFor="let acc of accounts" [ngValue]="acc.accNo">{{acc.accNo}}</option>
+        </select>
+        <div *ngIf="fromAccountId.invalid && fromAccountId.touched" class="text-danger mt-1">
+          <small *ngIf="fromAccountId.errors?.['required']">Your account number is required.</small>
+          <small *ngIf="fromAccountId.errors?.['pattern']">Account number must be 10-16 digits.</small>
         </div>
       </div>
 
@@ -33,18 +39,18 @@
           <i class="bi bi-person-lines-fill me-2 text-success"></i>Receiver's Account Number
         </label>
         <input
-          type="text"
-          name="receiverAccount"
+          type="number"
+          name="toAccountId"
           class="form-control"
           placeholder="Enter receiver's account number"
           required
-          pattern="^[0-9]{10,16}$"
+          pattern="^[0-9]{7}$"
           ngModel
-          #receiverAccount="ngModel"
+          #toAccountId="ngModel"
         />
-        <div *ngIf="receiverAccount.invalid && receiverAccount.touched" class="text-danger mt-1">
-          <small *ngIf="receiverAccount.errors?.['required']">Receiver account number is required.</small>
-          <small *ngIf="receiverAccount.errors?.['pattern']">Account number must be 10–16 digits.</small>
+        <div *ngIf="toAccountId.invalid && toAccountId.touched" class="text-danger mt-1">
+          <small *ngIf="toAccountId.errors?.['required']">Receiver account number is required.</small>
+          <small *ngIf="toAccountId.errors?.['pattern']">Account number must be 10–16 digits.</small>
         </div>
       </div>
 
@@ -76,13 +82,13 @@
         </label>
         <input
           type="datetime-local"
-          name="scheduleDateTime"
+          name="scheduledTime"
           class="form-control"
           required
           ngModel
-          #scheduleDateTime="ngModel"
+          #scheduledTime="ngModel"
         />
-        <div *ngIf="scheduleDateTime.invalid && scheduleDateTime.touched" class="text-danger mt-1">
+        <div *ngIf="scheduledTime.invalid && scheduledTime.touched" class="text-danger mt-1">
           <small>Scheduling date and time is required.</small>
         </div>
       </div>
@@ -94,19 +100,19 @@
         </label>
         <input
           type="password"
-          name="txnPassword"
+          name="transactionPass"
           class="form-control"
           placeholder="Enter transaction password"
           required
           minlength="4"
           maxlength="12"
           ngModel
-          #txnPassword="ngModel"
+          #transactionPass="ngModel"
         />
-        <div *ngIf="txnPassword.invalid && txnPassword.touched" class="text-danger mt-1">
-          <small *ngIf="txnPassword.errors?.['required']">Transaction password is required.</small>
-          <small *ngIf="txnPassword.errors?.['minlength']">Minimum 4 characters required.</small>
-          <small *ngIf="txnPassword.errors?.['maxlength']">Maximum 12 characters allowed.</small>
+        <div *ngIf="transactionPass.invalid && transactionPass.touched" class="text-danger mt-1">
+          <small *ngIf="transactionPass.errors?.['required']">Transaction password is required.</small>
+          <small *ngIf="transactionPass.errors?.['minlength']">Minimum 4 characters required.</small>
+          <small *ngIf="transactionPass.errors?.['maxlength']">Maximum 12 characters allowed.</small>
         </div>
       </div>
 

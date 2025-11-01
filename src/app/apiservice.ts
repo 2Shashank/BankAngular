@@ -49,7 +49,7 @@ export class Apiservice {
     });
   }
   deleteEmp(id: any) {
-    return this.http.delete(`${this.url}/Admin/RemoveStaff/${id}`, {
+    return this.http.patch(`${this.url}/Admin/RemoveStaff/${id}`, {
       responseType: 'text',
     });
   }
@@ -193,13 +193,31 @@ export class Apiservice {
 
   /// Staff services starts ///
 
+  CGetCustInfo(){
+    return this.http.get(`${this.url}/Customer/GetProfile`);
+  }
+  CUpdateLgPass(password:any){
+    return this.http.patch(`${this.url}/Customer/UpdateLoginPassword`,password,{responseType: 'text'});
+  }
+  CUpdatetxnPass(password:any){
+    return this.http.patch(`${this.url}/Customer/UpdateTransacPassword`,password,{responseType: 'text'})
+  }
+  CGetAccounts(){
+    return this.http.get(`${this.url}/Customer/GetYourAccounts`);
+  }
+  CTxnHistory(){
+    return this.http.get(`${this.url}/Customer/GetTransactionHistory`);
+  }
+  CTransfer(data:any){
+    return this.http.post(`${this.url}/Customer/Transactions/Transfer`,data,{responseType: 'text'})
+  }
   CScheduleTransaction(data:any){
-    return this.http.get(`${this.url}/Customer/ScheduleTransation`,data);
+    return this.http.post(`${this.url}/Customer/ScheduleTransaction`,data);
   }
   CGetScheduledTransactions(){
     return this.http.get(`${this.url}/Customer/ScheduledTransactions`)
   }
-  CSchTranUpdate(update:any){
-
+  CCancelSchTxn(txId:any ,update:any){
+    return this.http.patch(`${this.url}/Customer/CancelScheduledTransaction/${txId}`,update);
   }
 }

@@ -13,6 +13,9 @@ import { Updatebranch } from '../adminportal/managebranch/updatebranch/updatebra
 import { Aupdateemp } from '../adminportal/manageemp/aupdateemp/aupdateemp';
 import { Fetchempbyid } from '../adminportal/manageemp/fetchempbyid/fetchempbyid';
 import { Adeleteemp } from '../adminportal/manageemp/adeleteemp/adeleteemp';
+import { Abin } from '../adminportal/abin/abin';
+import { Aprofile } from '../adminportal/aprofile/aprofile';
+import { Apnf } from '../adminportal/apnf/apnf';
 
 const routes: Routes = [
   {path:'',component:Adminportal,
@@ -20,15 +23,18 @@ const routes: Routes = [
       {path:'home',component:Adminhome},
       {path:'branch',component:Managebranch},
       {path:'emp',component:Manageemp},
-      {path:'branch/addbranch',component:Addbranch},
-      {path:'branch/getbranches',component:Fetchbranches},
-      {path:'branch/updatebranch',component:Updatebranch},
-      {path:'emp/addemp',component:Addemp},
-      {path:'emp/getemps',component:Fetchemps},
-      {path:'emp/getempbyid',component:Fetchempbyid},
-      {path:'emp/updateemp',component:Aupdateemp},
-      {path:'emp/deleteemp',component:Adeleteemp},
-      {path:'',redirectTo:'home',pathMatch:'full'}
+      // {path:'branch/addbranch',component:Addbranch},
+      // {path:'branch/getbranches',component:Fetchbranches},
+      // {path:'branch/updatebranch',component:Updatebranch},
+      // {path:'emp/addemp',component:Addemp},
+      // {path:'emp/getemps',component:Fetchemps},
+      // {path:'emp/getempbyid',component:Fetchempbyid},
+      // {path:'emp/updateemp',component:Aupdateemp},
+      // {path:'emp/deleteemp',component:Adeleteemp},
+      {path:'bin',component:Abin},
+      {path:'profile',component:Aprofile},
+      {path:'',redirectTo:'home',pathMatch:'full'},
+      {path:'**',component:Apnf}
 
 
     ]

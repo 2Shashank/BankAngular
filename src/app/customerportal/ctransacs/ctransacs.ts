@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Apiservice } from '../../apiservice';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bbb-ctransacs',
@@ -12,6 +14,17 @@ export class Ctransacs {
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
+  constructor(private api:Apiservice,r:Router ) {
+    api.CTxnHistory().subscribe({
+      next:(res:any) => {
+        this.transacs = res;
+      },
+      error: (err) => {
+        console.error("Error fetching transactions",err);
+        r.navigate(['customer']);
+      }
+    })
+  }
 
   sortData(column: string) {
     if (this.sortColumn === column) {
@@ -30,4 +43,23 @@ export class Ctransacs {
       return 0;
     });
   }
+
+  currentPage: number = 1;
+itemsPerPage: number = 10;
+
+get paginatedTransactions() {
+  const start = (this.currentPage - 1) * this.itemsPerPage;
+  const end = start + this.itemsPerPage;
+  return this.transacs.slice(start, end);
+}
+
+get totalPages(): number {
+  return Math.ceil(this.transacs.length / this.itemsPerPage);
+}
+
+changePage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+  }
+}
 }

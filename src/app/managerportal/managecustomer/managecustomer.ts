@@ -94,4 +94,8 @@ export class Managecustomer {
     this.selectedUserId = userId;
     this.activeView = 'fetchUser';
   }
+  openUpdateView(userId:number){
+    this.selectedUserId = userId;
+    this.activeView = 'updateUser';
+  }
 }

@@ -21,6 +21,8 @@ import { Mcreatetransac } from './managerportal/managetransactions/mcreatetransa
 import { Mfetchtransac } from './managerportal/managetransactions/mfetchtransac/mfetchtransac';
 import { Mgettransacs } from './managerportal/managetransactions/mgettransacs/mgettransacs';
 import { Mdeletetransac } from './managerportal/managetransactions/mdeletetransac/mdeletetransac';
+import { Mprofile } from './managerportal/mprofile/mprofile';
+import { Mpnf } from './managerportal/mpnf/mpnf';
 
 const routes: Routes = [
   {path:'',component:Managerportal,
@@ -29,23 +31,25 @@ const routes: Routes = [
     {path:'customers',component:Managecustomer},
     {path:'accounts',component:Manageaccounts},
     {path:'employees',component:Mmanageemp},
-    {path:'customers/add',component:Createuser},
-    {path:'customers/update',component:Updatecust},
-    {path:'customers/delete',component:Deletecustomer},
-    {path:'customers/getall',component:Getcusts},
-    {path:'customers/fetchcust',component:Fetchcustomer},
-    {path:'accounts/create',component:Createaccount},
-    {path:'accounts/get',component:Fetchaccount},
-    {path:'accounts/update',component:Updateaccount},
-    {path:'employees/getemps',component:Getallemps},
-    {path:'employees/fetchemp',component:Fetchemp},
+    // {path:'customers/add',component:Createuser},
+    // {path:'customers/update',component:Updatecust},
+    // {path:'customers/delete',component:Deletecustomer},
+    // {path:'customers/getall',component:Getcusts},
+    // {path:'customers/fetchcust',component:Fetchcustomer},
+    // {path:'accounts/create',component:Createaccount},
+    // {path:'accounts/get',component:Fetchaccount},
+    // {path:'accounts/update',component:Updateaccount},
+    // {path:'employees/getemps',component:Getallemps},
+    // {path:'employees/fetchemp',component:Fetchemp},
     {path:'transactions',component:Managetransactions},
-    {path:'transactions/createtransfer',component:Mcreatetransfer},
-    {path:'transactions/createtransac',component:Mcreatetransac},
-    {path:'transactions/fetch',component:Mfetchtransac},
-    {path:'transactions/getall',component:Mgettransacs},
-    {path:'transactions/delete',component:Mdeletetransac},
-    {path:'',redirectTo:'home',pathMatch:'full'}
+    // {path:'transactions/createtransfer',component:Mcreatetransfer},
+    // {path:'transactions/createtransac',component:Mcreatetransac},
+    // {path:'transactions/fetch',component:Mfetchtransac},
+    // {path:'transactions/getall',component:Mgettransacs},
+    // {path:'transactions/delete',component:Mdeletetransac},
+    {path:'profile',component:Mprofile},
+    {path:'',redirectTo:'home',pathMatch:'full'},
+    {path:'**',component:Mpnf}
   ]}
 ]
 

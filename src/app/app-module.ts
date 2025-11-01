@@ -65,6 +65,14 @@ import { Cfunds } from './customerportal/cfunds/cfunds';
 import { authInterceptor } from './services/auth-interceptor';
 import { Cfutransac } from './customerportal/cfutransac/cfutransac';
 import { Cfcreate } from './customerportal/cfutransac/cfcreate/cfcreate';
+import { Custlogin } from './login/custlogin/custlogin';
+import { Abin } from './adminportal/abin/abin';
+import { Aprofile } from './adminportal/aprofile/aprofile';
+import { Mprofile } from './managerportal/mprofile/mprofile';
+import { Sprofile } from './staffportal/sprofile/sprofile';
+import { Spnf } from './staffportal/spnf/spnf';
+import { Mpnf } from './managerportal/mpnf/mpnf';
+import { Apnf } from './adminportal/apnf/apnf';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -129,7 +137,15 @@ import { Cfcreate } from './customerportal/cfutransac/cfcreate/cfcreate';
     Ctransacs,
     Cfunds,
     Cfutransac,
-    Cfcreate
+    Cfcreate,
+    Custlogin,
+    Abin,
+    Aprofile,
+    Mprofile,
+    Sprofile,
+    Spnf,
+    Mpnf,
+    Apnf
   ],
   imports: [
     BrowserModule,

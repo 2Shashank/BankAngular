@@ -4,9 +4,7 @@
       <!-- Header -->
       <div class="card shadow mb-4">
         <div class="card-header bg-primary text-white d-flex align-items-center">
-          <h3 class="mb-0">
-            <i class="bi bi-bank"></i> My Accounts
-          </h3>
+          <h3 class="mb-0"><i class="bi bi-bank"></i> My Accounts</h3>
         </div>
 
         <!-- List of Accounts in Grid Layout -->
@@ -20,27 +18,27 @@
                 <div class="card-body d-flex flex-column">
                   <div class="d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">
-                      <i class="bi bi-credit-card"></i> {{ account.AccNo }}
+                      <i class="bi bi-credit-card"></i> {{ account.accNo }}
                     </h5>
                     <span
                       class="badge"
                       [ngClass]="{
-                        'bg-success': account.AccountStatus === 'Active',
-                        'bg-secondary': account.AccountStatus !== 'Active'
+                        'bg-success': account.accountStatus === 'Active',
+                        'bg-secondary': account.accountStatus !== 'Active'
                       }"
                     >
-                      {{ account.AccountStatus }}
+                      {{ account.accountStatus }}
                     </span>
                   </div>
 
                   <p class="card-text mt-2">
-                    <strong>Type:</strong> {{ account.AccType }}<br />
-                    <strong>Balance:</strong> ₹{{ account.Balance }}
+                    <strong>Type:</strong> {{ account.accType }}<br />
+                    <strong>Balance:</strong> {{ account.balance | currency : 'INR' }}
                   </p>
 
                   <div class="mt-auto">
                     <small class="text-muted">
-                      Joined on: {{ account.DateOfJoining | date: 'dd/MM/yyyy' }}
+                      Joined on: {{ account.dateOfJoining | date : 'dd/MM/yyyy' }}
                     </small>
                   </div>
                 </div>
@@ -53,21 +51,25 @@
       <!-- Selected Account Details -->
       <div class="card shadow mb-4" *ngIf="selectedAccount">
         <div class="card-header bg-primary text-white">
-          <h4 class="mb-0">
-            <i class="bi bi-card-list"></i> Account Details
-          </h4>
+          <h4 class="mb-0"><i class="bi bi-card-list"></i> Account Details</h4>
         </div>
 
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
-              <p><strong>Account No:</strong> {{ selectedAccount.AccNo }}</p>
-              <p><strong>Type:</strong> {{ selectedAccount.AccType }}</p>
-              <p><strong>Status:</strong> {{ selectedAccount.AccountStatus }}</p>
-              <p><strong>Date Joined:</strong> {{ selectedAccount.DateOfJoining | date: 'dd/MM/yyyy' }}</p>
+              <p><strong>Account No:</strong> {{ selectedAccount.accNo }}</p>
+              <p><strong>Type:</strong> {{ selectedAccount.accType }}</p>
+              <p><strong>Status:</strong> {{ selectedAccount.accountStatus }}</p>
+              <p>
+                <strong>Date Joined:</strong>
+                {{ selectedAccount.dateOfJoining | date : 'dd/MM/yyyy' }}
+              </p>
             </div>
             <div class="col-md-6">
-              <p><strong>Balance:</strong> ₹{{ selectedAccount.Balance }}</p>
+              <p><strong>IFSC Code:</strong> {{ selectedAccount.ifscCode }}</p>
+              <p><strong>Balance:</strong> {{ selectedAccount.balance | currency : 'INR' }}</p>
+              <p><strong>Branch Name:</strong> {{ selectedAccount.branchName }}</p>
+              <p><strong>Branch Address:</strong> {{ selectedAccount.branchAddress }}</p>
             </div>
           </div>
 
@@ -77,16 +79,43 @@
             <table class="table table-bordered table-sm">
               <thead class="table-light">
                 <tr>
+                  <th>Ref ID</th>
                   <th>Date</th>
                   <th>Type</th>
+                  <th>From Acc</th>
+                  <th>To Acc</th>
                   <th>Amount</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let tx of transactions">
-                  <td>{{ tx.date | date: 'dd/MM/yyyy' }}</td>
-                  <td>{{ tx.type }}</td>
-                  <td>₹{{ tx.amount }}</td>
+                  <td>{{ tx.transacId }}</td>
+                  <td>{{ tx.timeStamps | date : 'dd/MM/yyyy  mm:HH a' }}</td>
+                  <td>{{ tx.transacType }}</td>
+                  <td>{{ tx.accNo }}</td>
+                  <td>{{ tx.toAcc }}</td>
+                  <!-- <td>{{ tx.amount | currency:'INR' }}</td> -->
+
+                  <td>
+                    {{ tx.amount | currency : 'INR' }}
+                    <span
+                      [ngClass]="{
+                        'text-success fw-semibold': tx.type === 'Credit',
+                        'text-danger fw-semibold': tx.type === 'Debit'
+                      }"
+                    >
+                      <i
+                        class="bi"
+                        [ngClass]="{
+                          'bi-arrow-down-circle-fill': tx.type === 'Credit',
+                          'bi-arrow-up-circle-fill': tx.type === 'Debit'
+                        }"
+                        style="font-size: 1rem; margin-left: 4px"
+                      ></i>
+                    </span>
+                  </td>
+                  <td>{{ tx.transacStatus }}</td>
                 </tr>
               </tbody>
             </table>

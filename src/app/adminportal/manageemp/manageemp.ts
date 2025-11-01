@@ -28,6 +28,7 @@ export class Manageemp implements OnInit{
   }
   ngOnInit(): void {
     this.getBranches();
+    this.loadEmps();
   }
 
   navigate(link: string) {
@@ -43,6 +44,7 @@ export class Manageemp implements OnInit{
 
   getEmployees() {
     if (!this.branchId || this.branchId < 0) {
+      this.loadEmps();
       alert('Please enter a valid Emp ID');
       return;
     }
@@ -59,7 +61,21 @@ export class Manageemp implements OnInit{
       },
     });
   }
-  deleteEmp(stfId: any) {}
+  deleteEmp(stfId: any) {
+    const confirmDelete = confirm("Are you sure you want to delete?");
+    if(!confirmDelete){
+      return;
+    }
+    this.femp.deleteEmp(stfId).subscribe({
+      next:(res) => {
+        alert("Deleted successfully");
+        this.getEmployees();
+      },
+      error : (err) => {
+        console.error("Somthing went wrong",err);
+      }
+    })
+  }
 
   sortData(column: string) {
     if (this.sortColumn === column) {
@@ -77,6 +93,17 @@ export class Manageemp implements OnInit{
       if (valA > valB) return this.sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
+  }
+  loadEmps(){
+    this.femp.listAllEmp().subscribe({
+      next: (res:any) => {
+        console.log(res);
+        this.employees = res;
+      },
+      error:(err) => {
+        console.error("Somthing went wrong",err);
+      }
+    })
   }
 
   saveEmp(emp: any) {
@@ -130,10 +157,40 @@ export class Manageemp implements OnInit{
       }
     });
   }
-  // branchDt = [
-  //   { branchId: 101, branchName: 'Main Branch' },
-  //   { branchId: 102, branchName: 'North Branch' },
-  //   { branchId: 103, branchName: 'South Branch' }
-  // ];
+  
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  get paginatedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.employees.slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.employees.length / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  private branchChangeTimeout: any;
+
+onBranchChange(value: any) {
+  clearTimeout(this.branchChangeTimeout);
+
+  this.branchChangeTimeout = setTimeout(() => {
+    if (!value || value <= 0) {
+      // If branchId is cleared or invalid — load all employees again
+      this.loadEmps();
+    } else {
+      // Otherwise, fetch employees of that branch
+      this.getEmployees();
+    }
+  }, 500); // 500ms debounce to prevent multiple calls while typing
+}
 
 }

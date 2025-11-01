@@ -1,7 +1,6 @@
-
 .square-card {
-  width: 200px; /* smaller fixed size */
-  height: 200px; /* perfect square */
+  width: 250px; /* smaller fixed size */
+  height: 100px; /* perfect square */
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -12,102 +11,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(135deg, #007bff, #00bfff);
   color: #fff;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-
-
-/* Unique background colors for each card */
-.square-card:nth-child(1) {
-  background: linear-gradient(135deg, #007bff, #00bfff); /* Blue */
-}
-.square-card:nth-child(2) {
-  background: linear-gradient(135deg, #28a745, #85e085); /* Green */
-}
-.square-card:nth-child(3) {
-  background: linear-gradient(135deg, #ffc107, #ffda6a); /* Yellow */
-  color: #333;
-}
-.square-card:nth-child(4) {
-  background: linear-gradient(135deg, #fd7e14, #ffb86c); /* Orange */
-}
-.square-card:nth-child(5) {
-  background: linear-gradient(135deg, #dc3545, #ff6b81); /* Red */
-}
-
-.square-card:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-}
-
-.icon-wrapper {
-  font-size: 2rem;
-  margin-bottom: 8px;
-  transition: transform 0.3s ease;
-}
-
-.square-card:hover .icon-wrapper {
-  transform: scale(1.2) rotate(8deg);
-}
-
-h6 {
-  font-size: 0.85rem;
-  margin: 0;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.holographic-card {
-  width: 18rem;
-  height: auto;
-  background: #111;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  border-radius: 15px;
-  transition: all 0.5s ease;
-}
-
-.holographic-card h5 {
-  color: rgb(2, 58, 58);
-  font-size: 1.5rem;
-  position: relative;
-  z-index: 2;
-}
-
-.holographic-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(0deg, transparent, transparent 30%, rgba(8, 181, 80, 0.3));
-  transform: rotate(-45deg);
-  transition: all 0.5s ease;
-  opacity: 0;
-}
-
-.holographic-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(7, 232, 146, 0.5);
-}
-
-.holographic-card:hover::before {
-  opacity: 1;
-  transform: rotate(-45deg) translateY(100%);
-}
-
-/* Custom Styling for Cards to Match Bootstrap Structure */
-.card.shadow-lg {
-  position: relative;
-}
-
-.card-body {
-  z-index: 2;
 }
 
 .sortable {

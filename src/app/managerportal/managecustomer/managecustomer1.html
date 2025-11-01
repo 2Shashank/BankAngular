@@ -11,15 +11,15 @@
 
       <!-- Employee Table Section -->
       <div class="row gx-5 gy-4 mb-5 card shadow border-0 p-4">
-        <nav class="container navbar" style="max-width: 500px;">
-          <button (click)="show('table')" class="btn btn-outline-primary mb-2">Customer details</button>
-          <button (click)="show('createUser')" class="btn btn-outline-primary mb-2">
+        <nav class="container navbar" style="max-width: 80%;">
+          <button (click)="show('table')" class="btn square-card mb-2">Customer details</button>
+          <button (click)="show('createUser')" class="btn square-card mb-2">
             Create User
           </button>
-          <button (click)="show('updateUser')" class="btn btn-outline-primary mb-2">
+          <button (click)="show('updateUser')" class="btn square-card mb-2">
             Update User
           </button>
-          <button (click)="show('fetchUser')" class="btn btn-outline-primary mb-2">
+          <button (click)="show('fetchUser')" class="btn square-card mb-2">
             Fetch User
           </button>
           
@@ -176,12 +176,17 @@
                   
 
                   <td class="text-center">
-                    <button
+                    <!-- <button
                       *ngIf="editId !== cust.userId"
                       class="btn btn-sm btn-warning me-2"
                       (click)="editId = cust.userId"
                     >
                       <i class="bi bi-pencil-square"></i> Edit
+                    </button> -->
+                    <button class="btn btn-sm btn-warning me-2"
+                    (click)="openUpdateView(cust.userId)"
+                    >
+                    <i class="bi bi-pencil-square"></i> Edit
                     </button>
                     <button
                       *ngIf="editId === cust.userId"
@@ -219,7 +224,7 @@
           <bbb-createuser (createSuccess)="onSuccessCreate()"></bbb-createuser>
         </div>
         <div *ngIf="activeView === 'updateUser'" class="card-body">
-          <bbb-updatecust (updateSuccess)="onSuccessUpdate()"></bbb-updatecust>
+          <bbb-updatecust [userId]="selectedUserId" (updateSuccess)="onSuccessUpdate()"></bbb-updatecust>
         </div>
         <div *ngIf="activeView === 'fetchUser'" class="card-body">
           <bbb-fetchcustomer [userId]="selectedUserId"></bbb-fetchcustomer>

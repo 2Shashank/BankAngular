@@ -10,12 +10,12 @@ export class authguardGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     console.log("Auth guard");
-    const empId = sessionStorage.getItem('EmpId');
+    const userId = sessionStorage.getItem('EmpId');
     const role = sessionStorage.getItem('Role');
 
-    if (!empId || !role) {
+    if (!userId || !role) {
       alert('Please login first.');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
       return false;
     }
 
@@ -24,9 +24,10 @@ export class authguardGuard implements CanActivate {
     if (role === 'BankAdmin' && currentPath.startsWith('/admin')) return true;
     if (role === 'BranchManager' && currentPath.startsWith('/manager')) return true;
     if (role === 'Staff' && currentPath.startsWith('/staff')) return true;
+    if (role === 'Customer' && currentPath.startsWith('/customer')) return true;
 
     alert('Access denied for this role.');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/home']);
     return false;
   }
 }

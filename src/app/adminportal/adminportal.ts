@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   // styleUrl: './adminportal.css'
 })
 export class Adminportal {
+  User:any = {"empId" : 100000,'empName':'Sam',"empRole":"BankAdmin",'empMobile':'6965845353','empEmail':'sam.admin@bugb.com','branchId':1,'branchName':'KPMG','bAddress':'Eco World'};
   constructor(private api: Apiservice, private router: Router) {}
 
   AdminLogout() {

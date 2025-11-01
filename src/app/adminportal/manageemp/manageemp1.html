@@ -190,21 +190,33 @@
           </div>
           <div>
             <!-- <div class="col-md-3"> -->
-            <label class="form-label fw-bold">Enter Branch ID:</label>
+            <label class="form-label fw-bold">Select Branch ID:</label>
             <div class="row mb-4 align-items-center">
               <div class="col-3">
-                <input
+                <!-- <input
                   type="number"
                   class="form-control"
                   [(ngModel)]="branchId"
                   placeholder="Enter Branch ID"
-                />
+                /> -->
+                <!-- <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="branchId"
+                (ngModelChange)="onBranchChange($event)"
+                placeholder="Enter Branch ID"
+              /> -->
+              <select [(ngModel)]="branchId"
+                (ngModelChange)="onBranchChange($event)" class="form-control">
+                <option *ngFor="let br of branchDt" [value]="br.branchId"  >{{br.branchId}}  {{br.branchName}}</option>
+              </select>
               </div>
               <div class="col-3">
-                <button class="btn btn-primary w-100" (click)="getEmployees()">
-                  Get Employees
+                <button class="btn btn-primary w-100" (click)="loadEmps()">
+                  All Employees
                 </button>
               </div>
+              
             </div>
             <!-- <div class="col-md-2 mt-3 mt-md-4">
               <button class="btn btn-primary w-100" (click)="getEmployees()">Get Employees</button>
@@ -325,8 +337,8 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let emp of employees | filter : searchtext">
-                  <td>{{ emp.empID }}</td>
+                <tr *ngFor="let emp of paginatedData | filter : searchtext">
+                  <td>{{ emp.empID }}{{ emp.empId }}</td>
 
                   <td *ngIf="editId !== emp.empID">{{ emp.empName }}</td>
                   <td *ngIf="editId === emp.empID">
@@ -431,21 +443,21 @@
                       [ngClass]="{ 'is-invalid': branchIdEdit.invalid && branchIdEdit.touched }"
                     /> -->
                     <select
-                    id="branchId"
-                    name="branchId"
-                    class="form-select"
-                    required
-                    [(ngModel)]="emp.branchId"
-                    #branchIdEdit="ngModel"
-                    [ngClass]="{
-                      'is-invalid': branchIdEdit.invalid && branchIdEdit.touched,
-                      'is-valid': branchIdEdit.valid && branchIdEdit.touched
-                    }"
-                  >
-                    @for (br of branchDt; track br.branchId) {
-                    <option [value]="br.branchId">{{ br.branchId }} ({{ br.branchName }})</option>
-                    }
-                  </select>
+                      id="branchId"
+                      name="branchId"
+                      class="form-select"
+                      required
+                      [(ngModel)]="emp.branchId"
+                      #branchIdEdit="ngModel"
+                      [ngClass]="{
+                        'is-invalid': branchIdEdit.invalid && branchIdEdit.touched,
+                        'is-valid': branchIdEdit.valid && branchIdEdit.touched
+                      }"
+                    >
+                      @for (br of branchDt; track br.branchId) {
+                      <option [value]="br.branchId">{{ br.branchId }} ({{ br.branchName }})</option>
+                      }
+                    </select>
                     <div
                       *ngIf="branchIdEdit.invalid && branchIdEdit.touched"
                       class="invalid-feedback d-block"
@@ -458,14 +470,21 @@
                     <button
                       *ngIf="editId !== emp.empID"
                       class="btn btn-sm btn-warning me-2"
+                      [disabled]="emp.empId"
                       (click)="editId = emp.empID"
                     >
                       <i class="bi bi-pencil-square"></i> Edit
                     </button>
                     <button
                       *ngIf="editId === emp.empID"
-                      class="btn btn-sm btn-success" 
-                      [disabled]="emp.empNameEdit.invalid || emp.empRoleEdit.invalid || emp.empMobileEdit.invalid || emp.empEmailEdit.invalid || emp.branchIdEdit.invalid"
+                      class="btn btn-sm btn-success"
+                      [disabled]="
+                        emp.empNameEdit.invalid ||
+                        emp.empRoleEdit.invalid ||
+                        emp.empMobileEdit.invalid ||
+                        emp.empEmailEdit.invalid ||
+                        emp.branchIdEdit.invalid
+                      "
                       (click)="saveEmp(emp)"
                     >
                       <i class="bi bi-check-circle"></i> Save
@@ -488,6 +507,25 @@
                 </tr>
               </tbody>
             </table>
+            <nav *ngIf="employees.length > 0" class="mt-3 d-flex justify-content-center">
+              <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+                </li>
+
+                <li
+                  class="page-item"
+                  *ngFor="let p of [].constructor(totalPages); let i = index"
+                  [class.active]="i + 1 === currentPage"
+                >
+                  <button class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+                </li>
+              </ul>
+            </nav>
           </div>
 
           <!-- No Data Template -->

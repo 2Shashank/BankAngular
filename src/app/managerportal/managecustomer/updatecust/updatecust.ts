@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Apiservice } from '../../../apiservice';
 import { Router } from '@angular/router';
@@ -9,12 +9,18 @@ import { Router } from '@angular/router';
   templateUrl: './updatecust.html',
   // styleUrl: './updatecust.css'
 })
-export class Updatecust {
-  userId:number = 0;
+export class Updatecust implements OnChanges{
+  userId1:number = 0;
   user:any;
   @Output() updateSuccess = new EventEmitter<void>();
+  @Input() userId: number | null = null
   constructor(private uu:Apiservice,private router:Router) {
     
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+      if (changes['userId'] && this.userId !== null){
+        this.getUser();
+      }
   }
   getUser(){
     if(!this.userId || this.userId < 0){
@@ -46,6 +52,10 @@ export class Updatecust {
         alert("Error occured while updating");
       }
     });
+  }
+  Cancel(){
+    this.updateSuccess.emit();
+    this.userId = null;
   }
   
 }

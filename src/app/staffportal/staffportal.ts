@@ -10,6 +10,7 @@ import { Apiservice } from '../apiservice';
   styleUrl: './staffportal.css'
 })
 export class Staffportal {
+  User:any = {"empId" : 100000,'empName':'Shashank',"empRole":"Staff",'empMobile':'6965845353','empEmail':'shashank.staff@bugb.com','branchId':2,'branchName':'KPMG2','bAddress':'Eco World'};
 constructor(private api:Apiservice,private router:Router){}
   StaffLogout() {
     const confirmLogout = confirm("Are you sure you want to logout?");

@@ -1,0 +1,112 @@
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<div class="min-vh-100 d-flex align-items-center justify-content-center" style="background: transparent">
+  <div class="container">
+    <!-- <div class="bubbles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div> -->
+  <div class="row justify-content-center">
+    <div class="col-md-5 col-lg-4">
+        
+        <!-- Card -->
+        <div class="card border-0 shadow-lg">
+          <div class="card-body p-5">
+            
+            <!-- Header -->
+            <h1 class="text-center mb-4 fw-bold text-primary">
+              <i class='bx bxs-lock-open fs-1'></i><br>Welcome
+            </h1>
+            
+            <!-- Form -->
+            <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)">
+              
+              <!-- Employee ID -->
+              <div class="mb-3">
+                <label for="userId" class="form-label fw-semibold">Customer ID</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-0">
+                    <i class='bx bxs-user text-primary'></i>
+                  </span>
+                  <input 
+                    type="text"
+                    id="userId"
+                    name="userId"
+                    ngModel
+                    placeholder="Enter your Customer ID"
+                    required
+                    min="100"
+                    pattern="^[0-9]*$"
+                    #userId="ngModel"
+                    class="form-control border-0"
+                    [class.is-invalid]="userId.invalid && userId.touched">
+                </div>
+                
+                <!-- Validation Messages -->
+                <div *ngIf="userId.invalid && userId.touched" class="invalid-feedback d-block mt-2">
+                  <small *ngIf="userId.errors?.['required']">
+                    <i class='bx bxs-error-circle'></i> Customer ID is required.
+                  </small>
+                  <small *ngIf="userId.errors?.['min']" class="d-block">
+                    <i class='bx bxs-error-circle'></i> Customer ID must be valid.
+                  </small>
+                  <small *ngIf="userId.errors?.['pattern']" class="d-block">
+                    <i class='bx bxs-error-circle'></i> Only numbers are allowed.
+                  </small>
+                </div>
+              </div>
+              
+              <!-- Password -->
+              <div class="mb-4">
+                <label for="password" class="form-label fw-semibold">Password</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-0">
+                    <i class='bx bxs-lock-alt text-primary'></i>
+                  </span>
+                  <input 
+                    type="password" 
+                    id="password"
+                    name="Password" 
+                    ngModel 
+                    placeholder="Enter your password"
+                    required
+                    class="form-control border-0"
+                    #password="ngModel"
+                    [class.is-invalid]="password.invalid && password.touched">
+                </div>
+                <div *ngIf="password.invalid && password.touched" class="invalid-feedback d-block mt-2">
+                  <small><i class='bx bxs-error-circle'></i> Password is required.</small>
+                </div>
+              </div>
+              
+              <!-- Sign In Button -->
+              <button 
+                type="submit" 
+                [disabled]="loginForm.invalid"
+                class="btn btn-primary w-100 fw-semibold py-2 mb-3">
+                <i class='bx bxs-right-arrow-alt'></i> Sign In
+              </button>
+              
+              <!-- Forgot Password Link -->
+              <div class="text-center">
+                <a href="#" class="text-decoration-none text-primary fw-semibold">
+                  Forgot Password?
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Footer Text -->
+        <p class="text-center text-white mt-4">
+          Don't have an account? <a href="#" class="text-white fw-bold text-decoration-none">Sign up</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

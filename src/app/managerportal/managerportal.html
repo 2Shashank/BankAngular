@@ -26,9 +26,46 @@
     </div>
   </div>
 
-  <button class="btn btn-outline-danger btn-sm px-3" (click)="ManagerLogout()">
+  <!-- <button class="btn btn-outline-danger btn-sm px-3" (click)="ManagerLogout()">
     <i class="bi bi-box-arrow-right me-1"></i> Logout
-  </button>
+  </button> -->
+  <div *ngIf="User" class="dropdown">
+    <button
+      class="btn d-flex align-items-center border-0 bg-transparent"
+      type="button"
+      id="profileDropdown"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <div
+        class="rounded-circle bg-primary text-white fw-bold d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px; font-size: 18px;"
+      >
+        {{ User?.empName?.charAt(0)?.toUpperCase() || '?' }}
+      </div>
+      <span class="ms-2 fw-semibold text-dark">
+        {{ User?.empName || 'User' }}
+      </span>
+      <i class="bi bi-caret-down-fill ms-2 text-muted small"></i>
+    </button>
+
+    <ul
+      class="dropdown-menu dropdown-menu-end shadow-sm mt-2"
+      aria-labelledby="profileDropdown"
+    >
+      <li>
+        <a class="dropdown-item d-flex align-items-center" routerLink="profile">
+          <i class="bi bi-person me-2"></i> View Profile
+        </a>
+      </li>
+      <li><hr class="dropdown-divider" /></li>
+      <li>
+        <button class="dropdown-item d-flex align-items-center text-danger" (click)="ManagerLogout()">
+          <i class="bi bi-box-arrow-right me-2"></i> Logout
+        </button>
+      </li>
+    </ul>
+  </div>
 </header>
 
 <div class="d-flex" style="margin-top: 64px; min-height: calc(100vh - 64px)">
@@ -48,6 +85,13 @@
           class="nav-link d-flex align-items-center rounded py-1 px-3 mb-4 text-dark fw-semibold fs-6"
         >
           <i class="bi bi-speedometer2 me-3 fs-5"></i> Dashboard
+        </a>
+        <a
+          routerLink="profile"
+          routerLinkActive="active bg-primary text-white"
+          class="nav-link d-flex align-items-center rounded py-1 px-3 mb-4 text-dark fw-semibold fs-6"
+        >
+          <i class="bi bi-speedometer2 me-3 fs-5"></i> Profile
         </a>
         <!-- Management Section -->
         <h6 class="text-uppercase text-secondary fw-bold small mb-3 ps-2">Management</h6>

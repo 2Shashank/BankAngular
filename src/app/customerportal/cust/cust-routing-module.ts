@@ -16,7 +16,7 @@ const routes: Routes = [
       {path:'profile',component:Cprofile},
       {path:'account',component:Caccount},
       {path:'transactions',component:Ctransacs},
-      {path:'fund',component:Cfunds},
+      {path:'transfer',component:Cfunds},
       {path:'scheduletransaction',component:Cfutransac},
       {path:'scheduletransaction/create',component:Cfcreate},
       {path:'',redirectTo:'home',pathMatch:'full'}
