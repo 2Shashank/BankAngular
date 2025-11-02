@@ -17,9 +17,10 @@ export class Screatecust {
   submit(userForm: NgForm){
     console.log(userForm.value);
     this.au.SaddUser(userForm.value).subscribe({
-      next: (res) =>{
+      next: (res:any) =>{
         // alert("User created successfully");
-        this.toast.show('User created successfully','success');
+        let msg = `${res.message} UserId: ${res.userDetails.userId}\n Password: ${res.userDetails.loginPassword}`;
+        this.toast.show( msg ||'User created successfully','success');
         this.createSuccess.emit();
       },
       error: (err) => {

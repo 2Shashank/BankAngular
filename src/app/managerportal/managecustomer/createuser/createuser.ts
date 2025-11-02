@@ -18,16 +18,18 @@ export class Createuser {
     this.au.MaddUser(userForm.value).subscribe({
       next: (res:any) =>{
         // alert("User created successfully");
-        this.toast.show(res.message ||"User succesfully created",'success')
+        let msg = `${res.message} UserId: ${res.userDetails.userId}\n Password: ${res.userDetails.loginPassword}`;
+        this.toast.show(msg ||"User succesfully created",'success');
+        userForm.resetForm();
         this.createSuccess.emit();
       },
       error: (err) => {
         console.error("Error adding users",err);
         // alert("Error creating user");
-        this.toast.show('Error creating user','danger');
+        this.toast.show( err.error?.message || 'Error creating user','danger');
       }
-    })
-    userForm.resetForm();
+    });
+    
   }
   
 

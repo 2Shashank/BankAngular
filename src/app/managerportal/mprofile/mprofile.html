@@ -74,7 +74,7 @@
         <div class="mb-3 row">
           <label class="col-sm-3 col-form-label fw-bold">Branch Address</label>
           <div class="col-sm-9">
-            <textarea class="form-control" rows="2" [(ngModel)]="User.bAddress" name="bAddress" [readonly]="!isEditing"></textarea>
+            <textarea class="form-control" rows="2" [(ngModel)]="User.branchAddress" name="bAddress" [readonly]="!isEditing"></textarea>
           </div>
         </div>
 
@@ -100,7 +100,7 @@
       <form>
         <div class="mb-3">
           <label class="form-label fw-bold">Old Password</label>
-          <input type="password" class="form-control" [(ngModel)]="passwordData.oldPassword" name="oldPassword" />
+          <input type="password" class="form-control" [(ngModel)]="passwordData.previousPassword" name="oldPassword" />
         </div>
 
         <div class="mb-3">

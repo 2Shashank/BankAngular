@@ -18,15 +18,15 @@ export class Mcreatetransac {
   submit(fdt:NgForm){
     console.log(fdt.value);
     this.ct.MdoTransCreditorDebit(fdt.value).subscribe({
-      next:(res)=>{
+      next:(res:any)=>{
         // alert("Transaction successfully completed");
-        this.toast.show('Transaction successfully completed','success');
+        this.toast.show(res.message||'Transaction successfully completed','success');
         this.transacStat.emit();
         // this.router.navigate(['/manager/transactions'])
       },
       error: (err)=>{
         // alert("May be you gave invalid \naccount number :"+fdt.value.AccNo+" or \ninvalid amount :"+fdt.value.Amount);
-        this.toast.show('Some error occured, check properly','danger');
+        this.toast.show( err.error?.message||'Some error occured, check properly','danger');
         console.error("Error creating transactions");
       }
 

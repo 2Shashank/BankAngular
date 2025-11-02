@@ -29,7 +29,7 @@ export class Managetransactions {
     this.gt.MgetTransofAcc(this.accNo).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.transacs = res;
+        this.transacs = res.transactions;
       },
       error: (err) => {
         // alert('Transactions not found for this account :' + this.accNo);
@@ -43,7 +43,7 @@ export class Managetransactions {
     this.gt.MgetAccountsbyBranch().subscribe({
       next: (res: any) => {
         console.log(res);
-        this.accounts = res;
+        this.accounts = res.accounts;
       },
       error: (err) => {
         console.log('Error fetching accounts', err);
@@ -70,48 +70,6 @@ export class Managetransactions {
       return 0;
     });
   }
-
-  /*showtab:boolean = true;
-  showtbi:boolean = false;
-  showtba:boolean = false;
-  createtransacpath:boolean = false;
-  createtransferpath:boolean = false;
-  showTable(){
-    this.showtab = true;
-    this.showtbi = false;
-    this.showtba = false;
-    this.createtransacpath = false;
-    this.createtransferpath = false;
-  }
-  showTbi(){
-    this.showtab = false;
-    this.showtbi = true;
-    this.showtba = false;
-    this.createtransacpath = false;
-    this.createtransferpath = false;
-  }
-  showTba(){
-    this.showtab = false;
-    this.showtbi = false;
-    this.showtba = true;
-    this.createtransacpath = false;
-    this.createtransferpath = false;
-  }
-  showCtransac(){
-    this.showtab = false;
-    this.showtbi = false;
-    this.showtba = false;
-    this.createtransacpath = true;
-    this.createtransferpath = false;
-  }
-  showCtransfer(){
-    this.showtab = false;
-    this.showtbi = false;
-    this.showtba = false;
-    this.createtransacpath = false;
-    this.createtransferpath = true;
-  }
-    */
   activeView: 'table' | 'tbi' | 'tba' | 'createTransac' | 'createTransfer' = 'table';
 
   show(view: 'table' | 'tbi' | 'tba' | 'createTransac' | 'createTransfer') {
@@ -121,5 +79,24 @@ export class Managetransactions {
   afterTransac(){
     this.show('table');
     
+  }
+
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  get paginatedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.transacs.slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.transacs.length / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
   }
 }

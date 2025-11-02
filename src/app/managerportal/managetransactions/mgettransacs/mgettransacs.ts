@@ -26,11 +26,11 @@ export class Mgettransacs {
     this.gt.MgetTransofAcc(this.accNo).subscribe({
       next: (res:any) => {
         console.log(res);
-        this.transacs = res;
+        this.transacs = res.transactions;
       },
       error: (err) => {
         // alert("Transactions not found for this account :"+this.accNo);
-        this.toast.show(`Transactions not found for this account : ${this.accNo}`,'danger');
+        this.toast.show(err.error?.message || `Transactions not found for this account : ${this.accNo}`,'danger');
         console.error("Error fetching transactions",err);
         this.transacs = [];
       }
@@ -53,5 +53,24 @@ export class Mgettransacs {
       if (valA > valB) return this.sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
+  }
+
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  get paginatedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.transacs.slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.transacs.length / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
   }
 }

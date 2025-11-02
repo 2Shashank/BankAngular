@@ -9,7 +9,7 @@ import { ToastService } from '../../services/toast';
   styleUrl: './abin.css'
 })
 export class Abin {
-  employees:any;
+  employees:any[] = [];
   searchtext:any;
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -21,16 +21,20 @@ export class Abin {
   ngOnInit():void{
     this.getDeletedEmps();
   }
-  permanentlyDelete(emp:any){
+  permanentlyDelete(emp:Number){
+    console.log(emp)
+    // let empId = parseInt(emp);
+    console.log(emp);
     this.api.permanentlyDeleteEmp(emp).subscribe({
-      next : (res) => {
+      next : (res:any) => {
         // alert("Successfully deleted");
-        this.toast.show("Successfully deleted employee",'success')
+        console.log(res)
+        this.toast.show(res.message || "Successfully deleted employee",'success')
         this.getDeletedEmps();
       },
       error: (err) => {
-        // console.error("Error deleting employee , please try again later");
-        this.toast.show("Error deleting Employee",'danger');
+        console.error("Error deleting employee , please try again later",err);
+        this.toast.show(err.error?.message || "Error deleting Employee",'danger');
       }
     })
   }
@@ -38,11 +42,11 @@ export class Abin {
     this.api.getDeletedEmp().subscribe({
       next : (res:any) => {
         console.log(res);
-        this.employees = res;
+        this.employees = res.data;
       },
       error:(err) => {
         console.error("Error fetching deleted employess");
-        this.toast.show("Error fetching deleted employees or No record found");
+        this.toast.show(err.eooro?.message || "Error fetching deleted employees or No record found");
       }
     })
   }

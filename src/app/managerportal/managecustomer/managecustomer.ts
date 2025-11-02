@@ -47,14 +47,14 @@ export class Managecustomer {
     console.log(data);
     this.editId = null;
     this.cd.MupdateUser(data.userId,data).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         // alert("User updated successfully");
-        this.toast.show("User updated successfully",'success');
+        this.toast.show( res.message || "User updated successfully",'success');
       },
       error: (err) => {
         console.log("Error updating user");
         // alert("Error occured while updating");
-        this.toast.show('Error occured while updating','danger');
+        this.toast.show(err.error?.message || 'Error occured while updating','danger');
       }
     })
   }

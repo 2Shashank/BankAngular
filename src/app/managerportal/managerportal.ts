@@ -10,9 +10,25 @@ import { ToastService } from '../services/toast';
   styleUrl: './managerportal.css'
 })
 export class Managerportal {
-  User:any = {"empId" : 100000,'empName':'Dhiveashwar',"empRole":"BankAdmin",'empMobile':'6965845353','empEmail':'sam.admin@bugb.com','branchId':1,'branchName':'KPMG2','bAddress':'Eco World'};
+  // User:any = {"empId" : 100000,'empName':'Dhiveashwar',"empRole":"BankAdmin",'empMobile':'6965845353','empEmail':'sam.admin@bugb.com','branchId':1,'branchName':'KPMG2','bAddress':'Eco World'};
+  User:any;
   constructor(private api: Apiservice, private router: Router, private toast: ToastService) {}
 
+  ngOnInit(){
+    this.getProfile();
+  }
+  getProfile(){
+    this.api.getManagerProfile().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.User = res;
+      },
+      error: (err) => {
+        console.error("Something went wrong",err);
+        this.toast.show(err.error?.message || "Something went wrong", 'danger');
+      }
+    })
+  }
   ManagerLogout() {
     const confirmLogout = confirm("Are you sure you want to logout?");
   
@@ -29,7 +45,7 @@ export class Managerportal {
       error: (err) => {
         console.error("Error logging out:", err);
         // alert("Error logging out. Please try again.");
-        this.toast.show('Error logging out. Please try again.','danger');
+        this.toast.show( err.error?.message || 'Error logging out. Please try again.','danger');
       }
     });
   }

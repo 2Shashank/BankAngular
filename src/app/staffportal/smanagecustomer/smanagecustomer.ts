@@ -16,7 +16,7 @@ export class Smanagecustomer {
   editId: number | null = null;
 
   constructor(private cd:Apiservice, private toast: ToastService) {
-    this.getCustomers();
+    // this.getCustomers();
   }
 
   ngOnInit(): void {

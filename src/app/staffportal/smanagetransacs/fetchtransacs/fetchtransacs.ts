@@ -24,7 +24,7 @@ export class Fetchtransacs {
     this.gt.SgetTransofAcc(this.accNo).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.transacs = res;
+        this.transacs = res.transactions;
       },
       error: (err) => {
         console.error('Error fetching transactions', err);

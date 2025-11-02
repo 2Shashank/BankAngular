@@ -1,3 +1,4 @@
+<bbb-toast></bbb-toast>
 <header
   class="navbar navbar-light bg-white border-bottom fixed-top shadow-sm px-4 py-2 d-flex justify-content-between align-items-center"
 >
@@ -21,7 +22,7 @@
     </div>
     <div>
       <h5 class="mb-0 fw-semibold text-dark">Branch Banking</h5>
-      <small class="text-muted">Bengaluru Branch - Staff Portal</small>
+      <small *ngIf="User" class="text-muted">{{User.branchName}} Branch - Staff Portal</small>
     </div>
   </div>
 

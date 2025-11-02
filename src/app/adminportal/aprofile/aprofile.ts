@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
+import { httpResource } from '@angular/common/http';
+import { errorContext } from 'rxjs/internal/util/errorContext';
 
 @Component({
   selector: 'bbb-aprofile',
@@ -9,21 +13,39 @@ import { Component } from '@angular/core';
 export class Aprofile {
   isEditing: boolean = false;
   showPasswordForm: boolean = false;
+  User:any;
+  constructor(private api: Apiservice,private toast: ToastService) {
+    
+  }
+  ngOnInit(){
+    this.getProfile();
+  }
+  getProfile(){
+    this.api.getAdminProfile().subscribe({
+      next:(res :any) =>{
+        this.User = res;
+      },
+      error : (err) => {
+        console.error("Error getting profile",err);
+        this.toast.show(err.error?.message || "Error fetching Profile",'danger');
+      }
+    })
+  }
   passwordData = {
-    oldPassword: '',
+    previousPassword: '',
     newPassword: '',
     confirmPassword: ''
   };
-  User: any = {
-    empId: 100000,
-    empName: 'Sam',
-    empRole: 'BankAdmin',
-    empMobile: '6965845353',
-    empEmail: 'sam.admin@bugb.com',
-    branchId: 1,
-    branchName: 'KPMG',
-    bAddress: 'Eco World',
-  };
+  // User: any = {
+  //   empId: 100000,
+  //   empName: 'Sam',
+  //   empRole: 'BankAdmin',
+  //   empMobile: '6965845353',
+  //   empEmail: 'sam.admin@bugb.com',
+  //   branchId: 1,
+  //   branchName: 'KPMG',
+  //   bAddress: 'Eco World',
+  // };
 
   editProfile() {
     this.isEditing = true;
@@ -41,13 +63,13 @@ export class Aprofile {
 
   togglePasswordForm() {
     this.showPasswordForm = !this.showPasswordForm;
-    this.passwordData = { oldPassword: '', newPassword: '', confirmPassword: '' };
+    this.passwordData = { previousPassword: '', newPassword: '', confirmPassword: '' };
   }
 
   updatePassword() {
-    const { oldPassword, newPassword, confirmPassword } = this.passwordData;
+    const { previousPassword, newPassword, confirmPassword } = this.passwordData;
 
-    if (!oldPassword || !newPassword || !confirmPassword) {
+    if (!previousPassword || !newPassword || !confirmPassword) {
       alert('Please fill all password fields.');
       return;
     }
@@ -58,8 +80,20 @@ export class Aprofile {
     }
 
     // TODO: call API here later
-    console.log('Password updated successfully:', this.passwordData);
-    alert('Password updated successfully!');
-    this.togglePasswordForm();
+    // console.log('Password updated successfully:', this.passwordData);
+    // alert('Password updated successfully!');
+    
+    this.api.updateAdminPass(this.passwordData).subscribe({
+      next: (res:any) => {
+        console.log(res);
+        this.toast.show( res.message || 'Password Updated successfully','success');
+        this.togglePasswordForm();
+      },
+      error: (err) => {
+        console.error("Error occured",err);
+        this.toast.show(err.error?.message || "Some error occured",'danger');
+      }
+
+    })
   }
 }

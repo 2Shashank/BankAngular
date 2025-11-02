@@ -21,9 +21,9 @@ export class Sfetchtransacn {
       return;
     }
       this.ft.SgetTransByID(this.traId).subscribe({
-        next: (res) => {
+        next: (res:any) => {
           console.log(res);
-          this.transac = res;
+          this.transac = res.transaction;
         },
         error: (err) => {
           console.error("Error fetching transaction",err);

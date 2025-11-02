@@ -25,7 +25,7 @@ export class Manageaccounts {
     this.ac.MgetAccountsbyBranch().subscribe({
       next:(res:any) => {
         console.log(res);
-        this.accounts = res;
+        this.accounts = res.accounts;
       },
       error:(err)=> {
         console.log("Error fetching accounts",err);
@@ -39,6 +39,19 @@ export class Manageaccounts {
   }
   saveAcc(account:any){
     console.log("Updated",account);
+    console.log(account.accNo);
+    console.log(account.accountStatus);
+    let status = {"accountStatus": account.accountStatus};
+    this.ac.MupdateAcc(account.accNo,status).subscribe({
+      next: (res:any) => {
+        console.log(res);
+        this.toast.show(res.message,'success');
+      },
+      error : (err) => {
+        console.error("Error occured",err);
+        this.toast.show(err.error?.message || "Error to update account",'danger');
+      }
+    })
     this.editId = null;
   }
   cancelEdit() {
@@ -74,7 +87,8 @@ export class Manageaccounts {
       next: (res: any) => {
         console.log('Account added successfully:', res);
         // alert('Account created successfully');
-        this.toast.show('Account created successfully','success');
+        let msg = `${res.message} Account No.: ${res.accountDetails.accountNumber}`
+        this.toast.show( msg || res.message || 'Account created successfully','success');
         form.resetForm();
         this.showForm = false;
         this.getAccounts();

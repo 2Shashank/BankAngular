@@ -111,7 +111,7 @@
           <!-- Accounts Table -->
           <!-- <div class="table-responsive" *ngIf="accounts.length > 0; else noData"> -->
           <!-- Employee Table Section -->
-          <div class="table-responsive" *ngIf="accounts.length > 0">
+          <div class="table-responsive" *ngIf="accounts && accounts.length > 0">
             <!-- Search Bar -->
             <div class="d-flex justify-content-end mb-3">
               <input
@@ -229,53 +229,25 @@
 
               <tbody>
                 <tr *ngFor="let acc of accounts | filter : searchtext">
-                  <!-- <td *ngIf="editId !== acc.accNo">{{ acc.accNo }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.accNo" readonly class="form-control form-control-sm" />
-                  </td> -->
                   <td>{{ acc.accNo }}</td>
                   <!-- <td>{{ acc.userName }}</td> -->
-                  <td *ngIf="editId !== acc.accNo">{{ acc.userName }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.userName" class="form-control form-control-sm" />
-                  </td>
+                  <td >{{ acc.userName }}</td>
+                  
                   <td>{{ acc.accType }}</td>
-                  <!-- <td *ngIf="editId !== acc.accNo">{{ acc.accType }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.accType" readonly class="form-control form-control-sm" />
-                  </td> -->
 
-                  <!-- <td>{{ acc.uAddress }}</td> -->
-                  <td *ngIf="editId !== acc.accNo">{{ acc.ifscCode }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.ifscCode" class="form-control form-control-sm" />
-                  </td>
+                  <!-- <td>{{ acc.ifscCode }}</td> -->
+                  <td>{{ acc.ifscCode }}</td>
                   <td>{{ acc.branchName }}</td>
-                  <!-- <td *ngIf="editId !== acc.accNo">{{ acc.gender }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.gender" readonly class="form-control form-control-sm" />
-                  </td> -->
-                  <!-- <td>{{ acc.accountStatus }}</td> -->
                   <td *ngIf="editId !== acc.accNo">{{ acc.accountStatus }}</td>
                   <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.accountStatus" class="form-control form-control-sm" />
+                    <!-- <input [(ngModel)]="acc.accountStatus" class="form-control form-control-sm" /> -->
+                    <select [(ngModel)]="acc.accountStatus" class="form-control form-control-sm">
+                      <option value="Active">Active</option>
+                      <option value="Closed">Closed</option>
+                      <option value="Block">Block</option>
+                    </select>
                   </td>
-                  <!-- No data needed below -->
-                  <!-- <td>{{ acc.email }}</td> -->
-                  <!-- <td *ngIf="editId !== acc.accNo">{{ acc.email }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.email" class="form-control form-control-sm" />
-                  </td> -->
-                  <!-- <td>{{ acc.panCard }}</td> -->
-                  <!-- <td *ngIf="editId !== acc.accNo">{{ acc.panCard }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.panCard" class="form-control form-control-sm" />
-                  </td> -->
-                  <!-- <td>{{ acc.aadharCard }}</td> -->
-                  <!-- <td *ngIf="editId !== acc.accNo">{{ acc.aadharCard }}</td>
-                  <td *ngIf="editId === acc.accNo">
-                    <input [(ngModel)]="acc.aadharCard" class="form-control form-control-sm" />
-                  </td> -->
+                  
 
                   <td class="text-center">
                     <button

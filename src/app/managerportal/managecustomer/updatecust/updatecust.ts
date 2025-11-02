@@ -37,7 +37,7 @@ export class Updatecust implements OnChanges{
         console.error("Error fetching User",err);
         // alert("No user data found with id"+this.userId);
         let msg = `No user data found with id ${this.userId}`
-        this.toast.show(msg,'danger');
+        this.toast.show(err.error?.message || msg,'danger');
         this.user = '';
       }
     })
@@ -46,15 +46,16 @@ export class Updatecust implements OnChanges{
     console.log(userForm.value);
     // userForm.resetForm();
     this.uu.MupdateUser(this.userId,userForm.value).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         // alert("User updated successfully");
-        this.toast.show('User updated successfully','success');
+        this.toast.show(res.message || 'User updated successfully','success');
         this.updateSuccess.emit();
       },
       error: (err) => {
-        console.log("Error updating user");
+        console.log("Error updating user",err);
         // alert("Error occured while updating");
-        this.toast.show('Error occured while updating','danger');
+        this.getUser();
+        this.toast.show( err.error?.message || 'Error occured while updating','danger');
       }
     });
   }

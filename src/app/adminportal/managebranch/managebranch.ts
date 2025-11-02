@@ -24,11 +24,11 @@ export class Managebranch {
     this.api.getBranches().subscribe({
       next: (data: any) => {
         console.log('Branches:', data);
-        this.branches = data;
+        this.branches = data.branches;
       },
       error: (err) => {
         console.error('Error fetching branches:', err);
-        this.toast.show("Error fetching branches",'danger');
+        this.toast.show( err.error?.message || "Error fetching branches",'danger');
       },
     });
   }
@@ -84,7 +84,7 @@ export class Managebranch {
       },
       error:(err) => {
         console.error("Error updating branch",err);
-        this.toast.show(err.error,'danger');
+        this.toast.show(err.error?.message || "Error updating branch",'danger');
       }
     })
     
@@ -121,5 +121,23 @@ export class Managebranch {
         this.toast.show(err.error,'danger');
       }
     })
+  }
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  get paginatedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.branches.slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.branches.length / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
   }
 }

@@ -46,14 +46,14 @@ export class Supdatecust implements OnChanges{
     console.log(userForm.value);
     // userForm.resetForm();
     this.uu.SupdateUser(this.userId,userForm.value).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         // alert("User updated successfully");
-        this.toast.show('User Updated successfully!','success');
+        this.toast.show(res.message || 'User Updated successfully!','success');
         // this.router.navigate(['/manager/customers']);
         this.updateSuccess.emit();
       },
       error: (err) => {
-        console.log("Error updating user");
+        console.log("Error updating user",err);
         // alert("Error occured while updating");
         this.toast.show(err.error?.message || 'Erroe updating customer','danger');
       }

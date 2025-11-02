@@ -23,7 +23,7 @@ export class Toast implements OnInit {
 
         // Auto hide after 3 seconds
         clearTimeout(this.timeoutHandle);
-        this.timeoutHandle = setTimeout(() => this.close(), 3000);
+        this.timeoutHandle = setTimeout(() => this.close(), 15000);
       }
     });
   }

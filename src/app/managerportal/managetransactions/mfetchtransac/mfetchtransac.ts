@@ -21,13 +21,13 @@ export class Mfetchtransac {
       return;
     }
     this.ft.MgetTransByID(this.traId).subscribe({
-      next: (res) => {
+      next: (res:any) => {
         console.log(res);
-        this.transac = res;
+        this.transac = res.transaction;
       },
       error: (err) => {
         // alert("Transactions not found for this Id "+this.traId);
-        this.toast.show(`Transactions not found for this Id : ${this.traId}`,'danger');
+        this.toast.show(err.error?.message || `Transactions not found for this Id : ${this.traId}`,'danger');
         console.error("Error fetching transactions",err);
         this.transac = null;
       }

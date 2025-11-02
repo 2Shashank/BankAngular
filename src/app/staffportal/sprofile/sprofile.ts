@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-sprofile',
@@ -9,21 +11,40 @@ import { Component } from '@angular/core';
 export class Sprofile {
   isEditing: boolean = false;
   showPasswordForm: boolean = false;
+  User:any;
   passwordData = {
     oldPassword: '',
     newPassword: '',
     confirmPassword: ''
   };
-  User: any = {
-    empId: 100000,
-    empName: 'Shashank',
-    empRole: 'Staff',
-    empMobile: '6965845353',
-    empEmail: 'shashank.staff@bugb.com',
-    branchId: 1,
-    branchName: 'KPMG',
-    bAddress: 'Eco World',
-  };
+  // User: any = {
+  //   empId: 100000,
+  //   empName: 'Shashank',
+  //   empRole: 'Staff',
+  //   empMobile: '6965845353',
+  //   empEmail: 'shashank.staff@bugb.com',
+  //   branchId: 1,
+  //   branchName: 'KPMG',
+  //   bAddress: 'Eco World',
+  // };
+  constructor(private api: Apiservice, private toast:ToastService) {
+      
+    }
+    ngOnInit(){
+      this.getProfile();
+    }
+    getProfile(){
+      this.api.getStaffProfile().subscribe({
+        next: (res) => {
+          console.log(res);
+          this.User = res;
+        },
+        error: (err) => {
+          console.error("Something went wrong",err);
+          this.toast.show(err.error?.message || "Something went wrong", 'danger');
+        }
+      })
+    }
 
   editProfile() {
     this.isEditing = true;
@@ -58,8 +79,19 @@ export class Sprofile {
     }
 
     // TODO: call API here later
-    console.log('Password updated successfully:', this.passwordData);
-    alert('Password updated successfully!');
+    // console.log('Password updated successfully:', this.passwordData);
+    // alert('Password updated successfully!');
+    this.api.SUpdatePass(this.passwordData).subscribe({
+      next: (res:any) => {
+        console.log(res);
+        this.toast.show( res.message || 'Password Updated successfully','success');
+        this.togglePasswordForm();
+      },
+      error: (err) => {
+        console.error("Error occured",err);
+        this.toast.show(err.error?.message || "Some error occured",'danger');
+      }
+    })
     this.togglePasswordForm();
   }
 }

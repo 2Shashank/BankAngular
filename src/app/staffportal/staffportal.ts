@@ -11,8 +11,25 @@ import { ToastService } from '../services/toast';
   styleUrl: './staffportal.css'
 })
 export class Staffportal {
-  User:any = {"empId" : 100000,'empName':'Shashank',"empRole":"Staff",'empMobile':'6965845353','empEmail':'shashank.staff@bugb.com','branchId':2,'branchName':'KPMG2','bAddress':'Eco World'};
-constructor(private api:Apiservice,private router:Router, private toast : ToastService){}
+  // User:any = {"empId" : 100000,'empName':'Shashank',"empRole":"Staff",'empMobile':'6965845353','empEmail':'shashank.staff@bugb.com','branchId':2,'branchName':'KPMG2','bAddress':'Eco World'};
+  User:any;
+  constructor(private api:Apiservice,private router:Router, private toast : ToastService){}
+
+  ngOnInit(){
+    this.getProfile();
+  }
+  getProfile(){
+    this.api.getStaffProfile().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.User = res;
+      },
+      error: (err) => {
+        console.error("Something went wrong",err);
+        this.toast.show(err.error?.message || "Something went wrong", 'danger');
+      }
+    })
+  }
   StaffLogout() {
     const confirmLogout = confirm("Are you sure you want to logout?");
   

@@ -24,7 +24,7 @@ export class Smanagetransacs {
     this.gt.SGetAccsByBranch().subscribe({
       next:(res:any) => {
         console.log(res);
-        this.accounts = res;
+        this.accounts = res.accounts;
       },
       error:(err)=> {
         console.log("Error fetching accounts",err);
@@ -43,7 +43,7 @@ export class Smanagetransacs {
       this.gt.SgetTransofAcc(this.accNo).subscribe({
         next: (res:any) => {
           console.log(res);
-          this.transacs = res;
+          this.transacs = res.transactions;
         },
         error: (err) => {
           console.error("Error fetching transactions",err);
@@ -79,5 +79,24 @@ export class Smanagetransacs {
   }
   afterTransac(){
     this.show('table');
+  }
+
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+
+  get paginatedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.transacs.slice(start, end);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.transacs.length / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
   }
 }

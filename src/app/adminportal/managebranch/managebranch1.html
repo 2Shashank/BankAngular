@@ -152,7 +152,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let br of branches | filter : searchtext">
+                <tr *ngFor="let br of paginatedData | filter : searchtext">
                   <td>{{ br.branchId }}</td>
 
                   <td *ngIf="editId !== br.branchId">{{ br.branchName }}</td>
@@ -240,6 +240,25 @@
                 </tr>
               </tbody>
             </table>
+            <nav *ngIf="branches.length > 0" class="mt-3 d-flex justify-content-center">
+              <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+                </li>
+
+                <li
+                  class="page-item"
+                  *ngFor="let p of [].constructor(totalPages); let i = index"
+                  [class.active]="i + 1 === currentPage"
+                >
+                  <button class="page-link" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+                </li>
+
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+                </li>
+              </ul>
+            </nav>
           </div>
 
           <div *ngIf="branches.length === 0" class="text-muted text-center mt-3">

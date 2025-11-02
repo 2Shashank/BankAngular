@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-mprofile',
@@ -9,24 +11,35 @@ import { Component } from '@angular/core';
 export class Mprofile {
   isEditing: boolean = false;
   showPasswordForm: boolean = false;
+  User:any;
   passwordData = {
-    oldPassword: '',
+    previousPassword: '',
     newPassword: '',
     confirmPassword: '',
   };
-  User: any = {
-    empId: 100000,
-    empName: 'Dhiveashwar',
-    empRole: 'BankAdmin',
-    empMobile: '6965845353',
-    empEmail: 'sam.admin@bugb.com',
-    branchId: 1,
-    branchName: 'KPMG2',
-    bAddress: 'Eco World',
-  };
+  constructor(private api: Apiservice, private toast:ToastService) {
+    
+  }
+  ngOnInit(){
+    this.getProfile();
+  }
+  getProfile(){
+    this.api.getManagerProfile().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.User = res;
+      },
+      error: (err) => {
+        console.error("Something went wrong",err);
+        this.toast.show(err.error?.message || "Something went wrong", 'danger');
+      }
+    })
+  }
+  
+
 
   editProfile() {
-    this.isEditing = true;
+    this.isEditing = false;
   }
 
   saveProfile() {
@@ -41,13 +54,13 @@ export class Mprofile {
 
   togglePasswordForm() {
     this.showPasswordForm = !this.showPasswordForm;
-    this.passwordData = { oldPassword: '', newPassword: '', confirmPassword: '' };
+    this.passwordData = { previousPassword: '', newPassword: '', confirmPassword: '' };
   }
 
   updatePassword() {
-    const { oldPassword, newPassword, confirmPassword } = this.passwordData;
+    const { previousPassword, newPassword, confirmPassword } = this.passwordData;
 
-    if (!oldPassword || !newPassword || !confirmPassword) {
+    if (!previousPassword || !newPassword || !confirmPassword) {
       alert('Please fill all password fields.');
       return;
     }
@@ -58,8 +71,19 @@ export class Mprofile {
     }
 
     // TODO: call API here later
-    console.log('Password updated successfully:', this.passwordData);
-    alert('Password updated successfully!');
+    // console.log('Password updated successfully:', this.passwordData);
+    // alert('Password updated successfully!');
+    this.api.updateEmpPass(this.passwordData).subscribe({
+      next: (res:any) => {
+        console.log(res);
+        this.toast.show( res.message || 'Password Updated successfully','success');
+        this.togglePasswordForm();
+      },
+      error: (err) => {
+        console.error("Error occured",err);
+        this.toast.show(err.error?.message || "Some error occured",'danger');
+      }
+    })
     this.togglePasswordForm();
   }
 }

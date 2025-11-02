@@ -74,6 +74,7 @@ import { Spnf } from './staffportal/spnf/spnf';
 import { Mpnf } from './managerportal/mpnf/mpnf';
 import { Apnf } from './adminportal/apnf/apnf';
 import { Toast } from './toast/toast';
+import { Register } from './login/register/register';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -147,7 +148,8 @@ import { Toast } from './toast/toast';
     Spnf,
     Mpnf,
     Apnf,
-    Toast
+    Toast,
+    Register
   ],
   imports: [
     BrowserModule,

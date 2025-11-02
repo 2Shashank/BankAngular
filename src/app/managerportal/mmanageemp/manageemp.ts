@@ -24,13 +24,13 @@ export class Mmanageemp {
     this.emp.MgetEmp().subscribe({
       next: (res: any) => {
         console.log(res);
-        this.employees = res;
+        this.employees = res.staff;
       },
       error: (err) => {
         console.error("Error fetching employees:", err.error.message);
         // alert("Error fetching employees");
         // alert(err.error.message);
-        this.toast.show(err.error.message ||'Error fetching employees','danger');
+        this.toast.show(err.error?.message ||'Error fetching employees','danger');
         this.employees = [];
       }
     })

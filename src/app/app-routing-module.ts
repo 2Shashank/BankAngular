@@ -5,11 +5,13 @@ import { Home } from './home/home';
 import { authguardGuard } from './authguard-guard';
 import { Customerportal } from './customerportal/customerportal';
 import { Custlogin } from './login/custlogin/custlogin';
+import { Register } from './login/register/register';
 
 const routes: Routes = [
   {path:'home',component:Home},
   {path:'login',component:Login},
   {path:'custlogin',component:Custlogin},
+  {path:'register',component:Register},
   {path:'customer',loadChildren:()=>import('./customerportal/cust/cust-routing-module').then(m => m.CustRoutingModule),canActivate:[authguardGuard]},
   {path:'admin',loadChildren:()=>import('./adminroute/adminroute-module').then(m => m.AdminrouteModule),canActivate:[authguardGuard]},
   {path:'manager',loadChildren:()=>import('./managerrouting-module').then(m => m.ManagerroutingModule),canActivate:[authguardGuard]},

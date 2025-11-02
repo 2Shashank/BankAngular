@@ -1,0 +1,170 @@
+<div class="container mt-5">
+  <div class="card shadow p-4 mx-auto" style="max-width: 600px;">
+    <h3 class="text-center mb-4 text-primary fw-bold">User Registration</h3>
+
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+      
+      <!-- Name -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Full Name</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light border-0">
+            <i class='bx bxs-user text-primary'></i>
+          </span>
+          <input 
+            type="text" 
+            name="userName" 
+            ngModel 
+            required
+            #userName="ngModel"
+            placeholder="Enter your name"
+            class="form-control border-0"
+            [class.is-invalid]="userName.invalid && userName.touched">
+        </div>
+        <div *ngIf="userName.invalid && userName.touched" class="invalid-feedback d-block mt-2">
+          <small><i class='bx bxs-error-circle'></i> Name is required.</small>
+        </div>
+      </div>
+
+      <!-- DOB -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Date of Birth</label>
+        <input 
+          type="date" 
+          name="doB" 
+          ngModel 
+          required
+          #doB="ngModel"
+          class="form-control border-0"
+          [class.is-invalid]="doB.invalid && doB.touched">
+        <div *ngIf="doB.invalid && doB.touched" class="invalid-feedback d-block mt-2">
+          <small><i class='bx bxs-error-circle'></i> Date of Birth is required.</small>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Address</label>
+        <textarea 
+          name="uAddress" 
+          ngModel 
+          required
+          #uAddress="ngModel"
+          class="form-control border-0"
+          placeholder="Enter your address"
+          [class.is-invalid]="uAddress.invalid && uAddress.touched"
+          rows="2">
+        </textarea>
+        <div *ngIf="uAddress.invalid && uAddress.touched" class="invalid-feedback d-block mt-2">
+          <small><i class='bx bxs-error-circle'></i> Address is required.</small>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Gender</label>
+        <select 
+          name="gender" 
+          ngModel 
+          required
+          #gender="ngModel"
+          class="form-select border-0"
+          [class.is-invalid]="gender.invalid && gender.touched">
+          <option value="" disabled selected>Select gender</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+          <option value="O">Other</option>
+        </select>
+        <div *ngIf="gender.invalid && gender.touched" class="invalid-feedback d-block mt-2">
+          <small><i class='bx bxs-error-circle'></i> Gender is required.</small>
+        </div>
+      </div>
+
+      <!-- Mobile -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Mobile Number</label>
+        <input 
+          type="tel" 
+          name="mobile" 
+          ngModel 
+          required
+          pattern="^[0-9]{10}$"
+          #mobile="ngModel"
+          placeholder="Enter 10-digit mobile number"
+          class="form-control border-0"
+          [class.is-invalid]="mobile.invalid && mobile.touched">
+        <div *ngIf="mobile.invalid && mobile.touched" class="invalid-feedback d-block mt-2">
+          <small *ngIf="mobile.errors?.['required']"><i class='bx bxs-error-circle'></i> Mobile number is required.</small>
+          <small *ngIf="mobile.errors?.['pattern']"><i class='bx bxs-error-circle'></i> Enter valid 10-digit number.</small>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input 
+          type="email" 
+          name="email" 
+          ngModel 
+          required
+          #email="ngModel"
+          placeholder="Enter your email"
+          class="form-control border-0"
+          [class.is-invalid]="email.invalid && email.touched">
+        <div *ngIf="email.invalid && email.touched" class="invalid-feedback d-block mt-2">
+          <small *ngIf="email.errors?.['required']"><i class='bx bxs-error-circle'></i> Email is required.</small>
+          <small *ngIf="email.errors?.['email']"><i class='bx bxs-error-circle'></i> Enter a valid email.</small>
+        </div>
+      </div>
+
+      <!-- PAN -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">PAN Card</label>
+        <input 
+          type="text" 
+          name="panCard" 
+          ngModel 
+          required
+          pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}"
+          #panCard="ngModel"
+          placeholder="ABCDE1234F"
+          class="form-control border-0"
+          [class.is-invalid]="panCard.invalid && panCard.touched">
+        <div *ngIf="panCard.invalid && panCard.touched" class="invalid-feedback d-block mt-2">
+          <small *ngIf="panCard.errors?.['required']"><i class='bx bxs-error-circle'></i> PAN is required.</small>
+          <small *ngIf="panCard.errors?.['pattern']"><i class='bx bxs-error-circle'></i> Enter valid PAN format (ABCDE1234F).</small>
+        </div>
+      </div>
+
+      <!-- Aadhar -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Aadhar Card</label>
+        <input 
+          type="text" 
+          name="aadharCard" 
+          ngModel 
+          required
+          pattern="[0-9]{12}"
+          #aadharCard="ngModel"
+          placeholder="Enter 12-digit Aadhar number"
+          class="form-control border-0"
+          [class.is-invalid]="aadharCard.invalid && aadharCard.touched">
+        <div *ngIf="aadharCard.invalid && aadharCard.touched" class="invalid-feedback d-block mt-2">
+          <small *ngIf="aadharCard.errors?.['required']"><i class='bx bxs-error-circle'></i> Aadhar is required.</small>
+          <small *ngIf="aadharCard.errors?.['pattern']"><i class='bx bxs-error-circle'></i> Enter valid 12-digit number.</small>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="text-center mt-4">
+        <button 
+          type="submit" 
+          [disabled]="registerForm.invalid"
+          class="btn btn-primary px-4 w-100 fw-semibold py-2">
+          <i class='bx bxs-check-circle'></i> Register
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

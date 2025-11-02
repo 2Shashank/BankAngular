@@ -55,7 +55,8 @@ export class Manageemp implements OnInit{
     this.femp.listEmp(this.branchId).subscribe({
       next: (res: any) => {
         console.log(res);
-        this.employees = res;
+        this.employees = res.data;
+        console.log("Employees data " + this.employees);
       },
       error: (err) => {
         console.error('Error fetching employees:', err);
@@ -71,14 +72,14 @@ export class Manageemp implements OnInit{
       return;
     }
     this.femp.deleteEmp(stfId).subscribe({
-      next:(res) => {
+      next:(res:any) => {
         // alert("Deleted successfully");
-        this.toast.show("Employee deleted successfully",'success');
-        this.getEmployees();
+        this.toast.show(res.message || "Employee deleted successfully",'success');
+        this.loadEmps();
       },
       error : (err) => {
         console.error("Somthing went wrong",err);
-        this.toast.show("Error deleting employee",'danger');
+        this.toast.show(err.error?.message ||"Error deleting employee",'danger');
       }
     })
   }
@@ -103,8 +104,8 @@ export class Manageemp implements OnInit{
   loadEmps(){
     this.femp.listAllEmp().subscribe({
       next: (res:any) => {
-        console.log(res);
-        this.employees = res;
+        console.log(res.data);
+        this.employees = res.data;
       },
       error:(err) => {
         console.error("Somthing went wrong",err);
@@ -116,19 +117,22 @@ export class Manageemp implements OnInit{
   saveEmp(emp: any) {
     console.log('Updated:', emp);
     this.femp.updateEmp(emp.empID,emp).subscribe({
-      next:(res) => {
+      next:(res:any) => {
         // alert("Employee updated successfully");
-        this.toast.show("Employee updated successfully",'success');
-        this.getEmployees();
+        console.log(res);
+        this.toast.show(res.message||"Employee updated successfully",'success');
+        // this.getEmployees();
+        this.loadEmps();
       },
       error:(err) => {
         console.log("Error updating Employee",err);
         // alert("Error while updaing employee");
-        this.toast.show("Error updating employee",'danger')
-        this.getEmployees();
+        this.toast.show(err.error?.message || err.message || "Error updating employee",'danger')
+        this.loadEmps();
       }
     })
     this.editId = null;
+    
   }
   showAddEmployeeForm: boolean = false;
   toggleAddEmp() {
@@ -138,15 +142,18 @@ export class Manageemp implements OnInit{
     if (form.valid) {
       console.log('New Employee Data:', form.value);
       this.femp.addEmp(form.value).subscribe({
-        next:(res)=> {
+        next:(res:any)=> {
           // alert("Employee added successfully");
-          this.toast.show('Employee added successfully','success');
+          let msg = `${res.message} EmpId: ${res.staffDetails.empId} \n Password: ${res.staffDetails.generatedPassword}`
+          this.toast.show(msg || 'Employee added successfully','success');
+          // this.toast.show(res.staffDetails,'success'),
           this.showAddEmployeeForm = false;
           form.reset();
         },
         error:(err) => {
           // alert("Failed to add employee");
-          this.toast.show('Failed to add employee','danger');
+          console.error(err);
+          this.toast.show(err.error?.message || 'Failed to add employee','danger');
         }
       })      
     }
@@ -157,11 +164,11 @@ export class Manageemp implements OnInit{
     this.femp.getBranches().subscribe({
       next: (data: any) => {
         console.log('Branches:', data);
-        this.branchDt = data;
+        this.branchDt = data.branches;
       },
       error: (err) => {
         console.error('Error fetching branches:', err);
-        this.toast.show('Error fetching branches','danger');
+        this.toast.show(err.message || 'Error fetching branches','danger');
       }
     });
   }

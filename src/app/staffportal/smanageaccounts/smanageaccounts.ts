@@ -21,11 +21,10 @@ export class Smanageaccounts {
   }
 
   getAccounts() {
-    // const branchId = sessionStorage.getItem('BranchId');
     this.ac.SGetAccsByBranch().subscribe({
       next: (res: any) => {
         console.log(res);
-        this.accounts = res;
+        this.accounts = res.accounts;
       },
       error: (err) => {
         console.log('Error fetching accounts', err);
@@ -36,7 +35,20 @@ export class Smanageaccounts {
   }
   deleteAcc(accNo: any) {}
   saveAcc(account: any) {
-    console.log('Updated', account);
+    // console.log("Updated",account);
+    // console.log(account.accNo);
+    // console.log(account.accountStatus);
+    let status = {"accountStatus": account.accountStatus};
+    this.ac.SupdateAcc(account.accNo,status).subscribe({
+      next: (res:any) => {
+        console.log(res);
+        this.toast.show(res.message,'success');
+      },
+      error : (err) => {
+        console.error("Error occured",err);
+        this.toast.show(err.error?.message || "Error to update account",'danger');
+      }
+    })
     this.editId = null;
   }
   cancelEdit() {
@@ -73,7 +85,8 @@ export class Smanageaccounts {
       next: (res: any) => {
         console.log('Account added successfully:', res);
         // alert('Account created successfully');
-        this.toast.show('Account successfully created','success');
+        let msg = `${res.message} Account No.: ${res.accountDetails.accountNumber}`
+        this.toast.show(msg || 'Account successfully created','success');
         // formData.reset();
         form.resetForm();
         this.showForm = false;
