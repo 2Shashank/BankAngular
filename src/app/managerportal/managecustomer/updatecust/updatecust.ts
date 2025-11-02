@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { NgForm } from '@angular/forms';
 import { Apiservice } from '../../../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../services/toast';
 
 @Component({
   selector: 'bbb-updatecust',
@@ -14,7 +15,7 @@ export class Updatecust implements OnChanges{
   user:any;
   @Output() updateSuccess = new EventEmitter<void>();
   @Input() userId: number | null = null
-  constructor(private uu:Apiservice,private router:Router) {
+  constructor(private uu:Apiservice,private router:Router, private toast:ToastService) {
     
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -24,7 +25,8 @@ export class Updatecust implements OnChanges{
   }
   getUser(){
     if(!this.userId || this.userId < 0){
-      alert("Enter valid userId");
+      // alert("Enter valid userId");
+      this.toast.show('Enter valid user id','danger');
       return;
     }
     this.uu.MgetUserByID(this.userId).subscribe({
@@ -33,7 +35,9 @@ export class Updatecust implements OnChanges{
       },
       error: (err) => {
         console.error("Error fetching User",err);
-        alert("No user data found with id"+this.userId);
+        // alert("No user data found with id"+this.userId);
+        let msg = `No user data found with id ${this.userId}`
+        this.toast.show(msg,'danger');
         this.user = '';
       }
     })
@@ -43,13 +47,14 @@ export class Updatecust implements OnChanges{
     // userForm.resetForm();
     this.uu.MupdateUser(this.userId,userForm.value).subscribe({
       next: (res) => {
-        alert("User updated successfully");
-        // this.router.navigate(['/manager/customers']);
+        // alert("User updated successfully");
+        this.toast.show('User updated successfully','success');
         this.updateSuccess.emit();
       },
       error: (err) => {
         console.log("Error updating user");
-        alert("Error occured while updating");
+        // alert("Error occured while updating");
+        this.toast.show('Error occured while updating','danger');
       }
     });
   }

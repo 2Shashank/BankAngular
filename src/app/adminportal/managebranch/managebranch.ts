@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-managebranch',
@@ -11,8 +12,9 @@ export class Managebranch {
   branches: any[] = [];
   searchtext: any;
   editId: number | null = null;
+  respSave:any;
 
-  constructor(private api: Apiservice) {}
+  constructor(private api: Apiservice,private toast:ToastService) {}
 
   ngOnInit(): void {
     this.getBranches();
@@ -26,6 +28,7 @@ export class Managebranch {
       },
       error: (err) => {
         console.error('Error fetching branches:', err);
+        this.toast.show("Error fetching branches",'danger');
       },
     });
   }
@@ -51,20 +54,37 @@ export class Managebranch {
     });
   }
 
+  updateBranch = {
+    branchId: 0,
+    branchName: '',
+    baddress: ''
+  };
   cancelEdit() {
     this.editId = null;
     this.getBranches();
   }
-  saveBranch(branch: any) {
-    console.log(branch);
-    this.api.updateBranch(branch.branchId,branch).subscribe({
-      next:(res) => {
+  saveBranch(br:any) {
+    this.updateBranch = {
+    branchId: br.branchId,
+    branchName: br.branchName,
+    baddress: br.baddress
+  };
+    if(!this.updateBranch.branchName || !this.updateBranch.baddress)
+    console.log(this.updateBranch);
+    this.api.updateBranch(this.updateBranch.branchId,this.updateBranch).subscribe({
+      next:(res:any) => {
         console.log("Branch updated successfully");
+        if(res.message){
+          this.toast.show(res.message,'success');
+        }else{
+          this.toast.show("Branch updated successfully",'success');
+        }
         this.editId = null;
         this.getBranches();
       },
       error:(err) => {
         console.error("Error updating branch",err);
+        this.toast.show(err.error,'danger');
       }
     })
     
@@ -78,23 +98,27 @@ export class Managebranch {
   }
   saveNewBranch() {
     if (!this.newBranch.branchName || !this.newBranch.baddress) return;
-
-    // Call your backend API here (POST)
-    // Example simulation:
     const newEntry = {
-      // branchId: Math.floor(Math.random() * 1000), // dummy until backend returns real id
       branchName: this.newBranch.branchName,
       baddress: this.newBranch.baddress,
     };
     this.api.addBranch(newEntry).subscribe({
-      next:(res) => {
-        alert("Branch added successfully");
+      next:(res:any) => {
+        // alert("Branch added successfully");
+        // this.toast.show(res.message,'success');
+        this.respSave = res;
+        if (this.respSave['message']) {
+          this.toast.show(this.respSave.message, 'success');
+        } else {
+          this.toast.show('Branch added successfully from!', 'success');
+          console.log(res);
+        }
         this.getBranches();
         this.toggleAddForm();
       },
       error:(err) => {
         console.error("Error occured while adding branch",err);
-
+        this.toast.show(err.error,'danger');
       }
     })
   }

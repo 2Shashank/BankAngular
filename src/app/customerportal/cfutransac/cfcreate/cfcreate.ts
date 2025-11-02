@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Apiservice } from '../../../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../../../services/toast';
 
 
 @Component({
@@ -11,9 +12,10 @@ import { Router } from '@angular/router';
   styleUrl: './cfcreate.css'
 })
 export class Cfcreate implements OnInit{
+  errMsg:any;
   accounts:any[]=[];
   @Output() createFTmessage = new EventEmitter<void>();
-  constructor(private cft:Apiservice,private router:Router){}
+  constructor(private cft:Apiservice,private router:Router,private toast:ToastService){}
   ngOnInit() {
     this.getAccounts();
   }
@@ -25,7 +27,8 @@ export class Cfcreate implements OnInit{
       },
       error:(err)=>{
         console.error("Error fetching accounts");
-        alert("Accounts are not loaded")
+        // alert("Accounts are not loaded")
+        this.toast.show("Accounts are not loaded",'danger');
       }
     })
   }
@@ -36,25 +39,28 @@ export class Cfcreate implements OnInit{
     const toAc = formData.value.toAccountId
     console.log(toAc);
     if(fromAc === toAc){
-      alert("You cannot transfer to you");
+      // alert("You cannot transfer to you");
+      this.errMsg = 'You cannot transfer to yourself';
+      this.toast.show(this.errMsg,'danger');
       return;
     }
     this.cft.CScheduleTransaction(formData.value).subscribe({
       next: (res:any)=>{
         console.log('Transaction Scheduled Successfully',res);
-        alert('Transaction Scheduled Successfully');
+        // alert('Transaction Scheduled Successfully');
+        this.toast.show('Transaction Scheduled Successfully','success');
         this.createFTmessage.emit();
-        // this.router.navigate(['scheduletransaction']);
       },
       error: (err: any)=>{
         console.log('Error Scheduling a Transaction',err.message);
-        alert('Failed to schedule a transaction');
+        // alert('Failed to schedule a transaction');
+        this.toast.show("Failed to schedule a transaction",'danger')
         formData.controls['transactionPass'].reset();
-        // this.router.navigate(['scheduletransaction']);
       }
     });
   }
   cancelTxn(){
     this.createFTmessage.emit();
+    this.toast.show('Transaction cancelled','info');
   }
 }

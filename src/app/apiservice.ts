@@ -23,9 +23,7 @@ export class Apiservice {
   /// Admin services starts ///
 
   addBranch(data: any) {
-    return this.http.post(`${this.url}/Admin/BranchRegister`, data, {
-      responseType: 'text',
-    });
+    return this.http.post(`${this.url}/Admin/BranchRegister`, data);
   }
   gerBr(branchId: any) {
     return this.http.get(`${this.url}/Admin/GetBranchById/${branchId}`);
@@ -34,24 +32,16 @@ export class Apiservice {
     return this.http.get(`${this.url}/Admin/GetAllBranches`);
   }
   updateBranch(branchId: any, data: any) {
-    return this.http.put(`${this.url}/Admin/UpdateBranch/${branchId}`, data, {
-      responseType: 'text',
-    });
+    return this.http.put(`${this.url}/Admin/UpdateBranch/${branchId}`, data,{responseType:'text'});
   }
   addEmp(data: any) {
-    return this.http.post(`${this.url}/Admin/AddStaff`, data, {
-      responseType: 'text',
-    });
+    return this.http.post(`${this.url}/Admin/AddStaff`, data);
   }
   updateEmp(id: any, data: any) {
-    return this.http.put(`${this.url}/Admin/UpdateStaff/${id}`, data, {
-      responseType: 'text',
-    });
+    return this.http.put(`${this.url}/Admin/UpdateStaff/${id}`, data,{responseType:'text'});
   }
   deleteEmp(id: any) {
-    return this.http.patch(`${this.url}/Admin/RemoveStaff/${id}`, {
-      responseType: 'text',
-    });
+    return this.http.patch(`${this.url}/Admin/RemoveStaff/${id}`,{});
   }
   listAllEmp() {
     return this.http.get(`${this.url}/Admin/GetAllStaff`);

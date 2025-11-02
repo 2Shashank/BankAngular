@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-custlogin',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class Custlogin {
   logindt: any;
-  constructor(private lg: Apiservice, private router: Router) {}
+  constructor(private lg: Apiservice, private router: Router , private toast:ToastService) {}
 
   onLogin(formData: any) {
     // this.logindt = formData.value;
@@ -19,7 +20,8 @@ export class Custlogin {
     this.lg.verifyCustLogin(formData).subscribe({
       next: (res: any) => {
         console.log('Login Response:', res);
-        alert(res.message || 'Login Successful');
+        // alert(res.message || 'Login Successful');
+        this.toast.show(res.message ||'Login Successfully','success')
 
         sessionStorage.setItem('EmpId', res.userId);
         sessionStorage.setItem('token', res.token);
@@ -37,7 +39,8 @@ export class Custlogin {
       },
       error: (err) => {
         console.error('Login Failed:', err);
-        alert(err.error.message || 'Invalid User ID or Password');
+        // alert(err.error.message || 'Invalid User ID or Password');
+        this.toast.show(err.error?.message || "Error logging in", 'danger');
       },
     });
   }

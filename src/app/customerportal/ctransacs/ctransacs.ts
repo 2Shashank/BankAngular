@@ -1,29 +1,37 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-ctransacs',
   standalone: false,
   templateUrl: './ctransacs.html',
-  styleUrl: './ctransacs.css'
+  styleUrl: './ctransacs.css',
 })
 export class Ctransacs {
-  transacs:any[] = [];
+  transacs: any[] = [];
   searchtext: string = '';
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  constructor(private api:Apiservice,r:Router ) {
-    api.CTxnHistory().subscribe({
-      next:(res:any) => {
+  constructor(private api: Apiservice,private r: Router, private toast: ToastService) {
+    
+  }
+  ngOnInit(){
+    this.fetchTrax();
+  }
+  fetchTrax(){
+    this.api.CTxnHistory().subscribe({
+      next: (res: any) => {
         this.transacs = res;
       },
       error: (err) => {
-        console.error("Error fetching transactions",err);
-        r.navigate(['customer']);
-      }
-    })
+        console.error('Error fetching transactions', err);
+        this.toast.show('Error fetching transactions','danger');
+        this.r.navigate(['customer']);
+      },
+    });
   }
 
   sortData(column: string) {
@@ -45,21 +53,21 @@ export class Ctransacs {
   }
 
   currentPage: number = 1;
-itemsPerPage: number = 10;
+  itemsPerPage: number = 10;
 
-get paginatedTransactions() {
-  const start = (this.currentPage - 1) * this.itemsPerPage;
-  const end = start + this.itemsPerPage;
-  return this.transacs.slice(start, end);
-}
-
-get totalPages(): number {
-  return Math.ceil(this.transacs.length / this.itemsPerPage);
-}
-
-changePage(page: number) {
-  if (page >= 1 && page <= this.totalPages) {
-    this.currentPage = page;
+  get paginatedTransactions() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.transacs.slice(start, end);
   }
-}
+
+  get totalPages(): number {
+    return Math.ceil(this.transacs.length / this.itemsPerPage);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
 }

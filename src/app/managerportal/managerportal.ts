@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'bbb-managerportal',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class Managerportal {
   User:any = {"empId" : 100000,'empName':'Dhiveashwar',"empRole":"BankAdmin",'empMobile':'6965845353','empEmail':'sam.admin@bugb.com','branchId':1,'branchName':'KPMG2','bAddress':'Eco World'};
-  constructor(private api: Apiservice, private router: Router) {}
+  constructor(private api: Apiservice, private router: Router, private toast: ToastService) {}
 
   ManagerLogout() {
     const confirmLogout = confirm("Are you sure you want to logout?");
@@ -22,11 +23,13 @@ export class Managerportal {
     this.api.logout().subscribe({
       next: (res:any) => {
         sessionStorage.clear();
-        this.router.navigate(['/login']);
+        this.toast.show('Logging out...','success');
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error("Error logging out:", err);
-        alert("Error logging out. Please try again.");
+        // alert("Error logging out. Please try again.");
+        this.toast.show('Error logging out. Please try again.','danger');
       }
     });
   }

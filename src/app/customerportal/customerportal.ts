@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'bbb-customerportal',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class Customerportal {
   customer:any;
-  constructor(private api : Apiservice,private r:Router) {
+  constructor(private api : Apiservice,private r:Router, private toast:ToastService ) {
     
   }
   ngOnInit(): void {
@@ -23,7 +24,8 @@ export class Customerportal {
         this.customer = res;
       },
       error: (err) => {
-        alert(err.error);
+        // alert(err.error);
+        this.toast.show(err.error,'danger');
         console.error('Something went wrong', err);
       }
     });
@@ -36,11 +38,13 @@ export class Customerportal {
     this.api.logout().subscribe({
       next:(res:any) => {
         sessionStorage.clear();
+        this.toast.show('Logging out...','info')
         this.r.navigate(['/home']);
       },
       error:(err) => {
         console.error("Error loggin out:", err);
-        alert("Error looging out. Please try again or close the window");
+        // alert("Error looging out. Please try again or close the window");
+        this.toast.show('Error looging out. Please try again or close the window','danger');
       }
     })
   }

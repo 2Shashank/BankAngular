@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-smanagetransacs',
@@ -15,26 +16,28 @@ export class Smanagetransacs {
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  constructor(private gt:Apiservice) {
+  constructor(private gt:Apiservice, private toast:ToastService) {
     this.getAccounts();
   }
 
   getAccounts(){
-    this.gt.MgetAccountsbyBranch().subscribe({
+    this.gt.SGetAccsByBranch().subscribe({
       next:(res:any) => {
         console.log(res);
         this.accounts = res;
       },
       error:(err)=> {
         console.log("Error fetching accounts",err);
-        alert(err.error.message);
+        // alert(err.error.message);
+        this.toast.show(err.error?.message || 'Error fetching accounts','danger')
       }
     })
   }
 
   getTransactions(){
       if(!this.accNo || this.accNo < 0){
-        alert("Enter valid account number");
+        // alert("Enter valid account number");
+        this.toast.show('Select valid account number','warning');
         return;
       }
       this.gt.SgetTransofAcc(this.accNo).subscribe({
@@ -44,7 +47,8 @@ export class Smanagetransacs {
         },
         error: (err) => {
           console.error("Error fetching transactions",err);
-          alert("No transactions found in provided account number :"+this.accNo);
+          // alert("No transactions found in provided account number :"+this.accNo);
+          this.toast.show(err.error?.message||'Error fetching transacrions','danger');
           this.transacs = [];
         }
       })

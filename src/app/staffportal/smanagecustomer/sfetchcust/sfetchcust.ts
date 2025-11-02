@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Apiservice } from '../../../apiservice';
+import { ToastService } from '../../../services/toast';
 
 @Component({
   selector: 'bbb-sfetchcust',
@@ -12,7 +13,7 @@ export class Sfetchcust implements OnChanges{
   cust:any;
   @Input() userId: number | null = null; 
 
-  constructor(private fu:Apiservice) {
+  constructor(private fu:Apiservice , private toast : ToastService) {
     // this.userId1 = this.userId;
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -22,7 +23,8 @@ export class Sfetchcust implements OnChanges{
   }
   getCustomer(){
     if(!this.userId){
-      alert("Enter valid userid");
+      // alert("Enter valid userid");
+      this.toast.show('Enter valid user Id','danger');
     }
     this.fu.SgetUserByID(this.userId).subscribe({
       next: (res)=>{
@@ -30,7 +32,8 @@ export class Sfetchcust implements OnChanges{
       },
       error: (err) => {
         console.error("Error fetching User");
-        alert("Error fetching customer");
+        // alert("Error fetching customer");
+        this.toast.show(err.error?.message || 'Error fetching customer','danger');
         this.cust = null;
       }
     })

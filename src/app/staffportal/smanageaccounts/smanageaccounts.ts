@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
 import { NgForm } from '@angular/forms';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-smanageaccounts',
@@ -14,11 +15,8 @@ export class Smanageaccounts {
   searchtext: string = '';
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-  branchId: number;
 
-  constructor(private ac: Apiservice) {
-    const branchIdStr = sessionStorage.getItem('BranchId');
-    this.branchId = branchIdStr ? parseInt(branchIdStr, 10) : 0;
+  constructor(private ac: Apiservice , private toast : ToastService) {
     this.getAccounts();
   }
 
@@ -31,7 +29,8 @@ export class Smanageaccounts {
       },
       error: (err) => {
         console.log('Error fetching accounts', err);
-        alert(err.error.message);
+        // alert(err.error.message);
+        this.toast.show(err.error?.message || 'Error Fetching accounts','danger');
       },
     });
   }
@@ -65,6 +64,7 @@ export class Smanageaccounts {
   submit(form: NgForm) {
     if (form.invalid) {
       form.control.markAllAsTouched();
+      this.toast.show('Enter all data please','warning');
       return;
     }
     const accData = form.value;
@@ -72,7 +72,8 @@ export class Smanageaccounts {
     this.ac.Screateacc(accData).subscribe({
       next: (res: any) => {
         console.log('Account added successfully:', res);
-        alert('Account created successfully');
+        // alert('Account created successfully');
+        this.toast.show('Account successfully created','success');
         // formData.reset();
         form.resetForm();
         this.showForm = false;
@@ -80,8 +81,8 @@ export class Smanageaccounts {
       },
       error: (err) => {
         console.error('Error create account:', err);
-        alert('Failed to create account');
-
+        // alert('Failed to create account');
+        this.toast.show('Failed to create account','danger');
       }
     });
   }

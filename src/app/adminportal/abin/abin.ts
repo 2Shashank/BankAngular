@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-abin',
@@ -13,7 +14,7 @@ export class Abin {
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  constructor(private api:Apiservice) {
+  constructor(private api:Apiservice,private toast:ToastService) {
     
   }
 
@@ -23,11 +24,13 @@ export class Abin {
   permanentlyDelete(emp:any){
     this.api.permanentlyDeleteEmp(emp).subscribe({
       next : (res) => {
-        alert("Successfully deleted");
+        // alert("Successfully deleted");
+        this.toast.show("Successfully deleted employee",'success')
         this.getDeletedEmps();
       },
       error: (err) => {
-        console.error("Error deleting employee , please try again later");
+        // console.error("Error deleting employee , please try again later");
+        this.toast.show("Error deleting Employee",'danger');
       }
     })
   }
@@ -39,6 +42,7 @@ export class Abin {
       },
       error:(err) => {
         console.error("Error fetching deleted employess");
+        this.toast.show("Error fetching deleted employees or No record found");
       }
     })
   }

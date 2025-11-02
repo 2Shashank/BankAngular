@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
 import { NgForm } from '@angular/forms';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-manageaccounts',
@@ -14,11 +15,8 @@ export class Manageaccounts {
   searchtext: string = '';
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-  branchId:number ;
 
-  constructor(private ac: Apiservice) {
-    const branchIdStr = sessionStorage.getItem('BranchId');
-    this.branchId = branchIdStr ? parseInt(branchIdStr, 10) : 0;
+  constructor(private ac: Apiservice,private toast:ToastService) {
     this.getAccounts()
   }
 
@@ -31,7 +29,8 @@ export class Manageaccounts {
       },
       error:(err)=> {
         console.log("Error fetching accounts",err);
-        alert(err.error.message);
+        // alert(err.error.message);
+        this.toast.show(err.error?.message || err.error || "Error fetching accounts", 'danger')
       }
     })
   }
@@ -74,15 +73,16 @@ export class Manageaccounts {
     this.ac.Mcreateacc(accData).subscribe({
       next: (res: any) => {
         console.log('Account added successfully:', res);
-        alert('Account created successfully');
+        // alert('Account created successfully');
+        this.toast.show('Account created successfully','success');
         form.resetForm();
         this.showForm = false;
         this.getAccounts();
       },
       error: (err) => {
         console.error('Error create account:', err);
-        alert('Failed to create account');
-        
+        // alert('Failed to create account');
+        this.toast.show('Failed to create account','danger');
       }
     });
   }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-managecustomer',
@@ -14,7 +15,7 @@ export class Managecustomer {
   sortDirection: 'asc' | 'desc' = 'asc';
   editId: number | null = null;
 
-  constructor(private cd:Apiservice) {
+  constructor(private cd:Apiservice,private toast:ToastService) {
     // this.getCustomers();
   }
 
@@ -35,7 +36,8 @@ export class Managecustomer {
       },
       error : (err) => {
         console.error("Error fetching customers",err);
-        alert("Error fetching Users");
+        // alert("Error fetching Users");
+        this.toast.show('Error fetching Users','danger');
         this.customers = [];
       }
     })
@@ -46,11 +48,13 @@ export class Managecustomer {
     this.editId = null;
     this.cd.MupdateUser(data.userId,data).subscribe({
       next: (res) => {
-        alert("User updated successfully");
+        // alert("User updated successfully");
+        this.toast.show("User updated successfully",'success');
       },
       error: (err) => {
         console.log("Error updating user");
-        alert("Error occured while updating");
+        // alert("Error occured while updating");
+        this.toast.show('Error occured while updating','danger');
       }
     })
   }

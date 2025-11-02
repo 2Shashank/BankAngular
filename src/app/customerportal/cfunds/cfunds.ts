@@ -3,6 +3,7 @@ import { Apiservice } from '../../apiservice';
 import { NgForm } from '@angular/forms';
 import { UrlCodec } from '@angular/common/upgrade';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-cfunds',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class Cfunds {
   accounts:Account[] = [];
-  constructor(private tr:Apiservice,private r:Router) {
+  constructor(private tr:Apiservice,private r:Router,private toast:ToastService) {
     
   }
   ngOnInit() {
@@ -40,13 +41,14 @@ export class Cfunds {
       next: (res:any)=> {
         console.log(res);
         // alert(res.message); // change to this after json format
-        alert(res);
+        this.toast.show(res,'success');       
         formData.reset();
-        this.r.navigate(['customer/transactions']);
+        this.r.navigate(['transactions']);
       },
       error:(err) => {
         console.error("Some error occured to transfer",err);
-        alert(err.error);
+        // alert(err.error);
+        this.toast.show(err.error || err.error?.message,'danger');
       }
     })
     

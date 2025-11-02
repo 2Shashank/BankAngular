@@ -6,4 +6,18 @@ body {
   background-attachment: fixed;
   font-family: 'Poppins', sans-serif;
 }
+.toast-container{
+  position: relative;
+  top: 52px;
+  right: 30px;
+  min-height: 100px;
+}
+.toast {
+  opacity: 0.95;
+  padding: 20px;
+  transition: opacity 0.3s ease-in-out;
+}
+.toast:hover {
+  opacity: 1;
+}
 

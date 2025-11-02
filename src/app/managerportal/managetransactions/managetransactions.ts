@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-managetransactions',
@@ -15,28 +16,15 @@ export class Managetransactions {
   searchtext: string = '';
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-  constructor(private r: Router, private gt: Apiservice) {
+  constructor(private r: Router, private gt: Apiservice, private toast:ToastService) {
     this.getAccounts();
-  }
-  createtransfer() {
-    this.r.navigate(['/manager/transactions/createtransfer']);
-  }
-  createtransac() {
-    this.r.navigate(['/manager/transactions/createtransac']);
-  }
-  fettransac() {
-    this.r.navigate(['/manager/transactions/fetch']);
-  }
-  getalltransacs() {
-    this.r.navigate(['/manager/transactions/getall']);
-  }
-  deletetransacs() {
-    this.r.navigate(['/manager/transactions/delete']);
   }
 
   getTransactions() {
     if (!this.accNo || this.accNo < 0) {
-      alert('Enter valid account number');
+      // alert('Enter valid account number');
+      this.toast.show('Select valid account number');
+      return;
     }
     this.gt.MgetTransofAcc(this.accNo).subscribe({
       next: (res: any) => {
@@ -44,7 +32,8 @@ export class Managetransactions {
         this.transacs = res;
       },
       error: (err) => {
-        alert('Transactions not found for this account :' + this.accNo);
+        // alert('Transactions not found for this account :' + this.accNo);
+        this.toast.show(`Transactions not found for this account : '${this.accNo}`,'danger')
         console.error('Error fetching transactions', err);
         this.transacs = [];
       },
@@ -58,7 +47,8 @@ export class Managetransactions {
       },
       error: (err) => {
         console.log('Error fetching accounts', err);
-        alert(err.error.message);
+        // alert(err.error.message);
+        this.toast.show(err.error.message ||'Error fetching transactions','danger')
       },
     });
   }

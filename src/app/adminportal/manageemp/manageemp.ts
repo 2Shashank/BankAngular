@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Apiservice } from '../../apiservice';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-manageemp',
@@ -23,7 +24,7 @@ export class Manageemp implements OnInit{
 
   
 
-  constructor(private femp: Apiservice, private router: Router) {
+  constructor(private femp: Apiservice, private router: Router,private toast:ToastService) {
     
   }
   ngOnInit(): void {
@@ -45,7 +46,9 @@ export class Manageemp implements OnInit{
   getEmployees() {
     if (!this.branchId || this.branchId < 0) {
       this.loadEmps();
-      alert('Please enter a valid Emp ID');
+      // alert('Please enter a valid Emp ID');
+      this.toast.show("Please select")
+
       return;
     }
 
@@ -56,7 +59,8 @@ export class Manageemp implements OnInit{
       },
       error: (err) => {
         console.error('Error fetching employees:', err);
-        alert('No record found');
+        // alert('No record found');
+        this.toast.show("No records found",'danger');
         this.employees = [];
       },
     });
@@ -68,11 +72,13 @@ export class Manageemp implements OnInit{
     }
     this.femp.deleteEmp(stfId).subscribe({
       next:(res) => {
-        alert("Deleted successfully");
+        // alert("Deleted successfully");
+        this.toast.show("Employee deleted successfully",'success');
         this.getEmployees();
       },
       error : (err) => {
         console.error("Somthing went wrong",err);
+        this.toast.show("Error deleting employee",'danger');
       }
     })
   }
@@ -102,21 +108,23 @@ export class Manageemp implements OnInit{
       },
       error:(err) => {
         console.error("Somthing went wrong",err);
+        this.toast.show("Error fetching employees",'danger');
       }
     })
   }
 
   saveEmp(emp: any) {
-    // call PUT API here
     console.log('Updated:', emp);
     this.femp.updateEmp(emp.empID,emp).subscribe({
       next:(res) => {
-        alert("Employee updated successfully");
+        // alert("Employee updated successfully");
+        this.toast.show("Employee updated successfully",'success');
         this.getEmployees();
       },
       error:(err) => {
         console.log("Error updating Employee",err);
-        alert("Error while updaing employee");
+        // alert("Error while updaing employee");
+        this.toast.show("Error updating employee",'danger')
         this.getEmployees();
       }
     })
@@ -129,19 +137,18 @@ export class Manageemp implements OnInit{
   submit(form: NgForm) {
     if (form.valid) {
       console.log('New Employee Data:', form.value);
-      // Logic to call your API to add the employee
       this.femp.addEmp(form.value).subscribe({
         next:(res)=> {
-          alert("Employee added successfully");
+          // alert("Employee added successfully");
+          this.toast.show('Employee added successfully','success');
           this.showAddEmployeeForm = false;
           form.reset();
         },
         error:(err) => {
-          alert("Failed to add employee");
+          // alert("Failed to add employee");
+          this.toast.show('Failed to add employee','danger');
         }
-      })
-      // Close the form and reset it
-      
+      })      
     }
   }
 
@@ -154,6 +161,7 @@ export class Manageemp implements OnInit{
       },
       error: (err) => {
         console.error('Error fetching branches:', err);
+        this.toast.show('Error fetching branches','danger');
       }
     });
   }
@@ -184,13 +192,11 @@ onBranchChange(value: any) {
 
   this.branchChangeTimeout = setTimeout(() => {
     if (!value || value <= 0) {
-      // If branchId is cleared or invalid — load all employees again
       this.loadEmps();
     } else {
-      // Otherwise, fetch employees of that branch
       this.getEmployees();
     }
-  }, 500); // 500ms debounce to prevent multiple calls while typing
+  }, 500);
 }
 
 }

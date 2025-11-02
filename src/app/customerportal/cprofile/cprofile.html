@@ -132,6 +132,7 @@
                 {{ activeForm === 'login' ? 'Update Login Password' : 'Update Transaction Password' }}
               </div>
               <div class="card-body">
+                <div style="color: red;">{{errMsg}}</div>
                 <form (ngSubmit)="submitPasswordChange()">
                   <div class="mb-3">
                     <label class="form-label fw-semibold">Old Password</label>

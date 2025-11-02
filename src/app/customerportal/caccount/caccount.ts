@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apiservice } from '../../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-caccount',
@@ -14,7 +15,7 @@ export class Caccount implements OnInit {
   transactions: any[] = [];
   transacs: any[] = [];
 
-  constructor(private api: Apiservice, private r: Router) {}
+  constructor(private api: Apiservice, private r: Router,private toast:ToastService) {}
 
   ngOnInit(): void {
     this.fetchAccounts();
@@ -30,7 +31,8 @@ export class Caccount implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching accounts', err);
-        alert(err.error);
+        // alert(err.error);
+        this.toast.show(err.error?.message || err.error ,'danger');
         this.r.navigate(['customer']);
       },
     });
@@ -44,7 +46,8 @@ export class Caccount implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching transactions', err);
-        this.r.navigate(['customer']);
+        this.toast.show("No transactions found for this account",'info');
+        // this.r.navigate(['customer']);
       },
     });
   }

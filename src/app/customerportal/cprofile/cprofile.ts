@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apiservice } from '../../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-cprofile',
@@ -18,7 +19,7 @@ export class Cprofile implements OnInit {
     confirmPassword: ''
   };
 
-  constructor(private api: Apiservice, private r: Router) {}
+  constructor(private api: Apiservice, private r: Router,private toast:ToastService) {}
 
   ngOnInit(): void {
     this.getProfile();
@@ -30,8 +31,10 @@ export class Cprofile implements OnInit {
         this.customer = res;
       },
       error: (err) => {
-        alert(err.error);
+        // alert(err.error);
+        this.toast.show(err.error||"Something went wrong",'danger');
         console.error('Something went wrong', err);
+
       }
     });
   }
@@ -51,26 +54,34 @@ export class Cprofile implements OnInit {
     this.activeForm = null;
   }
 
+  errMsg:any;
   // Submit password change form
   submitPasswordChange() {
     if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
-      alert('New password and Confirm password do not match!');
+      this.errMsg = 'New password and Confirm password do not match!'
+      // alert(this.errMsg);
+      this.toast.show(this.errMsg,'danger')
       return;
     }
 
     if (!this.customer?.userId) {
-      alert('Customer not found!');
+      // alert('Customer not found!');
+      this.errMsg = 'Customer not found!';
+      this.toast.show(this.errMsg,'warning');
       return;
     }
 
     if (this.activeForm === 'login') {
       this.api.CUpdateLgPass(this.passwordForm).subscribe({
         next: (res: any) => {
-          alert('Login password updated successfully!');
+          // alert('Login password updated successfully!');
+          this.toast.show('Login password updated successfully!','success');
           this.cancelForm();
         },
         error: (err) => {
-          alert(err.error || 'Error updating login password');
+          // alert(err.error || 'Error updating login password');
+          this.errMsg = err.error || 'Error updating login password'
+          this.toast.show(this.errMsg , 'danger');
           console.error(err);
         }
       });
@@ -78,11 +89,14 @@ export class Cprofile implements OnInit {
     } else if (this.activeForm === 'transaction') {
       this.api.CUpdatetxnPass(this.passwordForm).subscribe({
         next: (res: any) => {
-          alert('Transaction password updated successfully!');
+          // alert('Transaction password updated successfully!');
+          this.toast.show('Transaction password updated successfully!','success');
           this.cancelForm();
         },
         error: (err) => {
-          alert(err.error || 'Error updating transaction password');
+          // alert(err.error || 'Error updating transaction password');
+          this.errMsg = err.error || 'Error updating transaction password';
+          this.toast.show(this.errMsg,'danger')
           console.error(err);
         }
       });

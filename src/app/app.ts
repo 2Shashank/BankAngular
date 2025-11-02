@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { ToastService } from './services/toast';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,9 @@ import { Component, signal } from '@angular/core';
   standalone: false,
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('bankui');
+export class App{
+  constructor(public toastService: ToastService) {
+    
+  }
+  
 }

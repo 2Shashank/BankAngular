@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Apiservice } from '../../apiservice';
+import { ToastService } from '../../services/toast';
 // import { Router } from '@angular/router';
 declare var bootstrap: any;
 
@@ -25,7 +26,7 @@ export class Cfutransac implements OnInit {
     txnPassword: '',
   };
 
-  constructor(private api: Apiservice) {}
+  constructor(private api: Apiservice,private toast:ToastService) {}
 
   ngOnInit(): void {
     this.getTransactions();
@@ -39,48 +40,13 @@ export class Cfutransac implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching scheduled transactions:', err);
+        this.toast.show('No rocerd found','danger');
       },
     });
-    //   this.transactions = [
-    //   {
-    //     scheduleTransactionId: 1,
-    //     fromAccount: '1234567890',
-    //     toAccount: '9876543210',
-    //     amount: 5000.0,
-    //     scheduleTime: new Date('2025-10-31T15:30:00'),
-    //     createdAt: new Date('2025-10-30T11:00:00'),
-    //     transactionStatus: 'Scheduled'
-    //   },
-    //   {
-    //     scheduleTransactionId: 2,
-    //     fromAccount: '1111222233',
-    //     toAccount: '9999888877',
-    //     amount: 12000.5,
-    //     scheduleTime: new Date('2025-11-01T09:15:00'),
-    //     createdAt: new Date('2025-10-31T09:45:00'),
-    //     transactionStatus: 'Scheduled'
-    //   },
-    //   {
-    //     scheduleTransactionId: 3,
-    //     fromAccount: '2222333344',
-    //     toAccount: '5555666677',
-    //     amount: 2500.75,
-    //     scheduleTime: new Date('2025-11-01T13:00:00'),
-    //     createdAt: new Date('2025-10-31T09:30:00'),
-    //     transactionStatus: 'Executed'
-    //   }
-    // ];
   }
 
   toggleAddForm() {
     this.showAddForm = !this.showAddForm;
-    this.newSchedule = {
-      fromAccount: '',
-      toAccount: '',
-      amount: null,
-      scheduleTime: '',
-      txnPassword: '',
-    };
   }
 
   sortData(column: string) {
@@ -101,28 +67,6 @@ export class Cfutransac implements OnInit {
     });
   }
 
-  saveNewSchedule() {
-    if (
-      !this.newSchedule.fromAccount ||
-      !this.newSchedule.toAccount ||
-      !this.newSchedule.amount ||
-      !this.newSchedule.scheduleTime
-    ) {
-      alert('Please fill all required fields.');
-      return;
-    }
-
-    this.api.CScheduleTransaction(this.newSchedule).subscribe({
-      next: (res) => {
-        alert('Transaction scheduled successfully!');
-        this.toggleAddForm();
-        this.getTransactions();
-      },
-      error: (err) => {
-        console.error('Error scheduling transaction:', err);
-      },
-    });
-  }
 
   showCancelModal = false;
   selectedTxId: number | null = null;
@@ -138,19 +82,22 @@ export class Cfutransac implements OnInit {
   }
   confirmCancel() {
     if (!this.cancelDto.transactionPass) {
-      alert('Please enter your transaction password.');
+      // alert('Please enter your transaction password.');
+      this.toast.show('Please enter your transaction password.','warning');
       return;
     }
     console.log(this.cancelDto);
     this.api.CCancelSchTxn(this.selectedTxId!, this.cancelDto).subscribe({
       next: (res: any) => {
-        alert('Transaction cancelled successfully!');
+        // alert('Transaction cancelled successfully!');
+        this.toast.show('Transaction cancelled successfully!','success');
         this.showCancelModal = false;
         this.getTransactions(); // refresh table
       },
       error: (err) => {
         console.error(err);
-        alert(err.error?.message || 'Failed to cancel transaction.');
+        // alert(err.error?.message || 'Failed to cancel transaction.');
+        this.toast.show(err.error?.message || 'Failed to cancel transaction.','danger');
       },
     });
   }

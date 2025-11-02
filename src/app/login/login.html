@@ -32,6 +32,7 @@
 
 <!-- Boxicons -->
 <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<bbb-toast></bbb-toast>
 
 <div class="container">
   <div class="bubbles">
@@ -43,9 +44,10 @@
   </div>
 
   <div class="form-wrapper align-items-center">
+    
     <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)" class="form sign-in">
       <h1 class="welcome-text">Welcome</h1>
-
+      <div *ngIf="errMsg" class="showerr">{{errMsg}}</div>
       <div class="input-group">
         <i class='bx bxs-user'></i>
         <input 

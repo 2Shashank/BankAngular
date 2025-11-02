@@ -3,7 +3,7 @@
     <h2 class="text-center mb-4">
       <i class="bi bi-clock-history text-primary me-2"></i> Schedule Future Transaction
     </h2>
-
+    <div style="color: red;">{{errMsg}}</div>
     <form #txnForm="ngForm" id="txnForm" (ngSubmit)="submit(txnForm)">
       
       <!-- Your Account Number -->

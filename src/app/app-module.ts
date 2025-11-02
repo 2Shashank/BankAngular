@@ -73,6 +73,7 @@ import { Sprofile } from './staffportal/sprofile/sprofile';
 import { Spnf } from './staffportal/spnf/spnf';
 import { Mpnf } from './managerportal/mpnf/mpnf';
 import { Apnf } from './adminportal/apnf/apnf';
+import { Toast } from './toast/toast';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -145,12 +146,13 @@ import { Apnf } from './adminportal/apnf/apnf';
     Sprofile,
     Spnf,
     Mpnf,
-    Apnf
+    Apnf,
+    Toast
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

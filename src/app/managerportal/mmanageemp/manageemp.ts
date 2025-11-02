@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../apiservice';
-import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast';
 
 @Component({
   selector: 'bbb-manageemp',
@@ -15,20 +15,12 @@ export class Mmanageemp {
 
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-  constructor(private r:Router,private emp:Apiservice){
+  constructor(private emp:Apiservice, private toast: ToastService){
     this.getEmployees();
   }
-  navigate(){
-    this.r.navigate(['/manager/employees/getemps']);
-  }
-  navigatetofetch(){
-    this.r.navigate(['/manager/employees/fetchemp']);
-  }
+  
 
   getEmployees() {
-    const branchId = sessionStorage.getItem('BranchId');
-    // const role = sessionStorage.getItem('Role');
-    console.log(branchId);
     this.emp.MgetEmp().subscribe({
       next: (res: any) => {
         console.log(res);
@@ -37,7 +29,8 @@ export class Mmanageemp {
       error: (err) => {
         console.error("Error fetching employees:", err.error.message);
         // alert("Error fetching employees");
-        alert(err.error.message);
+        // alert(err.error.message);
+        this.toast.show(err.error.message ||'Error fetching employees','danger');
         this.employees = [];
       }
     })

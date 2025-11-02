@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Apiservice } from '../../../apiservice';
+import { ToastService } from '../../../services/toast';
 
 @Component({
   selector: 'bbb-mgettransacs',
@@ -13,12 +14,13 @@ export class Mgettransacs {
   searchtext: string = '';
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-  constructor(private gt:Apiservice) {
+  constructor(private gt:Apiservice, private toast:ToastService) {
  
   }
   getTransactions(){
     if(!this.accNo || this.accNo < 0){
-      alert("Enter valid account number");
+      // alert("Enter valid account number");
+      this.toast.show('Enter valid account number','danger');
       return;
     }
     this.gt.MgetTransofAcc(this.accNo).subscribe({
@@ -27,7 +29,8 @@ export class Mgettransacs {
         this.transacs = res;
       },
       error: (err) => {
-        alert("Transactions not found for this account :"+this.accNo);
+        // alert("Transactions not found for this account :"+this.accNo);
+        this.toast.show(`Transactions not found for this account : ${this.accNo}`,'danger');
         console.error("Error fetching transactions",err);
         this.transacs = [];
       }

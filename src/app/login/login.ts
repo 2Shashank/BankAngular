@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Apiservice } from '../apiservice';
 import { Router } from '@angular/router';
+import { ToastService } from '../services/toast';
 
 @Component({
   selector: 'bbb-login',
@@ -11,25 +11,28 @@ import { Router } from '@angular/router';
 })
 export class Login {
   logindt: any;
-  constructor(private lg: Apiservice, private router: Router) {}
+  errMsg:any;
+  constructor(private lg: Apiservice, private router: Router,private toast:ToastService) {
+  }
 
   onLogin(formData: any) {
     // this.logindt = formData.value;
-    console.log('Form Data:', formData);
+    // console.log('Form Data:', formData);a
+    if (!formData) {
+      this.toast.show('Invalid Data', 'danger');
+      return;
+    }
 
     this.lg.verifyLogin(formData).subscribe({
       next: (res: any) => {
         console.log('Login Response:', res);
-        alert(res.message || 'Login Successful');
+        this.toast.show('Login successful!', 'success');
 
-        // ✅ Store safe info (never password)
         sessionStorage.setItem('EmpId', res.userId);
         sessionStorage.setItem('token', res.token);
         sessionStorage.setItem('Role', res.role);
         sessionStorage.setItem('BranchId', res.branchId);
 
-        // Redirect to dashboard or home page
-        // this.router.navigate(['/home']);
         if (res.role == 'BankAdmin') {
           this.router.navigate(['/admin']);
         } else if (res.role == 'BranchManager') {
@@ -37,16 +40,16 @@ export class Login {
         } else if (res.role == 'Staff') {
           this.router.navigate(['/staff']);
         }
+        this.errMsg=null;
       },
       error: (err) => {
         console.error('Login Failed:', err);
-        alert(err.error.message || 'Invalid Employee ID or Password');
+        this.errMsg = err.error.message;
+        // alert(this.errMsg);
+        this.toast.show('Invalid Employee Id or Password', 'danger');
       },
     });
   }
-  // Login(logindt:any){
-  //   this.lg.verifyLogin(logindt).subscribe(s => {
-  //     console.log(s);
-  //   })
-  // }
 }
+
+
