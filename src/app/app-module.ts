@@ -75,6 +75,7 @@ import { Mpnf } from './managerportal/mpnf/mpnf';
 import { Apnf } from './adminportal/apnf/apnf';
 import { Toast } from './toast/toast';
 import { Register } from './login/register/register';
+import { Interests } from './adminportal/interests/interests';
 
 
 // import { Adminhome } from './adminhome/adminhome';
@@ -149,7 +150,8 @@ import { Register } from './login/register/register';
     Mpnf,
     Apnf,
     Toast,
-    Register
+    Register,
+    Interests
   ],
   imports: [
     BrowserModule,

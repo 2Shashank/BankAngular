@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="nav">
+    <div class="col">
+      <div class="btn-group" role="group" aria-label="Interest actions">
+        <!-- <button type="button" class="btn btn-primary square-card" (click)="addInterestForFD()">
+          Add Interest For FD
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary square-card"
+          (click)="addInterestsForSa()"
+        >
+          Add Interest For Saving Accounts
+        </button> -->
+        <button class="btn btn-primary mx-2 square-card" (click)="addInterestForFD()" [disabled]="fdDisabled">
+          Apply FD Interest
+        </button>
+
+        <button class="btn btn-success mx-2 square-card" (click)="addInterestsForSa()" [disabled]="saDisabled">
+          Apply Savings Interest
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -38,7 +38,7 @@ export class Adminportal {
     this.api.logout().subscribe({
       next: (res:any) => {
         sessionStorage.clear();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error("Error logging out:", err);

@@ -16,6 +16,7 @@ import { Adeleteemp } from '../adminportal/manageemp/adeleteemp/adeleteemp';
 import { Abin } from '../adminportal/abin/abin';
 import { Aprofile } from '../adminportal/aprofile/aprofile';
 import { Apnf } from '../adminportal/apnf/apnf';
+import { Interests } from '../adminportal/interests/interests';
 
 const routes: Routes = [
   {path:'',component:Adminportal,
@@ -33,6 +34,7 @@ const routes: Routes = [
       // {path:'emp/deleteemp',component:Adeleteemp},
       {path:'bin',component:Abin},
       {path:'profile',component:Aprofile},
+      {path:'interests', component:Interests},
       {path:'',redirectTo:'home',pathMatch:'full'},
       {path:'**',component:Apnf}
 

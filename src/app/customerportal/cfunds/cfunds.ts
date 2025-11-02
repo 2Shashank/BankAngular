@@ -41,14 +41,14 @@ export class Cfunds {
       next: (res:any)=> {
         console.log(res);
         // alert(res.message); // change to this after json format
-        this.toast.show(res,'success');       
+        this.toast.show(res.message,'success');       
         formData.reset();
-        this.r.navigate(['transactions']);
+        this.r.navigate(['customer/transactions']);
       },
       error:(err) => {
         console.error("Some error occured to transfer",err);
         // alert(err.error);
-        this.toast.show(err.error || err.error?.message,'danger');
+        this.toast.show(err.error?.message || err.error ,'danger');
       }
     })
     

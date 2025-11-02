@@ -65,6 +65,12 @@ export class Apiservice {
   permanentlyDeleteEmp(userId: any) {
     return this.http.delete(`${this.url}/Admin/PermanantDeleteStaff/${userId}`);
   }
+  interestsForFd(){
+    return this.http.put(`${this.url}/Admin/ApplyFDInterest`,{});
+  }
+  interestsForSavings(){
+    return this.http.put(`${this.url}/Admin/ApplySavingsInterest`,{});
+  }
   /// Admin services ends ///
 
   /// Manager services starts ///
