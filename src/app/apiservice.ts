@@ -93,7 +93,7 @@ export class Apiservice {
     return this.http.put(`${this.url}/Manager/UpdateUser/${Id}`, data);
   }
   MdeleteUser(Id: any) {
-    return this.http.put(`${this.url}/Manager/DeleteUser/${Id}`,{});
+    return this.http.patch(`${this.url}/Manager/DeleteUser/${Id}`,{});
   }
   MgetTransofAcc(accno: any) {
     return this.http.get(`${this.url}/Manager/Transactions?accNo=${accno}`);

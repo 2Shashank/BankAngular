@@ -23,6 +23,7 @@ import { Mgettransacs } from './managerportal/managetransactions/mgettransacs/mg
 import { Mdeletetransac } from './managerportal/managetransactions/mdeletetransac/mdeletetransac';
 import { Mprofile } from './managerportal/mprofile/mprofile';
 import { Mpnf } from './managerportal/mpnf/mpnf';
+import { Mbin } from './managerportal/mbin/mbin';
 
 const routes: Routes = [
   {path:'',component:Managerportal,
@@ -48,6 +49,7 @@ const routes: Routes = [
     // {path:'transactions/getall',component:Mgettransacs},
     // {path:'transactions/delete',component:Mdeletetransac},
     {path:'profile',component:Mprofile},
+    {path:'bin',component:Mbin},
     {path:'',redirectTo:'home',pathMatch:'full'},
     {path:'**',component:Mpnf}
   ]}

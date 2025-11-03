@@ -1,36 +1,33 @@
 <div class="container-fluid">
   <div class="row">
+    <!-- Sidebar space -->
+    <!-- <div class="col-md-2"></div> -->
+
     <!-- Main content -->
     <div class="col-md-12">
       <!-- Title -->
       <div class="mt-4 mb-5 text-center">
         <h1 class="display-5 fw-bold text-white" style="text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4)">
-          Customer Management
+          Deleted Customers
         </h1>
       </div>
 
       <!-- Employee Table Section -->
       <div class="row gx-5 gy-4 mb-5 card shadow border-0 p-4">
-        <nav class="container navbar" style="max-width: 80%;">
-          <button (click)="show('table')" class="btn square-card mb-2">Customer details</button>
-          <button (click)="show('createUser')" class="btn square-card mb-2">
-            Create User
-          </button>
-          <button (click)="show('updateUser')" class="btn square-card mb-2">
-            Update User
-          </button>
-          <button (click)="show('fetchUser')" class="btn square-card mb-2">
-            Fetch User
-          </button>
+        <!-- Cards section ends -->
+        <div class="card-body">
+          <!-- <h3 class="mb-4 text-primary">Employee Details</h3> -->
+          <!-- Filter Bar -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-primary mb-0">Customer Details</h3>
+            
+          </div>
           
-        </nav>
-        <div *ngIf="activeView === 'table'" class="card-body">
-          <h3 class="mb-4 text-primary">Customer Details</h3>
 
-          <!-- Customer Table -->
-          <!-- <div class="table-responsive" *ngIf="customers.length > 0; else noData"> -->
+          <!-- Employee Table -->
+          <div class="table-responsive" *ngIf="users && users.length > 0; else noData">
           <!-- Employee Table Section -->
-          <div class="table-responsive" *ngIf="customers.length > 0">
+          <!-- <div class="table-responsive" *ngIf="employees.length > 0"> -->
             <!-- Search Bar -->
             <div class="d-flex justify-content-end mb-3">
               <input
@@ -138,18 +135,15 @@
                       ></i>
                     </span>
                   </th>
-                  <th class="text-center">Actions</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr *ngFor="let cust of customers | filter : searchtext">
+                <tr *ngFor="let cust of users | filter : searchtext">
                   
                   <!-- <td>{{ cust.userId }}</td> -->
                   <td>
-                    <button (click)="openFetchView(cust.userId)" style="border: none;background-color: transparent;border: 50%;">
                       {{ cust.userId }}
-                    </button>
                   </td>
                   <!-- <td>{{ cust.userName }}</td> -->
                   <td>{{ cust.userName }}</td>
@@ -161,63 +155,17 @@
                   
                   <td>{{ cust.mobile }}</td>
                   
-                  
                   <td>{{ cust.email }}</td>
                   
-
-                  <td class="text-center">
-                    <!-- <button
-                      *ngIf="editId !== cust.userId"
-                      class="btn btn-sm btn-warning me-2"
-                      (click)="editId = cust.userId"
-                    >
-                      <i class="bi bi-pencil-square"></i> Edit
-                    </button> -->
-                    <button class="btn btn-sm btn-warning me-2"
-                    (click)="openUpdateView(cust.userId)"
-                    >
-                    <i class="bi bi-pencil-square"></i> Edit
-                    </button>
-                    <button
-                      *ngIf="editId === cust.userId"
-                      class="btn btn-sm btn-success"
-                      (click)="saveCust(cust)"
-                    >
-                      <i class="bi bi-check-circle"></i> Save
-                    </button>
-                    <button
-                      *ngIf="editId === cust.userId"
-                      class="btn btn-sm btn-secondary ms-1"
-                      (click)="cancelEdit()"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      *ngIf="editId !== cust.userId"
-                      class="btn btn-sm btn-danger"
-                      (click)="deleteCust(cust.userId)"
-                    >
-                      <i class="bi bi-trash"></i> Delete
-                    </button>
-                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <!-- No Data Template -->
-          <!-- <ng-template #noData>
-            <p *ngIf="branchId" class="text-muted">No employees found for this Branch ID.</p>
-          </ng-template> -->
-        </div>
-        <div *ngIf="activeView === 'createUser'" class="card-body">
-          <bbb-createuser (createSuccess)="onSuccessCreate()"></bbb-createuser>
-        </div>
-        <div *ngIf="activeView === 'updateUser'" class="card-body">
-          <bbb-updatecust [userId]="selectedUserId" (updateSuccess)="onSuccessUpdate()"></bbb-updatecust>
-        </div>
-        <div *ngIf="activeView === 'fetchUser'" class="card-body">
-          <bbb-fetchcustomer [userId]="selectedUserId"></bbb-fetchcustomer>
+          <ng-template #noData>
+            <p class="text-muted">No customers found for this Branch ID.</p>
+          </ng-template>
         </div>
       </div>
     </div>

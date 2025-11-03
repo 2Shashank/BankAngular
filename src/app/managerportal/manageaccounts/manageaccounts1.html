@@ -204,6 +204,23 @@
                       ></i>
                     </span>
                   </th>
+                  <th (click)="sortData('balance')" class="sortable">
+                    Bank Balance
+                    <span class="sort-icons">
+                      <i
+                        class="bi bi-caret-up-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'balance' && sortDirection === 'asc'
+                        }"
+                      ></i>
+                      <i
+                        class="bi bi-caret-down-fill"
+                        [ngClass]="{
+                          active: sortColumn === 'balance' && sortDirection === 'desc'
+                        }"
+                      ></i>
+                    </span>
+                  </th>
 
                   <th (click)="sortData('accountStatus')" class="sortable">
                     Account Status
@@ -234,6 +251,7 @@
                   <td>{{ acc.accType }}</td>
                   <td>{{ acc.ifscCode }}</td>
                   <td>{{ acc.branchName }}</td>
+                  <td>{{acc.balance | currency:'INR'}}</td>
                   <td *ngIf="editId !== acc.accNo">{{ acc.accountStatus }}</td>
                   <td *ngIf="editId === acc.accNo">
                     <!-- <input [(ngModel)]="acc.accountStatus" class="form-control form-control-sm" /> -->
@@ -248,6 +266,7 @@
                     <button
                       *ngIf="editId !== acc.accNo"
                       class="btn btn-sm btn-warning me-2"
+                      [disabled]="acc.accountStatus === 'Closed'"
                       (click)="editId = acc.accNo"
                     >
                       <i class="bi bi-pencil-square"></i> Edit
@@ -268,14 +287,14 @@
                     >
                       Cancel
                     </button>
-                    <button
+                    <!-- <button
                       *ngIf="editId !== acc.accNo"
                       class="btn btn-sm btn-warning me-2"
                       [disabled]="acc.accountStatus === 'Closed'"
                       (click)="editId = acc.accNo"
                     >
                       <i class="bi bi-pencil-square"></i> Edit
-                    </button>
+                    </button> -->
                   </td>
                 </tr>
               </tbody>

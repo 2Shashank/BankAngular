@@ -46,6 +46,7 @@ export class Manageaccounts {
       next: (res:any) => {
         console.log(res);
         this.toast.show(res.message,'success');
+        this.getAccounts();
       },
       error : (err) => {
         console.error("Error occured",err);

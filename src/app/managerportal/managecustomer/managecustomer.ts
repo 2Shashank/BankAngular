@@ -60,7 +60,18 @@ export class Managecustomer {
   }
   deleteCust(userId:any){
     console.log("Deleted customer");
-  }
+    console.log(userId);
+    this.cd.MdeleteUser(userId).subscribe({
+      next: (res:any) => {
+        console.log(res.message); 
+        this.toast.show(res.message || "User deleted successfully",'success');
+      },
+      error: (err) => {
+        console.error("Error deleting user",err);
+        this.toast.show(err.error?.message || "Error deleting user",'danger');
+      }
+    })
+}
 
   sortData(column: string) {
     if (this.sortColumn === column) {
